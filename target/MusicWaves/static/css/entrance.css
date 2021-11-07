@@ -1,0 +1,287 @@
+*
+{
+    --login_colour: rgb(174, 102, 47);
+    --register_colour: rgb(155, 92, 163);
+    --login_text_field_colour: rgb(253, 203, 167);
+    --register_text_field_colour: rgb(241, 167, 253);
+    --inactive_colour: rgba(154, 154, 154, 0.8);
+    --special_colour: rgb(23, 69, 89);
+    --active_colour: gold;
+
+    font-family: 'Times New Roman', Times, serif;
+}
+
+html
+{
+    height: 100%;   
+    background-image: url("../img/wallpaper_1.jpg");
+}
+
+body
+{
+    height: 98%;
+    height: -webkit-fill-available;
+    /*background-color: rgb(224, 154, 73);*/
+    /*background-image: url("../img/wallpaper_1.jpg");*/
+    background-color: rgba(76, 0, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+#central
+{
+    display: flex;
+    flex-wrap: wrap;
+    /*border: 1;*/
+    background-color: rgba(41, 125, 161, 0.724);
+    width: 400px;
+    /*height: 250px;*/
+    padding: 10px;
+}
+
+#mode_selector
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: min-content;
+}
+
+#mode_selector div
+{
+    height: 20px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    user-select: none;
+}
+
+#mode_selector > div
+{
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+#log_selector
+{
+    background-color: var(--login_colour);
+}
+
+#reg_selector
+{
+    background-color: var(--register_colour);
+}
+
+#mode_selector button
+{
+    width: 100px;
+}
+
+#login_form
+{
+    display: flex;
+}
+
+label
+{
+    /*background-color: chocolate;*/
+    padding-left: 5px;
+    border: 1px white;
+    color: rgb(245, 255, 172);
+    /*text-shadow: -1px -1px 0 rgb(90, 90, 90), 1px -1px 0 rgb(90, 90, 90), -1px 1px 0 rgb(90, 90, 90), 1px 1px 0 rgb(90, 90, 90);*/
+}
+
+.field_group
+{
+    display: flex;
+    flex-wrap: wrap;
+    height: 40px;
+    margin-bottom: 10px;
+    padding-top: 2px;
+}
+
+#login_form .field_group
+{
+    background-color: var(--login_colour);
+    height: fit-content;
+    padding-bottom: 2px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+#register_form .field_group
+{
+    background-color: var(--register_colour);
+    height: fit-content;
+    padding-bottom: 2px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+form
+{
+    display: flex;
+    flex-wrap: wrap;
+
+    padding-top: 20px;
+}
+
+form *
+{
+    width: calc(100%);
+
+}
+
+.button_container
+{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+form .submit_button 
+{
+    width: 100px;
+}
+
+form input
+{
+    text-align: center;
+    box-sizing: border-box;
+    padding: 2px;
+    
+    outline: none;
+}
+
+
+#login_form input
+{
+    border: 3px solid var(--login_colour);
+    background-color: var(--login_text_field_colour);
+    font-size: 1em;
+}
+
+#register_form input
+{
+    border: 3px solid var(--register_colour);
+    background-color: var(--register_text_field_colour);
+    font-size: 1em;
+}
+
+form input:focus
+{
+    /*border: 3px solid rgb(150, 150, 150);*/
+    background-color: white !important;
+    transition: 0.5s !important;
+} 
+
+.password_checkbox_container
+{
+    display: flex;
+    width: fit-content;
+}
+
+.password_checkbox_container input
+{
+    align-self: center;
+    min-width: 20px;
+}
+
+.password_checkbox_container label
+{
+    width: max-content;
+    word-wrap: normal;
+    white-space: nowrap;
+    font-size: smaller;
+    align-self: center;
+    color: white;
+    user-select: none;
+}
+
+#form_container
+{
+    height: max-content;
+}
+
+#message_box
+{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 5px;
+}
+
+#message_box button
+{
+    width: calc(100% / 3);
+}
+
+#message
+{
+    width: 100%;
+    color: rgb(144, 159, 173);
+}
+
+#message_controls
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    align-self: flex-end;
+    height: fit-content;
+}
+
+#bottom_menu
+{
+    width: 100%;
+    align-self: flex-end;
+    height: 30px;
+    background-color: transparent;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#bottom_menu form
+{
+    height: 100%;
+    padding-top: 0;
+}
+
+#bottom_menu select.login_mode_active
+{
+    background-color: var(--login_text_field_colour);
+}
+
+#bottom_menu select.register_mode_active
+{
+    background-color: var(--register_text_field_colour);
+}
+
+#bottom_menu select
+{
+    background-color: aliceblue;
+}
+
+.disabled
+{
+    background-color: var(--inactive_colour) !important;
+    color: rgb(100, 100, 100) !important;
+}
+
+.active
+{
+    background-color: var(--active_colour) !important;
+}
+
+
+
+

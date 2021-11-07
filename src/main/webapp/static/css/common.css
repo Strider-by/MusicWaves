@@ -1,0 +1,15 @@
+.hidden
+{
+    display: none !important;
+}
+
+.transparent
+{
+    visibility: hidden !important; 
+}
+
+.flex_row_reversed
+{
+    flex-direction: row-reverse;
+}
+
