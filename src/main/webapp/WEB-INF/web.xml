@@ -54,6 +54,16 @@
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AsyncRequestsController</servlet-name>
+        <servlet-class>by.musicwaves.controller.servlet.XHRRequestsController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AsyncRequestsController</servlet-name>
+        <url-pattern>/xhr/*</url-pattern>
+    </servlet-mapping>
+
     <!-- <servlet>
         <servlet-name>default</servlet-name>
         <servlet-class>

@@ -17,6 +17,43 @@
     </tag>
 
     <tag>
+        <name>roles</name>
+        <description>This tag can be used to create role options inside a select tag. Role name is localized.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.RoleOptionsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>users-sort-field-options</name>
+        <description>This tag can be used to create sort options for users.jsp inside a select tag. Field names are localized.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.UsersPageSortOptionsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>similarity-type-options</name>
+        <description>This tag can be used to create equality type options (EQUALS, CONTAINS) inside a select tag.
+            Displayed values are localized.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.SimilarityTypeFilterTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>date-compare-type-options</name>
+        <description>This tag can be used to create compare type options for dates (BEFORE, AFTER, EQUALS) inside a select tag.
+            Displayed values are localized.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.DateCompareTypeFilterTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>sort-order-options</name>
+        <description>This tag can be used to create sort order options inside a select tag. Sort name is localized.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.SortOrderOptionsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
         <name>list</name>
         <description>This tag can be used to output list of elements</description>
         <tag-class>by.musicwaves.controller.servlet.tag.ListOutputTag</tag-class>

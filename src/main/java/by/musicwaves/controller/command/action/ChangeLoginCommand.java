@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.CommandException;
+import by.musicwaves.controller.command.Validator;
 import by.musicwaves.controller.resources.ApplicationPage;
 import by.musicwaves.controller.resources.TransitType;
 import by.musicwaves.entity.User;
@@ -17,7 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.musicwaves.controller.command.action.ActionCommand.Validator.nonNull;
 
 public class ChangeLoginCommand extends ActionCommand
 {
@@ -41,14 +41,14 @@ public class ChangeLoginCommand extends ActionCommand
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         this.transitType = TransitType.REDIRECT;
 
-        char[] password = nonNull(request.getParameter(PARAM_NAME_PASSWORD)).toCharArray();
-        String newLogin = nonNull(request.getParameter(PARAM_NAME_LOGIN));
+        char[] password = Validator.assertNonNull(request.getParameter(PARAM_NAME_PASSWORD)).toCharArray();
+        String newLogin = Validator.assertNonNull(request.getParameter(PARAM_NAME_LOGIN));
         User user = (User) request.getSession().getAttribute(SESSION_ATTRIBUTE_NAME_USER);
         String requestMethod = request.getMethod();
 
         try {
             // non-allowed request method usage will cause CommandException throw
-            Validator.isAllowedRequestMethod(requestMethod, allowedRequestMethods);
+            Validator.assertAllowedRequestMethod(requestMethod, allowedRequestMethods);
 
             // user is not logged in (m.b. session has expired)
             if (user == null) {

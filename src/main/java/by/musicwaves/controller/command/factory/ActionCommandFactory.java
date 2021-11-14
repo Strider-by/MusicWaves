@@ -8,8 +8,8 @@ public class ActionCommandFactory
     private final static String PARAM_NAME_COMMAND = "command";
     
     public ActionCommand defineCommand(HttpServletRequest request) {
-        String command = request.getParameter(PARAM_NAME_COMMAND);
-        ActionCommand processor = ActionCommandEnum.getCommandByAlias(command);
+        String commandParamValue = request.getParameter(PARAM_NAME_COMMAND);
+        ActionCommand processor = ActionCommandEnum.getCommandByAlias(commandParamValue);
 
         return processor;
     }

@@ -13,7 +13,8 @@ public enum ServiceErrorEnum {
     INVALID_INVITE_CODE,
     PASSWORDS_ARE_NOT_EQUAL,
     FAILED_TO_CREATE_USER_USING_PROVIDED_LOGIN,
-    UNKNOWN_LANGUAGE_ID;
+    UNKNOWN_LANGUAGE_ID,
+    INVALID_ROLE_PARAMETER_VALUE;
 
     private static String resourceBundleBasename = "internationalization.errors";
     private static Locale defaultLocale = Locale.ENGLISH;

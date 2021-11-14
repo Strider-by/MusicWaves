@@ -1,0 +1,205 @@
+body
+{
+    background-image: url("../img/wallpaper_1.jpg");
+}
+
+.users_block
+{
+    width: 100%;
+}
+
+
+.single_user_block, .users_headers
+{
+    display: flex;
+    /*margin-top: 5px;*/
+    margin-bottom: 3px;
+    padding: 5px;
+
+}
+
+.single_user_block, .users_headers
+{
+    background-color: rgba(255, 255, 255, 0.25);
+    transition: 0.3s linear;
+}
+
+.single_user_block:hover
+{
+    background-color: rgba(255, 255, 255, 0.6);
+    /*background-color: rgba(108, 157, 190, 0.7);*/
+    transition: 0.3s linear;
+}
+
+.single_user_block
+{
+    height: 38px;
+}
+
+.single_user_block div, .users_headers div
+{
+    border: dotted .5px grey;
+    margin-left: 5px;
+    /*padding: 5px;*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: wheat;
+    /*background-color: rgba(255, 255, 255, 0.25);*/
+    background-color: #707070;
+    padding 0px 5px;
+}
+
+.single_user_block .user_controls
+{
+    background-color: transparent;
+    border: none;
+}
+
+.user_controls button
+{
+    height: 38px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.single_user_block .delete_user_mode_controls, .single_user_block .change_user_role_mode_controls
+{
+    /*background-color: rgba(0, 0, 0, 0.7);*/
+    background-color: rgb(19, 19, 19);
+}
+
+.cancel_delete_user
+{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.apply_change_user_role
+{
+    margin: 0 10px;
+}
+
+.cancel_change_user_role
+{
+    margin-right: 10px;
+}
+
+.mode_description
+{
+    margin: 0px 10px;
+}
+
+#filter_menu, #pages_navigation
+{
+    display: flex;
+    /*justify-content: space-between;*/
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+#pages_navigation
+{
+    justify-content: flex-end;
+}
+
+#filter_menu > div, #pages_navigation > div
+{
+    margin-right: 10px;
+}
+
+#pages_navigation label
+{
+    padding: 0 10px;
+    color: white;
+}
+
+#pages_navigation input
+{
+    box-sizing: border-box;
+    height: 100%;
+}
+
+#pages_navigation button
+{
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.nav_search_block
+{
+    display: flex;
+    flex-direction: column;
+    background-color: #707070;
+}
+
+.nav_search_block input, #role_filter
+{
+    text-align: center;
+    color: blue;
+}
+
+.nav_search_block input[type="date"]
+{
+    text-align: center;
+    color: inherit;
+}
+
+.nav_search_block select, .nav_search_block input, .nav_search_block button
+{
+    box-sizing: border-box;
+    height: 25px;
+}
+
+#pages_navigation input
+{
+    width: 75px;
+    text-align: center;
+}
+
+.blue_colour
+{
+    color: blue !important;
+}
+
+.filter_panel_button
+{
+    margin-right: 5px;
+}
+
+.search_param_label
+{
+    color: white;
+    display: block;
+    text-align: center;
+    width: 100%;
+
+}
+
+.found_items_property
+{
+    background-color: #707070;
+}
+
+/* setting fields size */
+.user_id
+{
+    min-width: 50px;
+}
+
+.user_login
+{
+    width: 200px;
+}
+
+.user_role
+{
+    width: 100px;
+}
+
+.registered
+{
+    width: 100px;
+}
+

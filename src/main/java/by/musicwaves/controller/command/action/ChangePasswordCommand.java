@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.CommandException;
+import by.musicwaves.controller.command.Validator;
 import by.musicwaves.controller.resources.ApplicationPage;
 import by.musicwaves.controller.resources.TransitType;
 import by.musicwaves.entity.User;
@@ -16,8 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static by.musicwaves.controller.command.action.ActionCommand.Validator.nonNull;
 
 public class ChangePasswordCommand extends ActionCommand
 {
@@ -42,15 +41,15 @@ public class ChangePasswordCommand extends ActionCommand
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         this.transitType = TransitType.REDIRECT;
 
-        char[] oldPassword = nonNull(request.getParameter(PARAM_NAME_OLD_PASSWORD)).toCharArray();
-        char[] newPassword1 = nonNull(request.getParameter(PARAM_NAME_NEW_PASSWORD_1)).toCharArray();
-        char[] newPassword2 = nonNull(request.getParameter(PARAM_NAME_NEW_PASSWORD_2)).toCharArray();
+        char[] oldPassword = Validator.assertNonNull(request.getParameter(PARAM_NAME_OLD_PASSWORD)).toCharArray();
+        char[] newPassword1 = Validator.assertNonNull(request.getParameter(PARAM_NAME_NEW_PASSWORD_1)).toCharArray();
+        char[] newPassword2 = Validator.assertNonNull(request.getParameter(PARAM_NAME_NEW_PASSWORD_2)).toCharArray();
         User user = (User) request.getSession().getAttribute(SESSION_ATTRIBUTE_NAME_USER);
         String requestMethod = request.getMethod();
 
         try {
             // non-allowed request method usage will cause CommandException throw
-            Validator.isAllowedRequestMethod(requestMethod, allowedRequestMethods);
+            Validator.assertAllowedRequestMethod(requestMethod, allowedRequestMethods);
 
             // user is not logged in (m.b. session has expired)
             if (user == null) {

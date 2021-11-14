@@ -10,8 +10,11 @@
 <%--
     Setting values for this page fields
 --%>
-<c:set var="userLanguageNativeName" value="${not empty user ? user.language.nativeName.toLowerCase() : not_set}" scope="page" />
-<c:set var="registerDate" value="${not empty user ? user.created.toLocalDate() : not_set}" scope="page" />
+<c:if test="${not empty user}">
+    <c:set var="userLanguageNativeName" value="${user.language.nativeName.toLowerCase()}" scope="page" />
+    <c:set var="registerDate" value="${user.created.toLocalDate()}" scope="page" />
+    <fmt:message bundle="${shared}" key="${user.role.getPropertyKey()}" var="userRole"/>
+</c:if>
 <%--
     Setting values that depend on locale used
 --%>
@@ -84,7 +87,7 @@
                     <div class="property_block" id="role_property_block">
                         <div class="property_data_block">
                             <label for="user_role">role</label>
-                            <input id="user_role" value="${user.role}" readonly>
+                            <input id="user_role" value="${userRole}" readonly>
                         </div>
                         <div class="property_controls_block">
                         </div>
