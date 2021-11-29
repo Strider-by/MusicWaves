@@ -1,0 +1,556 @@
+body
+{
+    background-image: url("../img/wallpaper_1.jpg");
+}
+
+#multitab_window
+{
+    /*background-color: rgba(255, 255, 0, .2);*/
+    height: 100%;
+    display: flex;
+    margin-top: 10px;
+}
+
+/*input[type="radio"]
+{
+    display: inline-block;
+    vertical-align: top;
+}*/
+
+label, button
+{
+    user-select: none;
+}
+
+#tabs
+{
+    display: flex;
+    flex-direction: column;
+    /*width: 100px;*/
+    margin-left: 5px;
+    margin-right: 3px;
+}
+
+.tab
+{
+    height: 70px;
+    width: 150px;
+    border: solid 0.25px rgba(255,255,255,.55);
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.tab
+{
+    margin-top: 5px;
+}
+
+.tab.active
+{
+    background-color: rgba(0, 100, 0, .65);
+    color: whitesmoke;
+    cursor: alias;
+}
+
+.tab.inactive
+{
+    background-color: rgba(64, 63, 63, 0.6);
+    cursor: not-allowed;
+    color: #8f8686;
+}
+
+.tab.current
+{
+    color: rgb(241, 174, 82);
+    font-size: 103%;
+    text-shadow: -1px 0 green, 0 1px green, 1px 0 green, 0 -1px green;
+    cursor: auto;
+}
+
+.tabs_content_container
+{
+    width: 100%;
+    /*background-color: rgba(0, 0, 200, .5);*/
+    padding: 5px;
+    display: flex;
+}
+
+.search_nav_block
+{
+    display: flex;
+}
+
+.search_block, .nav_block
+{
+    display: flex;
+    flex-direction: column;
+    border: solid .5px rgba(255,255,255,.5);
+    background-color: rgba(255,255,255,0.3);
+    height: 170px;
+    width: 220px;
+}
+
+.nav_block
+{
+    margin-left: 5px;
+}
+
+.search_results_block
+{
+    display: flex;
+    flex-direction: column;
+    width: 446px;
+    height: 450px;
+    border: solid .5px rgba(255,255,255,.5);
+    background-color: rgba(255,255,255,0.3);
+    margin-top: 5px;
+}
+
+.left_side_block
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.right_side_block
+{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.new_instance-block
+{
+    display: flex;
+    flex-direction: column;
+    height: 170px;
+    width: 440px;
+    border: solid .5px rgba(255,255,255,.5);
+    background-color: rgba(255,255,255,0.3);
+}
+
+.edit_instance_block
+{
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    width: 440px;
+    border: solid .5px rgba(255,255,255,.5);
+    background-color: rgba(255,255,255,0.3);
+    margin-top: 5px;
+}
+
+.search_results_block > label, .new_instance-block > label, .edit_instance_block > label, .search_block > label, .nav_block > label
+{
+    display: block;
+    color: white;
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+    background-color: #707070;
+}
+
+.block_content
+{
+    display: flex;
+    flex-direction: column;
+    /*background-color: rgba(0, 0, 125, 0.5);*/
+    background-color: rgb(38 38 101);
+    height: 100%;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.nav_buttons
+{
+    height: 23px;
+}
+
+.nav_button
+{
+    width: 32px;
+    height: 23px;
+}
+
+.current_page, .results_count, .name_filter
+{
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+}
+
+.new_instance_name_and_controls
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: false;
+}
+
+
+.new_instance_name, .new_instance_year
+{
+    box-sizing: border-box;
+    /*width: calc(100% - 50px);*/
+    /*width: 100%; max-width: 2000px;*/
+    text-align: center;
+    flex-grow: 2;
+}
+
+.subblock_content label, #edit_track_file_block label, #track_number_holder label
+{
+    display: block;
+    background-color: rgb(120, 120, 120);
+    color: wheat;
+    padding-left: 3px;
+}
+
+.name_filter_controls
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.visibility_filter, .new_instance_visibility_setting
+{
+    height: 66px;
+}
+
+.instance_edit_image_block
+{
+    height: 200px;
+    width: 200px;
+    border: solid .5px rgba(255,255,255,.5);
+    background-color: rgba(255,255,255,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.upper_part_edit_instance_block
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.lower_part_edit_instance_block
+{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.upload_file_block
+{
+    width: 100%;
+    margin-top: 2px;
+}
+
+.edit_instance_block_property
+{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.edit_instance_block_property label
+{
+    display: inline-block;
+    width: 50px;
+    height: 21px;
+    background-color: rgb(200, 200, 200);
+    margin-top: 3px;
+    padding-left: 5px;
+}
+
+.edit_instance_block_property label
+{
+    display: inline-block;
+    width: 50px;
+    height: 21px;
+    background-color: rgb(200, 200, 200);
+
+    padding-left: 5px;
+}
+
+.edit_instance_block_property input[type="text"], .edit_instance_block_property input[type="number"]
+{
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: none;
+    height: 21px;
+    margin-top: 3px;
+    text-align: center;
+}
+
+
+.edit_instance_block_property, .vertical_edit_instance_block_property
+{
+    margin-top: 3px;
+}
+
+.edit_instance_block_property_v2
+{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.edit_instance_block_property_v2 label
+{
+    display: inline-block;
+    background-color: rgb(200, 200, 200);
+    box-sizing: border-box;
+    padding: 0px 3px;
+    width: calc(50% - 2px);
+    margin-top: 6px;
+    height: 21px;
+}
+
+.edit_instance_block_properties_controls
+{
+    display: flex;
+}
+
+.edit_instance_block_controls
+{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-left: 20px;
+}
+
+.edit_instance_block_controls button
+{
+    margin-top: 6px;
+    height: 21px;
+    border: none;
+}
+
+.close_instance_button
+{
+    background-color: rgb(105, 155, 105);
+    color: white;
+}
+
+.update_instance_button
+{
+    background-color: rgb(120 153 180);
+    color: white;
+}
+
+.delete_instance_button
+{
+    background-color: rgb(180 120 120);
+    color: white;
+}
+
+.close_instance_button:active, .update_instance_button:active, .delete_instance_button:active
+{
+    background-color: white;
+    border: solid 0.5px rgb(105, 155, 105);
+    color: black;
+}
+
+img.instance_image, .small_image_container img
+{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.single_artist_block, .single_album_block, .single_track_block
+{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: #e7e7e7;
+    margin-bottom: 2.5px;
+}
+
+.single_artist_block > div, .single_album_block > div, .single_track_block > div
+{
+    border: solid 2px rgb(38 38 101);
+}
+
+.small_image_container
+{
+    height: 40px;
+    width: 40px;
+    /*border: solid .5px rgb(38 38 101);*/
+    /*background-color: rgba(255,255,255,0.3);*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*margin-right: 5px;*/
+}
+
+#found_artists_data_rows, #found_albums_data_rows
+{
+    justify-content: flex-start;
+}
+
+.artist_name, .album_name, .track_name
+{
+    flex-grow: 1;
+    padding-left: 5px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.single_artist_block:nth-child(odd), .single_album_block:nth-child(odd), .single_track_block:nth-child(odd)
+{
+    background-color: rgba(255,255,255,0.3);
+}
+
+.single_artist_block:nth-child(even), .single_album_block:nth-child(even), .single_track_block:nth-child(even)
+{
+    background-color: rgba(200,200,200,0.3);
+}
+
+.artist_is_visible, .album_is_visible, .album_year, .track_is_visible, .track_file_is_present, .track_number
+{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+
+.album_year, .track_number
+{
+    font-size: 0.9em;
+}
+.select_artist, .select_album, .select_track
+{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+}
+
+.albums_year_search_block
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+#album_visibility_filter
+{
+    height: auto;
+}
+
+#album_year_filter_label
+{
+    margin-top: 2px;
+}
+
+#album_year_filter, .new_instance_year, #current_track_file, #current_track_number
+{
+    text-align: center;
+}
+
+#new_album_controls
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#new_album_controls button
+{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#new_album_visibility_setting
+{
+    height: 7px;
+}
+
+#tracks_in_album
+{
+    margin-top: 0;
+    height: 627px;
+}
+
+#found_tracks_data_rows
+{
+    overflow-y: scroll;
+    justify-content: flex-start;
+}
+
+#edit_track_file_block
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#edit_track_file_block *
+{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#upper_part_edit_track_block
+{
+    flex-direction: column;
+}
+
+#uploadTrackFile
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.line
+{
+    background-color: rgb(18 18 54);
+    border-color: geige;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.middle_part_edit_instance_block
+{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+
+#track_number_holder, #track_number_controls
+{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    box-sizing: border-box;
+}
+
+#track_number_holder input
+{
+    border: solid 0.5px white;
+}
+
+#edit_track_content_block
+{
+    justify-content: space-between;
+}
+
+#lower_part_edit_track_block
+{
+    height: unset;
+}

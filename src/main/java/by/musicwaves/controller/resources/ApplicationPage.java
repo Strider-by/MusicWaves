@@ -8,6 +8,11 @@ public enum ApplicationPage
     INDEX("index", "/jsp/index.jsp"),
     ENTRANCE("entrance", "/jsp/entrance.jsp"),
     PROFILE("profile", "/jsp/profile.jsp"),
+    MUSIC_COMPOUND("music-compound", "/jsp/music_compound.jsp"),
+    MUSIC_COMPOUND_OLD("music-compound-old", "/jsp/music_compound_old.jsp"),
+    MUSIC_SEARCH("music-search", "/jsp/music_search.jsp"),
+    ARTISTS("artists", "/jsp/artists.jsp"),
+    USERS("users", "/jsp/users.jsp"),
     ERROR403(null, "/jsp/error/403.jsp"),
     ERROR404(null, "/jsp/error/404.jsp");
     

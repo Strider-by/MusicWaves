@@ -66,37 +66,11 @@ public abstract class ActionCommand
     }
 
     public static void attachServiceResponse(HttpServletRequest request, ServiceResponse serviceResponse) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.setAttribute("serviceResponse", serviceResponse);
-        }
+        HttpSession session = request.getSession(true);
+        session.setAttribute("serviceResponse", serviceResponse);
+        //if (session != null) {
+        //     session.setAttribute("serviceResponse", serviceResponse);
+        // }
     }
-
-
-    static class Validator {
-
-        public static void isValidInteger(String value) throws CommandException {
-            try {
-                Integer.parseInt(value);
-            } catch(NullPointerException | NumberFormatException ex) {
-                throw new CommandException("Provided value is either empty or not a valid integer value", ex);
-            }
-        }
-
-        public static void isAllowedRequestMethod(String method, List<String> allowedMethods) throws CommandException {
-            if (!allowedMethods.contains(method)) {
-                throw new CommandException("This request method is not allowed");
-            }
-        }
-
-        public static <T> T nonNull(T object) throws CommandException {
-            if (object == null) {
-                throw new CommandException("Provided value can not be null");
-            }
-
-            return object;
-        }
-    }
-
 
 }

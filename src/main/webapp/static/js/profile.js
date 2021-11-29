@@ -43,12 +43,13 @@ function init()
     window.modeControlButtons.languageChange.apply.addEventListener("click", () => changeLanguage());
     window.modeControlButtons.passwordChange.apply.addEventListener("click", () => changePassword());
     window.modeControlButtons.loginChange.apply.addEventListener("click", () => changeLogin());
+    window.modeControlButtons.deleteAccount.apply.addEventListener("click", () => deleteAccount())
 
     // show system messages if they are present
     showSystemMessages();
 }
 
-function setEqualWidthForButtons(className)
+/*function setEqualWidthForButtons(className)
 {
     let buttons = document.getElementsByClassName(className);
     var maxWidth = 0;
@@ -67,7 +68,7 @@ function setEqualWidthForButtons(className)
     {
         button.style.width = maxWidth + 1 + "px";
     }
-}
+}*/
 
 function openMessageBox()
 {
@@ -264,6 +265,15 @@ function changeLogin()
 
     form.appendChild( createTextInput("password", password) );
     form.appendChild( createTextInput("login", login) );
+
+    form.submit();
+}
+
+function deleteAccount()
+{
+    let password = document.getElementById("account_delete_password").value;
+    let form = createActionCommandForm("delete_account");
+    form.appendChild( createTextInput("password", password) );
 
     form.submit();
 }

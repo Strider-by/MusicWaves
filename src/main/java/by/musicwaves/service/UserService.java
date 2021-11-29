@@ -6,11 +6,14 @@ import by.musicwaves.dao.factory.UserDaoFactory;
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
+import by.musicwaves.util.Pair;
 import by.musicwaves.util.PasswordWorker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -186,6 +189,87 @@ public class UserService {
         return response;
     }
 
+    public ServiceResponse<Boolean> deleteUserAccount(User user, char[] password) throws ServiceException {
+        ServiceResponse<Boolean> serviceResponse = new ServiceResponse<>();
+        Locale locale = user.getLanguage().getLocale();
+
+        // check if provided with current command request password is correct
+        boolean passwordIsCorrect = checkIfPasswordMatchesGivenUser(user, password);
+        if (!passwordIsCorrect) {
+            serviceResponse.addErrorOccurrence(ServiceErrorEnum.INVALID_PASSWORD, locale);
+            return serviceResponse;
+        }
+
+        //  password is correct, we can delete account now
+        boolean deleted;
+        try {
+            deleted = userDao.delete(user);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex);
+        }
+
+        serviceResponse.setStoredValue(deleted);
+        return serviceResponse;
+    }
+
+    public ServiceResponse<Boolean> deleteUserAccountByAdministration(int userId, Locale locale) throws ServiceException {
+
+        ServiceResponse<Boolean> serviceResponse = new ServiceResponse<>();
+        boolean deleted;
+        try {
+            deleted = userDao.deleteById(userId);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex);
+        }
+
+        serviceResponse.setStoredValue(deleted);
+        return serviceResponse;
+    }
+
+    public ServiceResponse<Pair<Integer, List<User>>> findUsers(
+            Integer id, String login, int loginSearchTypeId,
+            Integer roleId, LocalDate registerDate, int registerDateCompareTypeId,
+            int fieldIdToBeSortedBy, int sortOrderId, int pageNumber, int recordsPerPage) throws ServiceException {
+
+        ServiceResponse<Pair<Integer, List<User>>> serviceResponse = new ServiceResponse<>();
+
+        Pair<Integer, List<User>> daoResponse;
+
+        try {
+            daoResponse = userDao.findUsers(id, login, loginSearchTypeId,
+                    roleId, registerDate, registerDateCompareTypeId,
+                    fieldIdToBeSortedBy, sortOrderId, pageNumber, recordsPerPage);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex);
+        }
+
+        serviceResponse.setStoredValue(daoResponse);
+        return serviceResponse;
+    }
+
+    public ServiceResponse<?> changeUserRole(int userId, int roleId, Locale locale) throws ServiceException {
+
+        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        Role newRole = Role.getByDatabaseId(roleId);
+
+        // if we cannot get proper Role value, return error and interrupt service execution
+        if (newRole == Role.UNKNOWN) {
+            serviceResponse.addErrorOccurrence(ServiceErrorEnum.INVALID_ROLE_PARAMETER_VALUE, locale);
+            return serviceResponse;
+        }
+
+        try {
+            userDao.updateUserRole(userId, roleId);
+        } catch(DaoException ex) {
+            throw new ServiceException(ex);
+        }
+
+        return serviceResponse;
+    }
+
+
+
+
     private boolean checkInviteCode(String code) {
         // dummy
         return true;
@@ -203,5 +287,11 @@ public class UserService {
     private boolean checkLogin(String login) {
         // dummy
         return true;
+    }
+
+    private boolean checkIfPasswordMatchesGivenUser(User user, char[] password) {
+        String userHashedPassword = user.getHashedPassword();
+        String passwordToCheck = PasswordWorker.processPasswordHashing(password);
+        return userHashedPassword.equals(passwordToCheck);
     }
 }

@@ -15,6 +15,11 @@
     </welcome-file-list>
 
     <filter>
+        <filter-name>EncodingSetFilter</filter-name>
+        <filter-class>by.musicwaves.controller.filter.EncodingSetFilter</filter-class>
+    </filter>
+
+    <filter>
         <filter-name>JspToPlainPageNameFilter</filter-name>
         <filter-class>by.musicwaves.controller.filter.JspToPlainPageNameFilter</filter-class>
         <init-param>
@@ -52,6 +57,36 @@
     <servlet-mapping>
         <servlet-name>StaticResourcesController</servlet-name>
         <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UploadableResourcesController</servlet-name>
+        <servlet-class>by.musicwaves.controller.servlet.UploadableResourcesController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadableResourcesController</servlet-name>
+        <url-pattern>/music/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UploadableResourcesController</servlet-name>
+        <url-pattern>/artist-images/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UploadableResourcesController</servlet-name>
+        <url-pattern>/album-images/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AsyncRequestsController</servlet-name>
+        <servlet-class>by.musicwaves.controller.servlet.XHRRequestsController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AsyncRequestsController</servlet-name>
+        <url-pattern>/xhr/*</url-pattern>
     </servlet-mapping>
 
     <!-- <servlet>

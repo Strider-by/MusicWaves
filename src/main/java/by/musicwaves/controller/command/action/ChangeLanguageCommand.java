@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.CommandException;
+import by.musicwaves.controller.command.Validator;
 import by.musicwaves.entity.User;
 import by.musicwaves.controller.resources.ApplicationPage;
 import by.musicwaves.controller.resources.TransitType;
@@ -43,7 +44,7 @@ public class ChangeLanguageCommand extends ActionCommand
             }
 
             // check if languageId is a valid Integer value
-            Validator.isValidInteger(stringLanguageId);
+            Validator.assertValidInteger(stringLanguageId);
             int intLanguageId = Integer.parseInt(stringLanguageId);
 
             // running service

@@ -3,6 +3,11 @@
     display: none !important;
 }
 
+.invisible
+{
+    display: hidden !important;
+}
+
 .transparent
 {
     visibility: hidden !important; 

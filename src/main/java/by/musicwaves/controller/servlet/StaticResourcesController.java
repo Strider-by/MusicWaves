@@ -10,13 +10,14 @@ package by.musicwaves.controller.servlet;
         import org.apache.logging.log4j.LogManager;
 
 
-public class StaticResourcesController extends HttpServlet
-{
+public class StaticResourcesController extends HttpServlet {
+
     private final static Logger LOGGER = LogManager.getLogger();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String uri = request.getRequestURI();
         LOGGER.debug("We have reached STATIC RESOURCES controller");
         LOGGER.debug("URL: " + request.getRequestURL().toString());
@@ -25,8 +26,7 @@ public class StaticResourcesController extends HttpServlet
         request.getRequestDispatcher(convertUriToLocalResourcePath(uri)).forward(request, response);
     }
 
-    private static String convertUriToLocalResourcePath(String uri)
-    {
+    private static String convertUriToLocalResourcePath(String uri) {
         return uri.replaceFirst("/resources", "/static");
     }
 }

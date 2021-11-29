@@ -1,7 +1,7 @@
 package by.musicwaves.dao.factory;
 
 import by.musicwaves.dao.UserDao;
-import by.musicwaves.dao.UserDaoImpl;
+import by.musicwaves.dao.impl.UserDaoImpl;
 
 public class UserDaoFactory {
 

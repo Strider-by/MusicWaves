@@ -12,7 +12,8 @@ public enum ActionCommandEnum
     GO_TO_DEFAULT_PAGE("go_to_default_page", new GoToDefaultPageCommand()),
     CHANGE_LANGUAGE("change_language", new ChangeLanguageCommand()),
     CHANGE_PASSWORD("change_password", new ChangePasswordCommand()),
-    CHANGE_LOGIN("change_login", new ChangeLoginCommand());
+    CHANGE_LOGIN("change_login", new ChangeLoginCommand()),
+    DELETE_ACCOUNT_BY_USER("delete_account", new DeleteAccountByUserCommand());
     
     private final String alias;
     private final ActionCommand command;
@@ -29,9 +30,7 @@ public enum ActionCommandEnum
     public ActionCommand getCommand() {
         return command;
     }
-    
-    
-    
+
     public static ActionCommand getCommandByAlias(String alias) {
         return Arrays.stream(values())
                 .filter(command -> command.alias.equalsIgnoreCase(alias))

@@ -9,5 +9,8 @@
         <module name="MusicWaves" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="MusicWaves" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

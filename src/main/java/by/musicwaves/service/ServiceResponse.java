@@ -15,6 +15,10 @@ public class ServiceResponse<T> {
     public ServiceResponse() {
     }
 
+    public ServiceResponse(T valueToStore) {
+        this.storedValue = valueToStore;
+    }
+
     public T getStoredValue() {
         return storedValue;
     }

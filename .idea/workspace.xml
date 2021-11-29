@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b548b7b1-c084-4e2a-b688-5fa40b290f87" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_4_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jsp_api_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_servlet_api_2_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_web_2_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mariadb_jdbc_mariadb_java_client_2_7_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MusicWaves.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/Converter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/DeleteAccountByUserCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/ChangeUserRoleCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/CreateAlbumCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/CreateArtistCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/CreateAudioTrackCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/DeleteAlbumCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/DeleteArtistCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/DeleteAudioTrackCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/DeleteUserByAdministrationCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/FindAlbumRelatedAudioTracksCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/FindAlbumsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/FindArtistsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/FindArtistsForMusicSearchPageCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/FindUsersCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/ShiftAudioTrackAlbumPositionDownCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/ShiftAudioTrackAlbumPositionUpCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UpdateAlbumCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UpdateArtistsNameAndVisibilityCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UpdateAudioTrackCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UploadAlbumImageCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UploadArtistImageCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UploadAudioTrackCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/filter/EncodingSetFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/UploadableResourcesController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/XHRRequestsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/ArtistsPageSortOptionsTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/BooleanOptionsTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/DateCompareTypeFilterTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/RoleOptionsTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/SimilarityTypeFilterTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/SortOrderOptionsTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/tag/UsersPageSortOptionsTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/AlbumDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/ArtistDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/AudioTrackDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/DateCompareType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/SimilarityType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/SortOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/factory/AlbumDaoFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/factory/ArtistDaoFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/factory/CrossEntityDaoFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/impl/AlbumDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/impl/ArtistDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/impl/AudioTrackDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/impl/CrossEntityDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/impl/SQLTypesWorker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/impl/UserDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/util/CrossEntityDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/util/SqlStringEscapeTool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dto/FoundArtistForMusicSearchPageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dto/MusicSearchPageResultsQuantityContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/AudioTrack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/AlbumService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/ArtistService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/AudioTrackService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/CrossEntityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/BooleanOption.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/HtmlStringEscapeTool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/JsonSelfWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/Pair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/Triplet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/UploadableResource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/util/UploadableResourcesWorker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/artists_be.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/artists_ru.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/users.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/users_be.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/users_ru.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uploadable.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/artists.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/music_compound.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/music_search.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/artists.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/music_compound.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/music_search.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/css/users.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/artists.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/long-press.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/music_compound.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/music_compound_albums.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/music_compound_artists.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/music_compound_tracks.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/music_search.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/static/js/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ActionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ActionCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ChangeLanguageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ChangeLanguageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ChangeLoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ChangeLoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ChangePasswordCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/action/ChangePasswordCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/ActionCommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/ActionCommandEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/ActionCommandFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/ActionCommandFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/XHRCommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/XHRCommandEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/XHRCommandFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/factory/XHRCommandFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UnknownCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/UnknownCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/XHRCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/command/xhr/XHRCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/resources/ApplicationPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/resources/ApplicationPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/StaticResourcesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/controller/servlet/StaticResourcesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/UserDaoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/factory/UserDaoFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/dao/factory/UserDaoFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/Album.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/Artist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/entity/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/ServiceErrorEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/ServiceErrorEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/ServiceResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/ServiceResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/musicwaves/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/internationalization/errors.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/internationalization/errors.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/shared.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/shared.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/shared_be.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/shared_be.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/shared_ru.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/shared_ru.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tlds/custom.tld" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tlds/custom.tld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/parts/page_title_setup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/parts/page_title_setup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/profile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/css/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/css/main_structure.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/css/main_structure.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/js/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/js/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/META-INF/context.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/CommandException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/ActionCommand$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/ActionCommand$Validator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/ActionCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/ChangeLanguageCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/ChangeLoginCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/ChangePasswordCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/GoToDefaultPageCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/LoginCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/LogoutCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/action/RegisterUserCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/factory/ActionCommandEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/factory/ActionCommandFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/factory/XHRCommandEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/factory/XHRCommandFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/xhr/UnknownCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/command/xhr/XHRCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/filter/JspToPlainPageNameFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/filter/PageAliasToRealJspFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/resources/ApplicationPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/resources/TransitType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/servlet/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/servlet/StaticResourcesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/servlet/TestServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/servlet/tag/LanguageOptionsTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/servlet/tag/LanguageSelectorTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/controller/servlet/tag/ListOutputTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/Dao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/DaoException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/UserDaoImpl$SQL$SelectBy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/UserDaoImpl$SQL.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/UserDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/connection/ConnectionPool$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/connection/ConnectionPool$ConnectionChecker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/connection/ConnectionPool$ConnectionCreator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/connection/ConnectionPool.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/connection/ConnectionWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/factory/UserDaoFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/AbstractRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/CreateRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/CustomRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/DeleteRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/SQLRequestHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/SelectRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/requesthandler/UpdateRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/util/EntityDependentStatementInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/util/EntityInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/util/PreparedStatementContainer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/dao/util/PreparedStatementContainerInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/entity/Album.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/entity/Artist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/entity/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/entity/Track.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/entity/ancillary/Language.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/service/AbstractService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/service/ServiceErrorEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/service/ServiceException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/service/ServiceResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/by/musicwaves/util/PasswordWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/connection.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/common.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/common_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/common_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/errors.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/errors_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/errors_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/entrance.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/entrance_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/entrance_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/index.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/index_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/index_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/profile.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/profile_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/profile_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/shared.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/shared_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/internationalization/jsp/shared_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/classes/log4j2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/lib/javax.servlet-api-4.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/lib/jstl-1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/lib/log4j-api-2.6.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/lib/log4j-core-2.6.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/lib/log4j-web-2.6.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/lib/mariadb-java-client-2.7.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/tlds/custom.tld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/jsp/entrance.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/jsp/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/jsp/parts/locale_setup.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/jsp/parts/page_title_setup.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/jsp/parts/service_response_processing.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/jsp/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/users.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/css/common.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/css/entrance.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/css/main_structure.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/css/profile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/img/favicon-16x16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/img/favicon-200x200.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/img/favicon-32x32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/img/wallpaper_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/js/common.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/js/cookie-worker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/js/entrance.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/MusicWaves/static/js/profile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/CommandException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/ActionCommand$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/ActionCommand$Validator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/ActionCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/ChangeLanguageCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/ChangeLoginCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/ChangePasswordCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/GoToDefaultPageCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/LoginCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/LogoutCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/action/RegisterUserCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/factory/ActionCommandEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/factory/ActionCommandFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/factory/XHRCommandEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/factory/XHRCommandFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/xhr/UnknownCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/command/xhr/XHRCommand.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/filter/JspToPlainPageNameFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/filter/PageAliasToRealJspFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/resources/ApplicationPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/resources/TransitType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/servlet/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/servlet/StaticResourcesController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/servlet/TestServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/servlet/tag/LanguageOptionsTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/controller/servlet/tag/ListOutputTag.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/Dao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/DaoException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/UserDaoImpl$SQL$SelectBy.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/UserDaoImpl$SQL.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/UserDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/connection/ConnectionPool$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/connection/ConnectionPool$ConnectionChecker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/connection/ConnectionPool$ConnectionCreator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/connection/ConnectionPool.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/connection/ConnectionWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/factory/UserDaoFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/AbstractRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/CreateRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/CustomRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/DeleteRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/SQLRequestHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/SelectRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/requesthandler/UpdateRequestsWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/util/EntityDependentStatementInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/util/EntityInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/util/PreparedStatementContainer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/dao/util/PreparedStatementContainerInitializer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/entity/Album.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/entity/Artist.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/entity/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/entity/Track.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/entity/ancillary/Language.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/service/AbstractService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/service/ServiceErrorEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/service/ServiceException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/service/ServiceResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/by/musicwaves/util/PasswordWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/connection.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/common.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/common_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/common_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/errors.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/errors_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/errors_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/entrance.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/entrance_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/entrance_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/index.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/index_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/index_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/profile.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/profile_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/profile_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/shared.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/shared_be.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/internationalization/jsp/shared_ru.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/log4j2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/internationalization/jsp/artists.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="20x1OTaECmXTKE7U3GHCD5Sll96" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/static/js" />
+    <property name="restartRequiresConfirmation" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Vox\IdeaProjects\MusicWaves\src\main\webapp\static\js" />
+      <recent name="C:\Users\Vox\IdeaProjects\MusicWaves\src\main\resources\internationalization\jsp" />
+      <recent name="C:\Users\Vox\IdeaProjects\MusicWaves\src\main\webapp\jsp" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="by.musicwaves.controller.command.xhr" />
+      <recent name="by.musicwaves.dao.factory" />
+      <recent name="by.musicwaves.service" />
+      <recent name="by.musicwaves.controller.servlet" />
+      <recent name="by.musicwaves.dao.impl" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY" nameIsGenerated="true">
+      <option name="adminPort" value="8005" />
+      <option name="contextPath" value="/" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="envOptions" />
+      <option name="passParentEnvironmentVariables" value="true" />
+      <option name="port" value="8080" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/8.5.70" />
+          <option name="number" value="0" />
+          <option name="path" value="C:\Java\apache-tomcat-8.5.70" />
+          <option name="version" value="8.5.70.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b548b7b1-c084-4e2a-b688-5fa40b290f87" name="Default Changelist" comment="" />
+      <created>1636971395251</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1636971395251</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

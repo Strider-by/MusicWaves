@@ -6,7 +6,7 @@ html, body
 
 body
 {
-    background-color: yellow;
+    /*background-color: yellow;*/
     align-items: stretch;
     height: 100%;
     display: flex;

@@ -17,7 +17,8 @@ import org.apache.logging.log4j.LogManager;
 @WebServlet(urlPatterns = {"/action/*"})
 public class Controller extends HttpServlet
 {
-    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
+    private final static Logger LOGGER = LogManager.getLogger(Controller.class);
+    private final static ActionCommandFactory COMMAND_FACTORY = new ActionCommandFactory();
 
     @Override
     protected void service(HttpServletRequest request,
@@ -45,9 +46,8 @@ public class Controller extends HttpServlet
         LOGGER.debug("request parameters: \n" + sb.toString());
         LOGGER.debug("request url: " + request.getRequestURI());
         LOGGER.debug("request path info: " + request.getPathInfo());
-      
-        ActionCommandFactory factory = new ActionCommandFactory();
-        ActionCommand commandProcessor = factory.defineCommand(request);
+
+        ActionCommand commandProcessor = COMMAND_FACTORY.defineCommand(request);
         
         try
         {
