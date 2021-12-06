@@ -43,6 +43,9 @@
 </head>
 
 <body>
+        <div class="hidden" id="textMessagesHolder">
+            <div id="request_failed_message_holder">Request failed</div>
+        </div>
         <div class="upper_menu menu">
             <a href="./" id="goto_index_page" title="map of the site">&#127968;</a>
         </div>

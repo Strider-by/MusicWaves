@@ -141,8 +141,9 @@ async function sendAndFetchJson(command, paramsMap)
         response = await fetch("/xhr", {method: "POST", body: formData});
         respJson = await response.json();
     }
-    catch(e)
+    catch(ex)
     {
+        console.log(ex);
         showRequestFailedMessage();
         return;
     }
@@ -174,6 +175,30 @@ async function sendAndFetchJson(command, paramsMap)
     }
 
     return respJson;
+}
+
+
+async function sendAndFetch(command, paramsMap)
+{
+    let formData = new FormData();
+    formData.append("command", command);
+
+    for(var pair of paramsMap)
+    {
+        var key = pair[0];
+        var value = pair[1];
+        formData.append(key, value);
+    }
+
+    let response;
+    let respJson;
+    response = await fetch("/xhr", {method: "POST", body: formData});
+    return response;
+}
+
+async function sendFormData(formData)
+{
+    return await fetch("/xhr", {method: "POST", body: formData});
 }
 
 function createTextInput(name, value)
@@ -259,7 +284,7 @@ function buildPathToAlbumImage(fileName)
     return "/album-images/" + fileName;
 }
 
-function buildPathToAuditTrack(fileName)
+function buildPathToAudioTrack(fileName)
 {
     return "/music/" + fileName;
 }

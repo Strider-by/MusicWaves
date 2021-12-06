@@ -46,6 +46,8 @@ public class UserDaoImpl implements UserDao {
                 = "UPDATE users SET role = ?";
         public final static String DELETE_INSTANCE
                 = "DELETE FROM users";
+        public final static String CHECK_IF_LOGIN_IS_AVAILIBLE
+                = "SELECT (SELECT COUNT(id) FROM users WHERE login = ?) = 0 AS login_is_available;";
 
         private static final class SelectBy {
             public final static String ID
@@ -212,6 +214,13 @@ public class UserDaoImpl implements UserDao {
                 instance,
                 SQL.DELETE_INSTANCE + SQL.SelectBy.ID,
                 (user, statement) -> statement.setNextInt(user.getId()));
+    }
+
+    @Override
+    public boolean checkIfLoginIsAvailable(String login) throws DaoException {
+        return requestHandler.processBooleanResultRequest(
+                SQL.CHECK_IF_LOGIN_IS_AVAILIBLE,
+                statement -> statement.setNextString(login));
     }
 
     

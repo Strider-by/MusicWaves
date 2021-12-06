@@ -1,9 +1,7 @@
 package by.musicwaves.dao.factory;
 
-import by.musicwaves.dao.AlbumDao;
-import by.musicwaves.dao.impl.AlbumDaoImpl;
 import by.musicwaves.dao.impl.CrossEntityDaoImpl;
-import by.musicwaves.dao.util.CrossEntityDao;
+import by.musicwaves.dao.CrossEntityDao;
 
 public class CrossEntityDaoFactory {
 

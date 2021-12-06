@@ -5,8 +5,8 @@
 function run()
 {
     setFormControlListeners();
-    //requestSearchResultsQuantity();
-    requestSearchResultsQuantityAndArtistsList();
+    requestSearchResultsQuantity();
+    //requestSearchResultsQuantityAndArtistsList();
     requestUserPlaylists();
     activatePageControl();
 
@@ -247,48 +247,26 @@ async function requestSearchResultsQuantity()
     clearSearchResultsQuantityArea();
     let searchString = document.getElementById("search_string").value;
 
-    let formData = new FormData();
-    formData.append("search_string", searchString);
+    let params = new Map();
+    params.set("search_string", searchString);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=music_search_get_results_quantity", {method: "POST", body: formData});
+        let response = await sendAndFetch("get_search_results_count_for_music_search_page", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
-        {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    let artists = respJson.results_quantity.artists;
-                    let albums = respJson.results_quantity.albums;
-                    let tracks = respJson.results_quantity.tracks;
-                    document.getElementById("artists_found_val").innerHTML = artists;
-                    document.getElementById("albums_found_val").innerHTML = albums;
-                    document.getElementById("tracks_found_val").innerHTML = tracks;
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient rights
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
-        }
+        console.log(respJson);
 
-    } catch (ex)
+        let artists = respJson.results_quantity.artists;
+        let albums = respJson.results_quantity.albums;
+        let tracks = respJson.results_quantity.tracks;
+        document.getElementById("artists_found_val").innerHTML = artists;
+        document.getElementById("albums_found_val").innerHTML = albums;
+        document.getElementById("tracks_found_val").innerHTML = tracks;
+    }
+    catch (ex)
     {
-        showMessage(window.textbundle.requestFailed, window.MessageType.error);
+        console.log(ex);
+        showMessage("window.textbundle.requestFailed", window.MessageType.error);
     }
 }
 
@@ -298,7 +276,7 @@ async function requestSearchResultsQuantityAndArtistsList()
     clearSearchResultsQuantityArea();
     clearSearchResultsArea();
     let searchString = document.getElementById("search_string").value;
-    let limit = 10;
+    let limit = 8;
     let page = document.getElementById("page_number").value - 0;
 
     let params = new Map();
@@ -308,7 +286,10 @@ async function requestSearchResultsQuantityAndArtistsList()
 
     try
     {
-        let json = await sendAndFetchJson("find_artists_for_music_search_page", params);
+        let response = await sendAndFetch("find_artists_for_music_search_page", params);
+        let respJson = await response.json();
+        console.log(respJson);
+
         let artists_q = respJson.results_quantity.artists;
         let albums_q = respJson.results_quantity.albums;
         let tracks_q = respJson.results_quantity.tracks;
@@ -329,7 +310,8 @@ async function requestSearchResultsQuantityAndArtistsList()
     }
     catch(ex)
     {
-        showMessage(window.textbundle.requestFailed, window.MessageType.error);
+        showMessage("window.textbundle.requestFailed", window.MessageType.error);
+        console.log(ex);
     }
 }
 
@@ -338,60 +320,36 @@ async function requestSearchResultsQuantityAndAlbumsList()
     clearSearchResultsQuantityArea();
     clearSearchResultsArea();
     let searchString = document.getElementById("search_string").value;
-    let limit = 10;
-    let page = document.getElementById("page_number").value;
-    let offset = limit * (page - 1);
-    let formData = new FormData();
-    formData.append("search_string", searchString);
-    formData.append("limit", limit);
-    formData.append("offset", offset);
+    let limit = 8;
+    let page = document.getElementById("page_number").value - 0;
+
+    let params = new Map();
+    params.set("search_string", searchString);
+    params.set("limit", limit);
+    params.set("page", page);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=music_search_get_albums_list", {method: "POST", body: formData});
+        let response = await sendAndFetch("find_albums_for_music_search_page", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        console.log(respJson)
+        let artists_q = respJson.results_quantity.artists;
+        let albums_q = respJson.results_quantity.albums;
+        let tracks_q = respJson.results_quantity.tracks;
+        document.getElementById("artists_found_val").innerHTML = artists_q;
+        document.getElementById("albums_found_val").innerHTML = albums_q;
+        document.getElementById("tracks_found_val").innerHTML = tracks_q;
+        // build rows
+        let albums = respJson.albums;
+        let html = "";
+        for (let i = 0; i < albums.length; i++)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    let artists_q = respJson.results_quantity.artists;
-                    let albums_q = respJson.results_quantity.albums;
-                    let tracks_q = respJson.results_quantity.tracks;
-                    document.getElementById("artists_found_val").innerHTML = artists_q;
-                    document.getElementById("albums_found_val").innerHTML = albums_q;
-                    document.getElementById("tracks_found_val").innerHTML = tracks_q;
-                    // build rows
-                    let albums = respJson.albums;
-                    let html = "";
-                    for (let i = 0; i < albums.length; i++)
-                    {
-                        html += buildAlbumRow(albums[i]);
-                    }
-                    addDataRowToSearchArea(buildAlbumsHeader());
-                    addDataRowToSearchArea(html);
-                    setAlbumDataRowButtonsListeners();
-                    setDataRowsHoverHighlight();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient rights
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            html += buildAlbumRow(albums[i]);
         }
+        addDataRowToSearchArea(buildAlbumsHeader());
+        addDataRowToSearchArea(html);
+        setAlbumDataRowButtonsListeners();
+        setDataRowsHoverHighlight();
 
     } catch (ex)
     {
@@ -404,60 +362,36 @@ async function requestSearchResultsQuantityAndTracksList()
     clearSearchResultsQuantityArea();
     clearSearchResultsArea();
     let searchString = document.getElementById("search_string").value;
-    let limit = 10;
-    let page = document.getElementById("page_number").value;
-    let offset = limit * (page - 1);
-    let formData = new FormData();
-    formData.append("search_string", searchString);
-    formData.append("limit", limit);
-    formData.append("offset", offset);
+    let limit = 8;
+    let page = document.getElementById("page_number").value - 0;
+
+    let params = new Map();
+    params.set("search_string", searchString);
+    params.set("limit", limit);
+    params.set("page", page);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=music_search_get_tracks_list", {method: "POST", body: formData});
+        let response = await sendAndFetch("find_tracks_for_music_search_page", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        console.log(respJson)
+        let artists_q = respJson.results_quantity.artists;
+        let albums_q = respJson.results_quantity.albums;
+        let tracks_q = respJson.results_quantity.tracks;
+        document.getElementById("artists_found_val").innerHTML = artists_q;
+        document.getElementById("albums_found_val").innerHTML = albums_q;
+        document.getElementById("tracks_found_val").innerHTML = tracks_q;
+        // build rows
+        let tracks = respJson.tracks;
+        let html = "";
+        for (let i = 0; i < tracks.length; i++)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    let artists_q = respJson.results_quantity.artists;
-                    let albums_q = respJson.results_quantity.albums;
-                    let tracks_q = respJson.results_quantity.tracks;
-                    document.getElementById("artists_found_val").innerHTML = artists_q;
-                    document.getElementById("albums_found_val").innerHTML = albums_q;
-                    document.getElementById("tracks_found_val").innerHTML = tracks_q;
-                    // build rows
-                    let tracks = respJson.tracks;
-                    let html = "";
-                    for (let i = 0; i < tracks.length; i++)
-                    {
-                        html += buildTrackRow(tracks[i]);
-                    }
-                    addDataRowToSearchArea(buildTracksHeader());
-                    addDataRowToSearchArea(html);
-                    setTrackDataRowButtonsListeners();
-                    setDataRowsHoverHighlight();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            html += buildTrackRow(tracks[i]);
         }
+        addDataRowToSearchArea(buildTracksHeader());
+        addDataRowToSearchArea(html);
+        setTrackDataRowButtonsListeners();
+        setDataRowsHoverHighlight();
 
     } catch (ex)
     {
@@ -811,12 +745,15 @@ function buildTrackRow(track)
 
 function buildArtistImage(imageProperty)
 {
-    return "<img src=\"" + window.artistImagePath + (imageProperty !== null ? imageProperty : "default") + "\">";
+    //return "<img src=\"" + window.artistImagePath + (imageProperty !== null ? imageProperty : "") + "\">";
+    let path = imageProperty !== null ? buildPathToArtistImage(imageProperty) : "";
+    return "<img src=\"" + path + "\">";
 }
 
 function buildAlbumImage(imageProperty)
 {
-    return "<img src=\"" + window.albumImagePath + (imageProperty !== null ? imageProperty : "default") + "\">";
+    let path = imageProperty !== null ? buildPathToAlbumImage(imageProperty) : "";
+    return "<img src=\"" + path + "\">";
 }
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -828,40 +765,16 @@ function buildAlbumImage(imageProperty)
 //// artists ////
 async function setArtistAsFavourite(artistId)
 {
-    let formData = new FormData();
-    formData.append("artist_id", artistId);
+    let params = new Map();
+    params.set("artist_id", artistId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=set_favourite_artist", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
-        {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    updateFavedEntityRow(artistId, true);
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
-        }
-    } catch (ex)
+        let json = await sendAndFetchJson("set_artist_as_favourite", params);
+        let success = json.success;
+        if(success) updateFavedEntityRow(artistId, true);
+
+    } catch(ex)
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
@@ -869,39 +782,15 @@ async function setArtistAsFavourite(artistId)
 
 async function unsetArtistAsFavourite(artistId)
 {
-    let formData = new FormData();
-    formData.append("artist_id", artistId);
+    let params = new Map();
+    params.set("artist_id", artistId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=unset_favourite_artist", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
-        {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    updateFavedEntityRow(artistId, false);
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
-        }
+        let json = await sendAndFetchJson("unset_artist_as_favourite", params);
+        let success = json.success;
+        if(success) updateFavedEntityRow(artistId, false);
+
     } catch (ex)
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
@@ -930,39 +819,15 @@ function updateFavedEntityRow(entityId, favourite)
 
 async function setAlbumAsFavourite(albumId)
 {
-    let formData = new FormData();
-    formData.append("album_id", albumId);
+    let params = new Map();
+    params.set("album_id", albumId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=set_favourite_album", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
-        {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    updateFavedEntityRow(albumId, true);
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
-        }
+        let json = await sendAndFetchJson("set_album_as_favourite", params);
+        let success = json.success;
+        if(success) updateFavedEntityRow(albumId, true);
+
     } catch (ex)
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
@@ -971,39 +836,15 @@ async function setAlbumAsFavourite(albumId)
 
 async function unsetAlbumAsFavourite(albumId)
 {
-    let formData = new FormData();
-    formData.append("album_id", albumId);
+    let params = new Map();
+    params.set("album_id", albumId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=unset_favourite_album", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
-        {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    updateFavedEntityRow(albumId, false);
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
-        }
+        let json = await sendAndFetchJson("unset_album_as_favourite", params);
+        let success = json.success;
+        if(success) updateFavedEntityRow(albumId, false);
+
     } catch (ex)
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
@@ -1015,73 +856,32 @@ async function unsetAlbumAsFavourite(albumId)
 
 async function setTrackAsFavourite(trackId)
 {
-    let formData = new FormData();
-    formData.append("track_id", trackId);
-    let response = await fetch(ctx + "/ajax?command=set_favourite_track", {method: "POST", body: formData});
-    let respJson = await response.json();
-    let appResponseStatus = respJson.appResponseCode;
-    if (response.status >= 200 && response.status < 400)
+    let params = new Map();
+    params.set("track_id", trackId);
+
+    try
     {
-        // Successfully connected to server
-        switch (appResponseStatus)
-        {
-            case 0: // success
-                updateFavedEntityRow(trackId, true);
-                break;
-            case 1: // fail, not logged in
-                showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                break;
-            case 2: // invalid data passed
-                showMessage(window.textbundle.invalidData, window.MessageType.error);
-                break;
-            case 3: // insufficient right
-                showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                break;
-            case 520: // server side error
-                showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                break;
-        }
-    } else
+        let json = await sendAndFetchJson("set_track_as_favourite", params);
+        let success = json.success;
+        if(success) updateFavedEntityRow(trackId, true);
+
+    } catch(ex)
     {
+        console.log(ex);
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
 }
 
 async function unsetTrackAsFavourite(trackId)
 {
-    let formData = new FormData();
-    formData.append("track_id", trackId);
+    let params = new Map();
+    params.set("track_id", trackId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=unset_favourite_track", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
-        {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    updateFavedEntityRow(trackId, false);
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
-        }
+        let json = await sendAndFetchJson("unset_track_as_favourite", params);
+        let success = json.success;
+        if(success) updateFavedEntityRow(trackId, false);
     } catch (ex)
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
@@ -1201,56 +1001,32 @@ async function showParticularArtistAlbums(artistId)
 {
     clearSearchResultsQuantityArea();
     clearSearchResultsArea();
-    let limit = 10;
-    let page = document.getElementById("page_number").value;
-    let offset = limit * (page - 1);
-    let formData = new FormData();
-    formData.append("artist_id", artistId);
-    formData.append("limit", limit);
-    formData.append("offset", offset);
+    let limit = 8;
+    let page = document.getElementById("page_number").value - 0;
+
+    let params = new Map();
+    params.set("artist_id", artistId);
+    params.set("limit", limit);
+    params.set("page", page);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=music_search_get_chosen_artist_albums", {method: "POST", body: formData});
+        let response = await sendAndFetch("get_chosen_artist_data_for_music_search_page", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        console.log(respJson)
+        // build rows
+        activatePageControl("particular_artist", artistId);
+        let albums = respJson.albums;
+        let artist = respJson.artist;
+        let html = "";
+        for (let i = 0; i < albums.length; i++)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    // build rows
-                    activatePageControl("particular_artist", artistId);
-                    let albums = respJson.albums;
-                    let artist = respJson.artist;
-                    let html = "";
-                    for (let i = 0; i < albums.length; i++)
-                    {
-                        html += buildParticularArtistAlbumRow(albums[i]);
-                    }
-                    addDataRowToSearchArea(buildChosenArtistAlbumsHeader(artist));
-                    addDataRowToSearchArea(html);
-                    setAlbumDataRowButtonsListeners();
-                    setDataRowsHoverHighlight();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            html += buildParticularArtistAlbumRow(albums[i]);
         }
+        addDataRowToSearchArea(buildChosenArtistAlbumsHeader(artist));
+        addDataRowToSearchArea(html);
+        setAlbumDataRowButtonsListeners();
+        setDataRowsHoverHighlight();
 
     } catch (ex)
     {
@@ -1262,57 +1038,34 @@ async function showParticularAlbumTracks(albumId)
 {
     clearSearchResultsQuantityArea();
     clearSearchResultsArea();
-    let limit = 10;
-    let page = document.getElementById("page_number").value;
-    let offset = limit * (page - 1);
-    let formData = new FormData();
-    formData.append("album_id", albumId);
-    formData.append("limit", limit);
-    formData.append("offset", offset);
+    let limit = 8;
+    let page = document.getElementById("page_number").value - 0;
+
+    let params = new Map();
+    params.set("album_id", albumId);
+    params.set("limit", limit);
+    params.set("page", page);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=music_search_get_chosen_album_tracks", {method: "POST", body: formData});
+        let response = await sendAndFetch("get_chosen_album_data_for_music_search_page", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        console.log(respJson)
+        // build rows
+        activatePageControl("particular_album", albumId);
+        let album = respJson.album;
+        let artist = respJson.artist;
+        let tracks = respJson.tracks;
+        let html = "";
+        for (let i = 0; i < tracks.length; i++)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    // build rows
-                    activatePageControl("particular_album", albumId);
-                    let album = respJson.album;
-                    let artist = respJson.artist;
-                    let tracks = respJson.tracks;
-                    let html = "";
-                    for (let i = 0; i < tracks.length; i++)
-                    {
-                        html += buildParticularAlbumTrackRow(tracks[i]);
-                    }
-                    addDataRowToSearchArea(buildChosenAlbumTracksHeader(artist, album));
-                    addDataRowToSearchArea(html);
-                    setTrackDataRowButtonsListeners();
-                    setDataRowsHoverHighlight();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            html += buildParticularAlbumTrackRow(tracks[i]);
         }
+        addDataRowToSearchArea(buildChosenAlbumTracksHeader(artist, album));
+        addDataRowToSearchArea(html);
+        setTrackDataRowButtonsListeners();
+        setDataRowsHoverHighlight();
+
     } catch (ex)
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
@@ -1387,8 +1140,13 @@ function clearSearchResultsQuantityArea()
 
 function playTrack(trackFileName)
 {
+    if(!trackFileName || trackFileName == "null")
+    {
+        return;
+    }
+
     let audio = document.getElementById("player");
-    audio.src = window.trackFilePath + trackFileName;
+    audio.src = buildPathToAudioTrack(trackFileName);
     audio.load();
     audio.play();
 }
@@ -1401,42 +1159,23 @@ function playTrack(trackFileName)
 
 async function requestUserPlaylists()
 {
+    let params = new Map();
 
-    let formData = new FormData();
     try
     {
-        let response = await fetch(ctx + "/ajax?command=get_user_playlists", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        let response = await sendAndFetch("get_user_playlists", params);
+        let json = await response.json();
+        if(json)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
+            let html = "";
+            let playlists = json.data.playlists;
+            for (let i = 0; i < playlists.length; i++)
             {
-                case 0: // success
-                    let html = "";
-                    let playlists = respJson.playlists;
-                    for (let i = 0; i < playlists.length; i++)
-                    {
-                        let playlist = playlists[i];
-                        html += buildPlaylistOption(playlist);
-                    }
-                    setPlaylistSelectOptions(html);
-                    filterPlaylistsList();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // insufficient rights
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
+                let playlist = playlists[i];
+                html += buildPlaylistOption(playlist);
             }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            setPlaylistSelectOptions(html);
+            filterPlaylistsList();
         }
     } catch (ex)
     {
@@ -1447,48 +1186,31 @@ async function requestUserPlaylists()
 
 async function usePlaylist(playlistId, playlistName)
 {
-    let formData = new FormData();
-    formData.append("playlist_id", playlistId);
+    let params = new Map();
+    params.set("playlist_id", playlistId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=get_playlist_tracks", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        let response = await sendAndFetch("get_playlist_items", params);
+        let json = await response.json();
+        if(json)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
+            let html = "";
+            let tracks = json.data.playlist_items;
+            for (let i = 0; i < tracks.length; i++)
             {
-                case 0: // success
-                    let html = "";
-                    let tracks = respJson.playlist_items;
-                    for (let i = 0; i < tracks.length; i++)
-                    {
-                        let track = tracks[i];
-                        html += createAudiotrackDataRow(track);
-                    }
-                    document.getElementById("track_items").innerHTML = html;
-                    document.getElementById("used_playlist_id").innerHTML = playlistId;
-                    document.getElementById("used_playlist_name").innerHTML = playlistName;
-                    setPlaylistButtonsListeners();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data
-                    showMessage(window.textbundle.invalidData, window.MessageType.warning);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
+                let track = tracks[i];
+                html += createAudiotrackDataRow(track);
             }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            document.getElementById("track_items").innerHTML = html;
+            document.getElementById("used_playlist_id").innerHTML = playlistId;
+            document.getElementById("used_playlist_name").innerHTML = playlistName;
+            setPlaylistButtonsListeners();
         }
+
     } catch (ex)
     {
+        console.log(ex);
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
 }
@@ -1604,38 +1326,27 @@ function setPlaylistButtonsListeners()
 
 async function playPlaylistTrack(trackId)
 {
-    let formData = new FormData();
-    formData.append("track_id", trackId);
+    let params = new Map();
+    params.set("track_id", trackId);
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=get_active_track_data", {method: "POST", body: formData});
+        let response = await sendAndFetch("get_visible_track_data", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        if(respJson.data == null)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    playTrack(respJson.track.file);
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data
-                    showMessage(window.textbundle.invalidData, window.MessageType.warning);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            return;
         }
+
+        let file = respJson.data.track.file;
+        if(file)
+        {
+            playTrack(file);
+        }
+
     } catch (ex)
     {
+        console.log(ex);
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
 }
@@ -1677,42 +1388,25 @@ async function addAlbumToPlaylist(albumId)
     formData.append("limit", 100);
     formData.append("offset", 0);
 
+    let params = new Map();
+    params.set("album_id", albumId);
+    params.set("limit", 1000);
+    params.set("page", 1);
+
     try
     {
-        let response = await fetch(ctx + "/ajax?command=music_search_get_chosen_album_tracks", {method: "POST", body: formData});
+        let response = await sendAndFetch("get_chosen_album_data_for_music_search_page", params);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+
+        let tracks = respJson.tracks;
+        for (let i = 0; i < tracks.length; i++)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    let tracks = respJson.tracks;
-                    for (let i = 0; i < tracks.length; i++)
-                    {
-                        addTrackToPlaylist(tracks[i].id, tracks[i].name);
-                    }
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            addTrackToPlaylist(tracks[i].id, tracks[i].name);
         }
+
     } catch (ex)
     {
+        console.log(ex);
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
 }
@@ -1726,6 +1420,7 @@ async function savePlaylist()
     }
 
     let formData = new FormData();
+    formData.append("command", "record_playlist");
     formData.append("playlist_id", playlistId);
     let tracksIdCells = document.getElementById("track_items").getElementsByClassName("audiotrack_id_cell");
     for (let i = 0; i < tracksIdCells.length; i++)
@@ -1735,36 +1430,15 @@ async function savePlaylist()
 
     try
     {
-        let response = await fetch(ctx + "/ajax?command=record_playlist", {method: "POST", body: formData});
+        let response = await sendFormData(formData);
         let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        if(respJson)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    // nothing?
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data passed
-                    showMessage(window.textbundle.invalidData, window.MessageType.error);
-                    break;
-                case 3: // insufficient right
-                    showMessage(window.textbundle.insufficientRights, window.MessageType.error);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            document.getElementById("reload_playlist").click();
         }
     } catch (ex)
     {
+        console.log(ex);
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
 }
@@ -1777,34 +1451,15 @@ async function createPlaylist()
         return;
     }
 
-    let formData = new FormData();
-    formData.append("name", playlistName);
+    let params = new Map();
+    params.set("name", playlistName);
     try
     {
-        let response = await fetch(ctx + "/ajax?command=create_new_playlist", {method: "POST", body: formData});
-        let respJson = await response.json();
-        let appResponseStatus = respJson.appResponseCode;
-        if (response.status >= 200 && response.status < 400)
+        let response = await sendAndFetch("create_playlist", params);
+        let json = await response.json();
+        if(json)
         {
-            // Successfully connected to server
-            switch (appResponseStatus)
-            {
-                case 0: // success
-                    requestUserPlaylists();
-                    break;
-                case 1: // fail, not logged in
-                    showMessage(window.textbundle.notLoggedIn, window.MessageType.error);
-                    break;
-                case 2: // invalid data
-                    showMessage(window.textbundle.invalidData, window.MessageType.warning);
-                    break;
-                case 520: // server side error
-                    showMessage(window.textbundle.serverSideError, window.MessageType.error);
-                    break;
-            }
-        } else
-        {
-            showMessage(window.textbundle.requestFailed, window.MessageType.error);
+            requestUserPlaylists();
         }
     } catch (ex)
     {

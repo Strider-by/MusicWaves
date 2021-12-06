@@ -90,6 +90,7 @@ public class FindArtistsForMusicSearchPageCommand extends XHRCommand {
             json.appendNumber("albums_count_artist_has", dto.getAlbumsCountArtistHas());
             json.closeObject();
         }
+        json.closeArray();
 
     }
 }

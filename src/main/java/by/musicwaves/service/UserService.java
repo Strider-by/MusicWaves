@@ -267,6 +267,21 @@ public class UserService {
         return serviceResponse;
     }
 
+    public ServiceResponse<Boolean> checkIfLoginIsAvailable(String login, Locale locale) throws ServiceException {
+        ServiceResponse<Boolean> serviceResponse = new ServiceResponse<>();
+        boolean isAvailable;
+        try {
+            isAvailable = userDao.checkIfLoginIsAvailable(login);
+        } catch (DaoException ex) {
+            throw new ServiceException(ex);
+        }
+
+        ServiceMessageEnum message = isAvailable ? ServiceMessageEnum.LOGIN_IS_AVAILABLE : ServiceMessageEnum.LOGIN_IS_NOT_AVAILABLE;
+        serviceResponse.addMessageOccurrence(message, locale);
+        serviceResponse.setStoredValue(isAvailable);
+        return serviceResponse;
+    }
+
 
 
 

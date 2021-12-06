@@ -8,15 +8,20 @@
 <jsp:include page="parts/page_title_setup.jsp"/>
 <jsp:include page="parts/service_response_processing.jsp"/>
 <%--
-Setting values for this page fields
---%>
-
-<%--
-Setting values that depend on locale used
+    Setting variables
 --%>
 <fmt:message bundle="${shared}" key="wait_message" var="waitMsg"/>
-<%-- field names --%>
 <fmt:message bundle="${shared}" key="request_failed_message" var="requestFailedMessage"/>
+<%-- buttons --%>
+<fmt:message bundle="${page}" key="cancel" var="cancelButtonText"/>
+<fmt:message bundle="${page}" key="update" var="updateButtonText"/>
+<fmt:message bundle="${page}" key="delete" var="deleteButtonText"/>
+<fmt:message bundle="${page}" key="close" var="closeButtonText"/>
+<fmt:message bundle="${page}" key="use" var="useButtonText"/>
+<fmt:message bundle="${page}" key="shift_up" var="shiftUpButtonText"/>
+<fmt:message bundle="${page}" key="shift_down" var="shiftDownButtonText"/>
+<fmt:message bundle="${page}" key="upload" var="uploadButtonText"/>
+<%-- labels --%>
 
 
 <!DOCTYPE html>
@@ -58,7 +63,7 @@ Setting values that depend on locale used
                 <ctg:list list="${messages}" htmlElementTag="li"/>
             </ul>
         </div>
-        <div id="msg_close_button_container"><button class="" id="close_message_box_button">Close</button></div>
+        <div id="msg_close_button_container"><button class="" id="close_message_box_button">${closeButtonText}</button></div>
     </div>
     <div id="wait_message_box_container" class="hidden">
         <div>${waitMsg}</div>
@@ -175,13 +180,13 @@ Setting values that depend on locale used
                                         <img id="artistImage" src="" class="instance_image">
                                     </div>
                                     <div class="use_button_container">
-                                        <button class="use_selected_instance" id="useCurrentArtist">use</button>
+                                        <button class="use_selected_instance" id="useCurrentArtist">${useButtonText}</button>
                                     </div>
                                 </div>
                                 <div class="lower_part_edit_instance_block">
                                     <div class="upload_file_block">
                                         <input name="track_file" id="artist_file_input" type="file" class="hidden">
-                                        <button class="upload_file_button" id="uploadArtistImage">upload</button>
+                                        <button class="upload_file_button" id="uploadArtistImage">${uploadButtonText}</button>
                                     </div>
                                     <div class="edit_instance_block_properties_controls">
                                         <div class="edit_instance_block_properties">
@@ -205,9 +210,9 @@ Setting values that depend on locale used
                                             </div>
                                         </div>
                                         <div class="edit_instance_block_controls">
-                                            <button class="close_instance_button" id="closeCurrentArtist">close</button>
-                                            <button class="update_instance_button" id="updateCurrentArtist">update</button>
-                                            <button class="delete_instance_button" id="deleteCurrentArtist">delete</button>
+                                            <button class="close_instance_button" id="closeCurrentArtist">${closeButtonText}</button>
+                                            <button class="update_instance_button" id="updateCurrentArtist">${updateButtonText}</button>
+                                            <button class="delete_instance_button" id="deleteCurrentArtist">${deleteButtonText}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -319,13 +324,13 @@ Setting values that depend on locale used
                                         <img id="albumImage" src="" class="instance_image">
                                     </div>
                                     <div class="use_button_container">
-                                        <button class="use_selected_instance" id="useCurrentAlbum">use</button>
+                                        <button class="use_selected_instance" id="useCurrentAlbum">${useButtonText}</button>
                                     </div>
                                 </div>
                                 <div class="lower_part_edit_instance_block">
                                     <div class="upload_file_block">
                                         <input name="track_file" id="album_file_input" type="file" class="hidden">
-                                        <button class="upload_file_button" id="uploadAlbumImage">upload</button>
+                                        <button class="upload_file_button" id="uploadAlbumImage">${uploadButtonText}</button>
                                     </div>
                                     <div class="edit_instance_block_properties_controls">
                                         <div class="edit_instance_block_properties">
@@ -353,9 +358,9 @@ Setting values that depend on locale used
                                             </div>
                                         </div>
                                         <div class="edit_instance_block_controls">
-                                            <button class="close_instance_button" id="closeCurrentAlbum">close</button>
-                                            <button class="update_instance_button" id="updateCurrentAlbum">update</button>
-                                            <button class="delete_instance_button" id="deleteCurrentAlbum">delete</button>
+                                            <button class="close_instance_button" id="closeCurrentAlbum">${closeButtonText}</button>
+                                            <button class="update_instance_button" id="updateCurrentAlbum">${updateButtonText}</button>
+                                            <button class="delete_instance_button" id="deleteCurrentAlbum">${deleteButtonText}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -407,7 +412,7 @@ Setting values that depend on locale used
                                         <label for="current_track_file">current file</label>
                                         <input readonly id="current_track_file">
                                         <input name="track_file" id="track_file_input" type="file" class="hidden">
-                                        <button class="upload_file_button" id="uploadTrackFile">upload</button>
+                                        <button class="upload_file_button" id="uploadTrackFile">${uploadButtonText}</button>
                                     </div>
                                 </div>
                                 <hr class="line"/>
@@ -417,8 +422,8 @@ Setting values that depend on locale used
                                         <input readonly id="current_track_number">
                                     </div>
                                     <div id="track_number_controls">
-                                        <button id="shift_track_up_button">shift up</button>
-                                        <button id="shift_track_down_button">shift down</button>
+                                        <button id="shift_track_up_button">${shiftUpButtonText}</button>
+                                        <button id="shift_track_down_button">${shiftDownButtonText}</button>
                                     </div>
                                 </div>
                                 <hr class="line"/>
@@ -446,9 +451,9 @@ Setting values that depend on locale used
                                             </div>
                                         </div>
                                         <div class="edit_instance_block_controls">
-                                            <button class="close_instance_button" id="closeCurrentTrack">close</button>
-                                            <button class="update_instance_button" id="updateCurrentTrack">update</button>
-                                            <button class="delete_instance_button" id="deleteCurrentTrack">delete</button>
+                                            <button class="close_instance_button" id="closeCurrentTrack">${closeButtonText}</button>
+                                            <button class="update_instance_button" id="updateCurrentTrack">${updateButtonText}</button>
+                                            <button class="delete_instance_button" id="deleteCurrentTrack">${deleteButtonText}</button>
                                         </div>
                                     </div>
                                 </div>

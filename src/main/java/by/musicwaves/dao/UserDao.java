@@ -21,4 +21,6 @@ public interface UserDao extends Dao<User> {
     boolean deleteById(int userId) throws DaoException;
 
     boolean delete(User user) throws DaoException;
+
+    boolean checkIfLoginIsAvailable(String login) throws DaoException;
 }

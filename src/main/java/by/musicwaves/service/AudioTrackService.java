@@ -3,6 +3,7 @@ package by.musicwaves.service;
 import by.musicwaves.dao.AudioTrackDao;
 import by.musicwaves.dao.DaoException;
 import by.musicwaves.dao.impl.AudioTrackDaoImpl;
+import by.musicwaves.dto.FoundTrackForMusicSearchPageDTO;
 import by.musicwaves.entity.AudioTrack;
 import by.musicwaves.util.UploadableResource;
 import by.musicwaves.util.UploadableResourcesWorker;
@@ -141,4 +142,5 @@ public class AudioTrackService {
         serviceResponse.setStoredValue(newFileName);
         return serviceResponse;
     }
+
 }

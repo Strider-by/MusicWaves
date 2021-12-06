@@ -58,6 +58,10 @@ public class ServiceResponse<T> {
         addErrorMessage(serviceErrorEnum.getMessage(locale));
     }
 
+    public void addMessageOccurrence(ServiceMessageEnum message, Locale locale) {
+        addMessage(message.getMessage(locale));
+    }
+
     public List<String> getErrorCodes() {
         return errorCodes;
     }

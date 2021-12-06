@@ -11,6 +11,8 @@ public enum ApplicationPage
     MUSIC_COMPOUND("music-compound", "/jsp/music_compound.jsp"),
     MUSIC_COMPOUND_OLD("music-compound-old", "/jsp/music_compound_old.jsp"),
     MUSIC_SEARCH("music-search", "/jsp/music_search.jsp"),
+    PLAYLISTS("playlists", "/jsp/playlists.jsp"),
+    LISTEN_MUSIC("listen", "/jsp/listen.jsp"),
     ARTISTS("artists", "/jsp/artists.jsp"),
     USERS("users", "/jsp/users.jsp"),
     ERROR403(null, "/jsp/error/403.jsp"),

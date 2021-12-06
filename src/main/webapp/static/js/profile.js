@@ -43,10 +43,13 @@ function init()
     window.modeControlButtons.languageChange.apply.addEventListener("click", () => changeLanguage());
     window.modeControlButtons.passwordChange.apply.addEventListener("click", () => changePassword());
     window.modeControlButtons.loginChange.apply.addEventListener("click", () => changeLogin());
-    window.modeControlButtons.deleteAccount.apply.addEventListener("click", () => deleteAccount())
+    window.modeControlButtons.deleteAccount.apply.addEventListener("click", () => deleteAccount());
+
+    window.modeControlButtons.loginChange.check.addEventListener("click", () => checkIfLoginIsAvailable());
 
     // show system messages if they are present
     showSystemMessages();
+    appendMessagePart();
 }
 
 /*function setEqualWidthForButtons(className)
@@ -276,4 +279,25 @@ function deleteAccount()
     form.appendChild( createTextInput("password", password) );
 
     form.submit();
+}
+
+async function checkIfLoginIsAvailable()
+{
+    let login = document.getElementById("new_login").value;
+    let params = new Map();
+    params.set("login", login);
+    let response;
+    try
+    {
+        response = await sendAndFetch("check_if_login_is_available", params);
+        let respJson = await response.json();
+        let message = respJson.messages[0];
+        let msgType = respJson.login_is_available ? window.MessageType.message : window.MessageType.warning;
+        showMessage(message, msgType);
+    }
+    catch (ex)
+    {
+        showMessage(response.status + " :(", window.MessageType.error);
+        console.log(ex);
+    }
 }

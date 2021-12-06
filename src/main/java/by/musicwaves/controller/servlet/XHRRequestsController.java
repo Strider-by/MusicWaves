@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 5,
-        maxRequestSize = 1024 * 1024 * 5 * 5)
+        fileSizeThreshold = 1024 * 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 1024,
+        maxRequestSize = 1024 * 1024 * 1024 * 2)
 public class XHRRequestsController extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(XHRRequestsController.class);
