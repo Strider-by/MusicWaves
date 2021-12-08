@@ -7,7 +7,7 @@
 //import java.util.List;
 //import by.musicwaves.dao.connection.ConnectionPoolV4;
 //import by.musicwaves.dao.connection.ProtectedConnection;
-//import by.musicwaves.dao.DaoException;
+//import by.musicwaves.dao.exception.DaoException;
 //import java.sql.ResultSetMetaData;
 //import java.util.HashMap;
 //import java.util.Map;

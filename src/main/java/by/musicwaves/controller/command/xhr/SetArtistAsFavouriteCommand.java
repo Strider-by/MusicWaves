@@ -1,28 +1,24 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.dto.FoundTrackForMusicSearchPageDTO;
-import by.musicwaves.entity.Album;
-import by.musicwaves.entity.Artist;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
-import by.musicwaves.util.Triplet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-public class SetArtistAsFavouriteCommand extends XHRCommand {
+public class SetArtistAsFavouriteCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(SetArtistAsFavouriteCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_ARTIST_ID = "artist_id";
 

@@ -1,5 +1,6 @@
 package by.musicwaves.controller.servlet.tag;
 
+import by.musicwaves.dao.impl.UserDaoImpl.Field;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
 import org.apache.logging.log4j.LogManager;
@@ -12,7 +13,6 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.*;
-import by.musicwaves.dao.impl.UserDaoImpl.Field;
 
 
 public class UsersPageSortOptionsTag extends SimpleTagSupport {
@@ -38,7 +38,7 @@ public class UsersPageSortOptionsTag extends SimpleTagSupport {
         Locale locale = Optional.ofNullable(user)
                 .map(User::getLanguage)
                 .map(Language::getLocale)
-                .orElse(Language.UNKNOWN.getLocale());
+                .orElse(Language.DEFAULT.getLocale());
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
         StringBuilder sb = new StringBuilder();
 
@@ -65,8 +65,5 @@ public class UsersPageSortOptionsTag extends SimpleTagSupport {
             LOGGER.error("We have caught an exception during writing to JSP", ex);
             throw new JspException(ex);
         }
-
     }
-
-
 }

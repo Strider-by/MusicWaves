@@ -1,14 +1,13 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
 import by.musicwaves.dto.PlaylistItemDto;
-import by.musicwaves.entity.Playlist;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.PlaylistService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,10 +18,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class GetPlaylistTracksCommand extends XHRCommand {
+public class GetPlaylistTracksCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetPlaylistTracksCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_PLAYLIST_ID = "playlist_id";
     private final static String JSON_PLAYLIST_ITEMS_ARRAY_NAME = "playlist_items";
@@ -69,7 +68,7 @@ public class GetPlaylistTracksCommand extends XHRCommand {
         json.openObject(JSON_DATA_OBJECT_NAME);
         json.openArray(JSON_PLAYLIST_ITEMS_ARRAY_NAME);
 
-        for (PlaylistItemDto dto: serviceResponse.getStoredValue()) {
+        for (PlaylistItemDto dto : serviceResponse.getStoredValue()) {
             json.openObject();
             json.appendNumber("item_id", dto.getId());
             json.appendNumber("track_id", dto.getAudioTrackId());

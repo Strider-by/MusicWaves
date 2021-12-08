@@ -1,17 +1,16 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.dto.FoundAlbumForMusicSearchPageDTO;
-import by.musicwaves.dto.FoundTrackForMusicSearchPageDTO;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.AudioTrackDto;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Album;
 import by.musicwaves.entity.Artist;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
-import by.musicwaves.util.Pair;
 import by.musicwaves.util.Triplet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GetChosenAlbumDataForMusicSearchPageCommand extends XHRCommand {
+public class GetChosenAlbumDataForMusicSearchPageCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetChosenAlbumDataForMusicSearchPageCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_ALBUM_ID = "album_id";
     private final static String PARAM_NAME_PAGE_NUMBER = "page";
@@ -51,7 +50,7 @@ public class GetChosenAlbumDataForMusicSearchPageCommand extends XHRCommand {
         }
 
 
-        ServiceResponse<Triplet<Artist, Album, List<FoundTrackForMusicSearchPageDTO>>> serviceResponse;
+        ServiceResponse<Triplet<Artist, Album, List<AudioTrackDto>>> serviceResponse;
         try {
             serviceResponse = service.findChosenAlbumTracksForMusicSearchPage(
                     userId,
@@ -75,7 +74,7 @@ public class GetChosenAlbumDataForMusicSearchPageCommand extends XHRCommand {
     }
 
     private void appendServiceProvidedData(
-            ServiceResponse<Triplet<Artist, Album, List<FoundTrackForMusicSearchPageDTO>>> serviceResponse,
+            ServiceResponse<Triplet<Artist, Album, List<AudioTrackDto>>> serviceResponse,
             JsonSelfWrapper json) {
 
         Artist artist = serviceResponse.getStoredValue().getFirstValue();
@@ -92,10 +91,10 @@ public class GetChosenAlbumDataForMusicSearchPageCommand extends XHRCommand {
         json.appendNumber("year", album.getYear());
         json.closeObject();
 
-        List<FoundTrackForMusicSearchPageDTO> tracks = serviceResponse.getStoredValue().getThirdValue();
+        List<AudioTrackDto> tracks = serviceResponse.getStoredValue().getThirdValue();
 
         json.openArray("tracks");
-        for (FoundTrackForMusicSearchPageDTO dto : tracks) {
+        for (AudioTrackDto dto : tracks) {
             json.openObject();
             json.appendNumber("id", dto.getTrackId());
             json.appendString("name", dto.getTrackName());

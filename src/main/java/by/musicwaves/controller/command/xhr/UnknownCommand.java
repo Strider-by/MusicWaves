@@ -1,6 +1,5 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.servlet.XHRRequestsController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UnknownCommand extends XHRCommand
+public class UnknownCommand extends AbstractXHRCommand
 {
     private final static Logger LOGGER = LogManager.getLogger(UnknownCommand.class);
 

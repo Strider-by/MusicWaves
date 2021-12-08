@@ -84,11 +84,6 @@ public class JsonSelfWrapper {
         }
     }
 
-    // my application xhr-command specific method
-    public void appendResponceCode(int code) {
-        appendNumber("appResponseCode", code);
-    }
-
     @Override
     public String toString() {
         return text.toString();

@@ -266,7 +266,7 @@ async function requestSearchResultsQuantity()
     catch (ex)
     {
         console.log(ex);
-        showMessage("window.textbundle.requestFailed", window.MessageType.error);
+        showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
 }
 
@@ -310,7 +310,7 @@ async function requestSearchResultsQuantityAndArtistsList()
     }
     catch(ex)
     {
-        showMessage("window.textbundle.requestFailed", window.MessageType.error);
+        showMessage(window.textbundle.requestFailed, window.MessageType.error);
         console.log(ex);
     }
 }

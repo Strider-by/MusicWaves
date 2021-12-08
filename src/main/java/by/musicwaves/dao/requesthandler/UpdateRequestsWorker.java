@@ -1,6 +1,6 @@
 package by.musicwaves.dao.requesthandler;
 
-import by.musicwaves.dao.DaoException;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.util.EntityDependentStatementInitializer;
 import by.musicwaves.dao.util.PreparedStatementContainer;
 import by.musicwaves.dao.util.PreparedStatementContainerInitializer;

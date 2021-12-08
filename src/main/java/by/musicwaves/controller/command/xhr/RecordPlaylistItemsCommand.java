@@ -1,12 +1,11 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.dto.PlaylistItemDto;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 
-public class RecordPlaylistItemsCommand extends XHRCommand {
+public class RecordPlaylistItemsCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(RecordPlaylistItemsCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_PLAYLIST_ID = "playlist_id";
     private final static String PARAM_NAME_TRACKS_IDS = "tracks_id[]";

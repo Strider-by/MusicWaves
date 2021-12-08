@@ -1,12 +1,12 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.dto.FoundTrackForMusicSearchPageDTO;
-import by.musicwaves.dto.MusicSearchPageResultsQuantityContainer;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.AudioTrackDto;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,10 +18,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class GetAudioTracksDataCommand extends XHRCommand {
+public class GetAudioTracksDataCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetAudioTracksDataCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_TRACKS_IDS = "tracks_id[]";
 
@@ -54,7 +54,7 @@ public class GetAudioTracksDataCommand extends XHRCommand {
             return;
         }
 
-        ServiceResponse<List<FoundTrackForMusicSearchPageDTO>> serviceResponse;
+        ServiceResponse<List<AudioTrackDto>> serviceResponse;
         try {
             serviceResponse = service.getAudioTracksData(
                     tracksIds, locale);
@@ -74,11 +74,11 @@ public class GetAudioTracksDataCommand extends XHRCommand {
     }
 
     private void appendServiceProvidedData(
-            ServiceResponse<List<FoundTrackForMusicSearchPageDTO>> serviceResponse,
+            ServiceResponse<List<AudioTrackDto>> serviceResponse,
             JsonSelfWrapper json) {
 
         json.openArray("tracks");
-        for(FoundTrackForMusicSearchPageDTO dto : serviceResponse.getStoredValue()) {
+        for (AudioTrackDto dto : serviceResponse.getStoredValue()) {
             json.openObject();
             json.appendNumber("artist_id", dto.getArtistId());
             json.appendString("artist_name", dto.getArtistName());

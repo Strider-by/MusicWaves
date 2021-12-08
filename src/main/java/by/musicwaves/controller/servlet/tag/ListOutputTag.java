@@ -3,7 +3,6 @@ package by.musicwaves.controller.servlet.tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
@@ -14,14 +13,12 @@ import java.util.List;
 
 public class ListOutputTag extends SimpleTagSupport {
 
+    private final static Logger LOGGER = LogManager.getLogger(ListOutputTag.class);
     private String htmlElementTag;
     private String className;
     private List list;
     private String elementsSeparator;
-
-    private StringBuilder sb = new StringBuilder();
-    private final static Logger LOGGER = LogManager.getLogger(ListOutputTag.class);
-
+    private final StringBuilder sb = new StringBuilder();
 
     public String getHtmlElementTag() {
         return htmlElementTag;
@@ -58,7 +55,7 @@ public class ListOutputTag extends SimpleTagSupport {
     public void doTag() throws JspException {
 
         // if the list is empty, there is nothing to output
-        if(list == null || list.isEmpty()) {
+        if (list == null || list.isEmpty()) {
             return;
         }
 

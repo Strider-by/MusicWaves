@@ -1,15 +1,14 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.dto.FoundAlbumForMusicSearchPageDTO;
-import by.musicwaves.dto.FoundTrackForMusicSearchPageDTO;
-import by.musicwaves.dto.MusicSearchPageResultsQuantityContainer;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.AlbumDto;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Artist;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import by.musicwaves.util.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -20,10 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GetChosenArtistDataForMusicSearchPageCommand extends XHRCommand {
+public class GetChosenArtistDataForMusicSearchPageCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetChosenArtistDataForMusicSearchPageCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_ARTIST_ID = "artist_id";
     private final static String PARAM_NAME_PAGE_NUMBER = "page";
@@ -50,7 +49,7 @@ public class GetChosenArtistDataForMusicSearchPageCommand extends XHRCommand {
         }
 
 
-        ServiceResponse<Pair<Artist, List<FoundAlbumForMusicSearchPageDTO>>> serviceResponse;
+        ServiceResponse<Pair<Artist, List<AlbumDto>>> serviceResponse;
         try {
             serviceResponse = service.findChosenArtistAlbumsForMusicSearchPage(
                     userId,
@@ -74,7 +73,7 @@ public class GetChosenArtistDataForMusicSearchPageCommand extends XHRCommand {
     }
 
     private void appendServiceProvidedData(
-            ServiceResponse<Pair<Artist, List<FoundAlbumForMusicSearchPageDTO>>> serviceResponse,
+            ServiceResponse<Pair<Artist, List<AlbumDto>>> serviceResponse,
             JsonSelfWrapper json) {
 
         Artist artist = serviceResponse.getStoredValue().getFirstValue();
@@ -84,10 +83,10 @@ public class GetChosenArtistDataForMusicSearchPageCommand extends XHRCommand {
         json.appendString("image", artist.getImageName());
         json.closeObject();
 
-        List<FoundAlbumForMusicSearchPageDTO> albums = serviceResponse.getStoredValue().getSecondValue();
+        List<AlbumDto> albums = serviceResponse.getStoredValue().getSecondValue();
 
         json.openArray("albums");
-        for (FoundAlbumForMusicSearchPageDTO dto : albums) {
+        for (AlbumDto dto : albums) {
             json.openObject();
             json.appendNumber("album_id", dto.getAlbumId());
             json.appendString("album_name", dto.getAlbumName());

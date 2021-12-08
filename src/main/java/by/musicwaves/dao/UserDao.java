@@ -1,5 +1,6 @@
 package by.musicwaves.dao;
 
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.entity.User;
 import by.musicwaves.util.Pair;
 

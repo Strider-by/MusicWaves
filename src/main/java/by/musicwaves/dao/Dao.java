@@ -1,4 +1,6 @@
 package by.musicwaves.dao;
+import by.musicwaves.dao.exception.DaoException;
+
 import java.util.List;
 
 public interface Dao<T>

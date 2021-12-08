@@ -1,12 +1,13 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.dto.FoundTrackForMusicSearchPageDTO;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.AudioTrackDto;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,10 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class GetVisibleAudioTrackData extends XHRCommand {
+public class GetVisibleAudioTrackData extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetVisibleAudioTrackData.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_TRACK_ID = "track_id";
 
@@ -35,7 +36,7 @@ public class GetVisibleAudioTrackData extends XHRCommand {
         int trackId = Converter.toInt(request.getParameter(PARAM_NAME_TRACK_ID));
 
 
-        ServiceResponse<FoundTrackForMusicSearchPageDTO> serviceResponse;
+        ServiceResponse<AudioTrackDto> serviceResponse;
         try {
             serviceResponse = service.getAudioTrackDataById(trackId);
         } catch (ServiceException ex) {
@@ -54,9 +55,9 @@ public class GetVisibleAudioTrackData extends XHRCommand {
         response.getWriter().write(json.toString());
     }
 
-    private void appendServiceProvidedData(ServiceResponse<FoundTrackForMusicSearchPageDTO> serviceResponse, JsonSelfWrapper json) {
+    private void appendServiceProvidedData(ServiceResponse<AudioTrackDto> serviceResponse, JsonSelfWrapper json) {
 
-        FoundTrackForMusicSearchPageDTO dto = serviceResponse.getStoredValue();
+        AudioTrackDto dto = serviceResponse.getStoredValue();
         if (dto == null) {
             json.appendString(JSON_DATA_OBJECT_NAME, null);
             return;

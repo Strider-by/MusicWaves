@@ -4,8 +4,8 @@ import by.musicwaves.controller.command.action.*;
 
 import java.util.Arrays;
 
-public enum ActionCommandEnum
-{
+public enum ActionCommandEnum {
+
     REGISTER("register", new RegisterUserCommand()),
     LOGIN("login", new LoginCommand()),
     LOGOUT("logout", new LogoutCommand()),
@@ -14,28 +14,28 @@ public enum ActionCommandEnum
     CHANGE_PASSWORD("change_password", new ChangePasswordCommand()),
     CHANGE_LOGIN("change_login", new ChangeLoginCommand()),
     DELETE_ACCOUNT_BY_USER("delete_account", new DeleteAccountByUserCommand());
-    
-    private final String alias;
-    private final ActionCommand command;
 
-    ActionCommandEnum(String alias, by.musicwaves.controller.command.action.ActionCommand command) {
+    private final String alias;
+    private final AbstractActionCommand command;
+
+    ActionCommandEnum(String alias, AbstractActionCommand command) {
         this.alias = alias;
         this.command = command;
+    }
+
+    public static AbstractActionCommand getCommandByAlias(String alias) {
+        return Arrays.stream(values())
+                .filter(command -> command.alias.equalsIgnoreCase(alias))
+                .findAny()
+                .map(ActionCommandEnum::getCommand)
+                .orElse(GO_TO_DEFAULT_PAGE.command);
     }
 
     public String getAlias() {
         return alias;
     }
 
-    public ActionCommand getCommand() {
+    public AbstractActionCommand getCommand() {
         return command;
-    }
-
-    public static ActionCommand getCommandByAlias(String alias) {
-        return Arrays.stream(values())
-                .filter(command -> command.alias.equalsIgnoreCase(alias))
-                .findAny()
-                .map(ActionCommandEnum::getCommand)
-                .orElse(GO_TO_DEFAULT_PAGE.command);
     }
 }

@@ -1,216 +1,57 @@
 package by.musicwaves.service;
 
-import by.musicwaves.dao.DaoException;
 import by.musicwaves.dto.*;
-import by.musicwaves.dao.factory.CrossEntityDaoFactory;
-import by.musicwaves.dao.CrossEntityDao;
 import by.musicwaves.entity.Album;
 import by.musicwaves.entity.Artist;
+import by.musicwaves.service.exception.ServiceException;
 import by.musicwaves.util.Pair;
 import by.musicwaves.util.Triplet;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.Locale;
 
-public class CrossEntityService {
+public interface CrossEntityService {
+    ServiceResponse<
+            MusicSearchResultsContainer<
+                    List<ArtistDto>>> findArtistsForMusicSearchPage(
+            String searchString, int userId, int limit, int offset) throws ServiceException;
 
-    private static final CrossEntityService service = new CrossEntityService();
-    private static final CrossEntityDao dao = CrossEntityDaoFactory.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(CrossEntityService.class);
+    ServiceResponse<MusicSearchResultsContainer<?>> getSearchResultsCountForMusicSearchPage(
+            String searchString) throws ServiceException;
 
-    private CrossEntityService() {
-    }
+    ServiceResponse<
+            MusicSearchResultsContainer<
+                                List<AlbumDto>>> findAlbumsForMusicSearchPage(
+            String searchString, int userId, int limit, int offset) throws ServiceException;
 
-    public static CrossEntityService getInstance() {
-        return service;
-    }
+    ServiceResponse<
+            MusicSearchResultsContainer<
+                                List<AudioTrackDto>>> findTracksForMusicSearchPage(
+            String searchString, int userId, int limit, int offset) throws ServiceException;
 
-    public final ServiceResponse<
-            MusicSearchPageResultsQuantityContainer<
-                    List<FoundArtistForMusicSearchPageDTO>>> findArtistsForMusicSearchPage(
-                            String searchString, int userId, int limit, int offset) throws ServiceException {
+    ServiceResponse<Pair<Artist, List<AlbumDto>>> findChosenArtistAlbumsForMusicSearchPage(
+            int userId, int artistId, int limit, int offset) throws ServiceException;
 
-        try {
-            MusicSearchPageResultsQuantityContainer<List<FoundArtistForMusicSearchPageDTO>> daoResponse
-                    = dao.findArtistsForMusicSearchPage(searchString, userId, limit, offset);
-            return new ServiceResponse<>(daoResponse);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-    }
+    ServiceResponse<Triplet<Artist, Album, List<AudioTrackDto>>> findChosenAlbumTracksForMusicSearchPage(
+            int userId, int albumId, int limit, int offset) throws ServiceException;
 
-    public ServiceResponse<MusicSearchPageResultsQuantityContainer<?>> getSearchResultsCountForMusicSearchPage(
-            String searchString) throws ServiceException {
+    ServiceResponse<?> setArtistAsFavourite(int userId, int artistId) throws ServiceException;
 
-        try {
-            MusicSearchPageResultsQuantityContainer<?> daoResponse = dao.getSearchResultsCountForMusicSearchPage(searchString);
-            return new ServiceResponse<>(daoResponse);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-    }
+    ServiceResponse<?> unsetArtistAsFavourite(int userId, int artistId) throws ServiceException;
 
-    public ServiceResponse<
-            MusicSearchPageResultsQuantityContainer<
-                    List<FoundAlbumForMusicSearchPageDTO>>> findAlbumsForMusicSearchPage(
-                                    String searchString, int userId, int limit, int offset) throws ServiceException {
+    ServiceResponse<?> setAlbumAsFavourite(int userId, int albumId) throws ServiceException;
 
-        try {
-            MusicSearchPageResultsQuantityContainer<List<FoundAlbumForMusicSearchPageDTO>> daoResponse
-                    = dao.findAlbumsForMusicSearchPage(searchString, userId, limit, offset);
-            return new ServiceResponse<>(daoResponse);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-    }
+    ServiceResponse<?> unsetAlbumAsFavourite(int userId, int albumId) throws ServiceException;
 
-    public ServiceResponse<
-            MusicSearchPageResultsQuantityContainer<
-                    List<FoundTrackForMusicSearchPageDTO>>> findTracksForMusicSearchPage(
-                            String searchString, int userId, int limit, int offset) throws ServiceException {
+    ServiceResponse<?> setAudioTrackAsFavourite(int userId, int trackId) throws ServiceException;
 
-        try {
-            MusicSearchPageResultsQuantityContainer<List<FoundTrackForMusicSearchPageDTO>> daoResponse
-                    = dao.findTracksForMusicSearchPage(searchString, userId, limit, offset);
-            return new ServiceResponse<>(daoResponse);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-    }
+    ServiceResponse<?> unsetAudioTrackAsFavourite(int userId, int trackId) throws ServiceException;
 
-    public ServiceResponse<Pair<Artist, List<FoundAlbumForMusicSearchPageDTO>>> findChosenArtistAlbumsForMusicSearchPage(
-            int userId, int artistId, int limit, int offset) throws ServiceException {
+    ServiceResponse<List<PlaylistItemDto>> getPlaylistTracks(int userId, int playlistId, Locale locale) throws ServiceException;
 
-        ServiceResponse<Pair<Artist, List<FoundAlbumForMusicSearchPageDTO>>> serviceResponse = new ServiceResponse<>();
-        try {
-            serviceResponse.setStoredValue(dao.findChosenArtistDataForMusicSearchPage(userId, artistId, limit, offset));
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
+    ServiceResponse<?> recordPlaylistElements(int userId, int playlistId, int[] tracksIds, Locale locale) throws ServiceException;
 
-        return serviceResponse;
-    }
+    ServiceResponse<AudioTrackDto> getAudioTrackDataById(int trackId) throws ServiceException;
 
-    public ServiceResponse<Triplet<Artist, Album, List<FoundTrackForMusicSearchPageDTO>>> findChosenAlbumTracksForMusicSearchPage(
-            int userId, int albumId, int limit, int offset) throws ServiceException {
-
-        ServiceResponse<Triplet<Artist, Album, List<FoundTrackForMusicSearchPageDTO>>> serviceResponse = new ServiceResponse<>();
-        try {
-            serviceResponse.setStoredValue(dao.findChosenAlbumDataForMusicSearchPage(userId, albumId, limit, offset));
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return serviceResponse;
-    }
-
-    public ServiceResponse<?> setArtistAsFavourite(int userId, int artistId) throws ServiceException {
-
-        try {
-            dao.setArtistAsFavourite(userId, artistId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<?> unsetArtistAsFavourite(int userId, int artistId) throws ServiceException {
-
-        try {
-            dao.unsetArtistAsFavourite(userId, artistId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<?> setAlbumAsFavourite(int userId, int albumId) throws ServiceException {
-
-        try {
-            dao.setAlbumAsFavourite(userId, albumId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<?> unsetAlbumAsFavourite(int userId, int albumId) throws ServiceException {
-
-        try {
-            dao.unsetAlbumAsFavourite(userId, albumId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<?> setAudioTrackAsFavourite(int userId, int trackId) throws ServiceException {
-
-        try {
-            dao.setAudioTrackAsFavourite(userId, trackId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<?> unsetAudioTrackAsFavourite(int userId, int trackId) throws ServiceException {
-
-        try {
-            dao.unsetAudioTrackAsFavourite(userId, trackId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<List<PlaylistItemDto>> getPlaylistTracks(int userId, int playlistId, Locale locale) throws ServiceException {
-        List<PlaylistItemDto> playlistItemDtos;
-        try {
-            playlistItemDtos = dao.getPlaylistTracks(userId, playlistId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-        return new ServiceResponse<>(playlistItemDtos);
-    }
-
-    public ServiceResponse<?> recordPlaylistElements(int userId, int playlistId, int[] tracksIds, Locale locale) throws ServiceException {
-        try {
-            dao.recordPlaylistItems(userId, playlistId, tracksIds);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>();
-    }
-
-    public ServiceResponse<FoundTrackForMusicSearchPageDTO> getAudioTrackDataById(int trackId) throws ServiceException {
-        FoundTrackForMusicSearchPageDTO trackData;
-        try {
-            trackData = dao.getAudioTrackDataById(trackId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>(trackData);
-    }
-
-    public ServiceResponse<List<FoundTrackForMusicSearchPageDTO>> getAudioTracksData(int[] tracksIds, Locale locale) throws ServiceException {
-        List<FoundTrackForMusicSearchPageDTO> tracksData;
-        try {
-            tracksData = dao.getAudioTracksData(tracksIds);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
-        }
-
-        return new ServiceResponse<>(tracksData);
-    }
+    ServiceResponse<List<AudioTrackDto>> getAudioTracksData(int[] tracksIds, Locale locale) throws ServiceException;
 }

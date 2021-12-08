@@ -1,12 +1,13 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
 import by.musicwaves.service.UserService;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-public class ChangeUserRoleCommand extends XHRCommand {
+public class ChangeUserRoleCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(ChangeUserRoleCommand.class);
-    private final static UserService service = UserService.getInstance();
+    private final static UserService service = ServiceFactory.getInstance().getUserService();
 
     private final static String PARAM_NAME_USER_ID = "user_id";
     private final static String PARAM_NAME_ROLE_ID = "role_id";
@@ -41,7 +42,7 @@ public class ChangeUserRoleCommand extends XHRCommand {
 
         ServiceResponse<?> serviceResponse;
         try {
-             serviceResponse = service.changeUserRole(userId, roleId, locale);
+            serviceResponse = service.changeUserRole(userId, roleId, locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }

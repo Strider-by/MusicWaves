@@ -1,6 +1,6 @@
 package by.musicwaves.dao;
 
-import by.musicwaves.dao.DaoException;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dto.*;
 import by.musicwaves.entity.Album;
 import by.musicwaves.entity.Artist;
@@ -10,21 +10,21 @@ import by.musicwaves.util.Triplet;
 import java.util.List;
 
 public interface CrossEntityDao {
-    MusicSearchPageResultsQuantityContainer<List<FoundArtistForMusicSearchPageDTO>> findArtistsForMusicSearchPage(
+    MusicSearchResultsContainer<List<ArtistDto>> findArtistsForMusicSearchPage(
             String searchString, int userId, int limit, int offset) throws DaoException;
 
-    MusicSearchPageResultsQuantityContainer<?> getSearchResultsCountForMusicSearchPage(String searchString) throws DaoException;
+    MusicSearchResultsContainer<?> getSearchResultsCountForMusicSearchPage(String searchString) throws DaoException;
 
-    MusicSearchPageResultsQuantityContainer<List<FoundAlbumForMusicSearchPageDTO>> findAlbumsForMusicSearchPage(
+    MusicSearchResultsContainer<List<AlbumDto>> findAlbumsForMusicSearchPage(
             String searchString, int userId, int limit, int offset) throws DaoException;
 
-    MusicSearchPageResultsQuantityContainer<List<FoundTrackForMusicSearchPageDTO>> findTracksForMusicSearchPage(
+    MusicSearchResultsContainer<List<AudioTrackDto>> findTracksForMusicSearchPage(
             String searchString, int userId, int limit, int offset) throws DaoException;
 
-    Pair<Artist, List<FoundAlbumForMusicSearchPageDTO>> findChosenArtistDataForMusicSearchPage(
+    Pair<Artist, List<AlbumDto>> findChosenArtistDataForMusicSearchPage(
             int userId, int artistId, int limit, int offset) throws DaoException;
 
-    Triplet<Artist, Album, List<FoundTrackForMusicSearchPageDTO>> findChosenAlbumDataForMusicSearchPage(
+    Triplet<Artist, Album, List<AudioTrackDto>> findChosenAlbumDataForMusicSearchPage(
             int userId, int albumId, int limit, int offset) throws DaoException;
 
     void setArtistAsFavourite(int userId, int artistId) throws DaoException;
@@ -43,7 +43,7 @@ public interface CrossEntityDao {
 
     void recordPlaylistItems(int userId, int playlistId, int... tracksId) throws DaoException;
 
-    FoundTrackForMusicSearchPageDTO getAudioTrackDataById(int trackId) throws DaoException;
+    AudioTrackDto getAudioTrackDataById(int trackId) throws DaoException;
 
-    List<FoundTrackForMusicSearchPageDTO> getAudioTracksData(int[] tracksIds) throws DaoException;
+    List<AudioTrackDto> getAudioTracksData(int[] tracksIds) throws DaoException;
 }

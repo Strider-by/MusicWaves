@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.factory;
 
 import javax.servlet.http.HttpServletRequest;
+import by.musicwaves.controller.command.xhr.AbstractXHRCommand;
 import by.musicwaves.controller.command.xhr.XHRCommand;
 
 public class XHRCommandFactory {

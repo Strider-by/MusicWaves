@@ -1,27 +1,20 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.resources.ApplicationPage;
-import by.musicwaves.controller.resources.TransitType;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.resource.ApplicationPage;
+import by.musicwaves.controller.resource.TransitType;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LogoutCommand extends ActionCommand {
-
-    private final static UserService service = UserService.getInstance();
-    private static final Logger LOGGER = LogManager.getLogger(LogoutCommand.class);
+public class LogoutCommand extends AbstractActionCommand {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        this.transitType = TransitType.REDIRECT;
-        this.targetPage = ApplicationPage.ENTRANCE;
+        TransitType transitType = TransitType.REDIRECT;
+        ApplicationPage targetPage = ApplicationPage.ENTRANCE;
 
         // there is no need to call any service method here
         // all the current login data is stored in session
@@ -29,7 +22,7 @@ public class LogoutCommand extends ActionCommand {
 
         try {
             // going to entrance page
-            transfer(request, response);
+            transfer(request, response, targetPage, transitType);
         } catch (ServletException | IOException ex) {
             throw new CommandException("Failed to execute logout command", ex);
         }

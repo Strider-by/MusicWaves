@@ -1,12 +1,13 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
 import by.musicwaves.service.UserService;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import by.musicwaves.util.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -18,10 +19,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-public class FindUsersCommand extends XHRCommand {
+public class FindUsersCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(FindUsersCommand.class);
-    private final static UserService service = UserService.getInstance();
+    private final static UserService service = ServiceFactory.getInstance().getUserService();
 
     private final static String PARAM_NAME_ID = "id";
     private final static String PARAM_NAME_LOGIN = "login";
@@ -55,12 +56,12 @@ public class FindUsersCommand extends XHRCommand {
 
         // processed parameters must be presented and be valid integer values
         // if not - CommandException will be thrown
-        int fieldIdToBeSortedBy = Converter.toInt(request.getParameter(XHRCommand.PARAM_NAME_FIELD_TO_BE_SORTED_BY));
+        int fieldIdToBeSortedBy = Converter.toInt(request.getParameter(AbstractXHRCommand.PARAM_NAME_FIELD_TO_BE_SORTED_BY));
         int loginSearchTypeId = Converter.toInt(request.getParameter(PARAM_NAME_LOGIN_SEARCH_TYPE_ID));
         int registerDateCompareTypeId = Converter.toInt(request.getParameter(PARAM_NAME_REGISTER_DATE_COMPARE_TYPE_ID));
-        int sortOrderId = Converter.toInt(request.getParameter(XHRCommand.PARAM_NAME_SORT_ORDER_ID));
-        int pageNumber = Converter.toInt(request.getParameter(XHRCommand.PARAM_NAME_PAGE_NUMBER));
-        int recordsPerPage = Converter.toInt(request.getParameter(XHRCommand.PARAM_NAME_RECORDS_PER_PAGE));
+        int sortOrderId = Converter.toInt(request.getParameter(AbstractXHRCommand.PARAM_NAME_SORT_ORDER_ID));
+        int pageNumber = Converter.toInt(request.getParameter(AbstractXHRCommand.PARAM_NAME_PAGE_NUMBER));
+        int recordsPerPage = Converter.toInt(request.getParameter(AbstractXHRCommand.PARAM_NAME_RECORDS_PER_PAGE));
 
 
         ServiceResponse<Pair<Integer, List<User>>> serviceResponse;

@@ -5,18 +5,15 @@ import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.taglibs.standard.tag.common.fmt.BundleSupport;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
-import static javax.servlet.jsp.jstl.fmt.LocaleSupport.getLocalizedMessage;
 
 
 public class RoleOptionsTag extends SimpleTagSupport {
@@ -41,8 +38,9 @@ public class RoleOptionsTag extends SimpleTagSupport {
         Locale locale = Optional.ofNullable(user)
                 .map(User::getLanguage)
                 .map(Language::getLocale)
-                .orElse(Language.UNKNOWN.getLocale());
+                .orElse(Language.DEFAULT.getLocale());
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
+        LOGGER.debug("\n\n\n\n used locale: " + locale + "; used bundle: " + bundle + "\n\n\n\n");
         StringBuilder sb = new StringBuilder();
 
         for (Role role : roles) {
@@ -70,8 +68,5 @@ public class RoleOptionsTag extends SimpleTagSupport {
             LOGGER.error("We have caught an exception during writing to JSP", ex);
             throw new JspException(ex);
         }
-
     }
-
-
 }

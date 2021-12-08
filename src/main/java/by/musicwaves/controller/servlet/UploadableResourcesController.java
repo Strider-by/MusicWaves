@@ -1,6 +1,6 @@
 package by.musicwaves.controller.servlet;
 
-import by.musicwaves.util.UploadableResource;
+import by.musicwaves.service.util.UploadableResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,9 +20,6 @@ public class UploadableResourcesController extends HttpServlet {
             throws ServletException, IOException {
         
         String uri = request.getRequestURI();
-        LOGGER.debug("We have reached VARIABLE RESOURCES controller");
-        LOGGER.debug("URL: " + request.getRequestURL().toString());
-        LOGGER.debug("URI: " + uri);
 
         String[] parts = uri.split("/");
         if(parts.length != 3) {

@@ -1,13 +1,12 @@
 package by.musicwaves.dao.impl;
 
 import by.musicwaves.dao.AlbumDao;
-import by.musicwaves.dao.DaoException;
-import by.musicwaves.dao.SimilarityType;
-import by.musicwaves.dao.SortOrder;
+import by.musicwaves.dao.exception.DaoException;
+import by.musicwaves.dao.util.SQLTypesWorker;
+import by.musicwaves.dao.util.SimilarityType;
 import by.musicwaves.dao.requesthandler.SQLRequestHandler;
 import by.musicwaves.dao.util.PreparedStatementContainer;
 import by.musicwaves.entity.Album;
-import by.musicwaves.entity.Artist;
 import by.musicwaves.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

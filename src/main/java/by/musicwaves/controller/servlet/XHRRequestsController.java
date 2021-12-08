@@ -1,6 +1,6 @@
 package by.musicwaves.controller.servlet;
 
-import by.musicwaves.controller.command.CommandException;
+import by.musicwaves.controller.command.exception.CommandException;
 import by.musicwaves.controller.command.factory.XHRCommandFactory;
 import by.musicwaves.controller.command.xhr.XHRCommand;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +17,7 @@ import java.util.Enumeration;
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 1024,
         maxFileSize = 1024 * 1024 * 1024,
-        maxRequestSize = 1024 * 1024 * 1024 * 2)
+        maxRequestSize = 1024 * 1024 * 1024 * 2) // todo: move to xml
 public class XHRRequestsController extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(XHRRequestsController.class);
@@ -42,10 +42,6 @@ public class XHRRequestsController extends HttpServlet {
             sb.append("\n");
         }
 
-        LOGGER.debug("request parameters: \n" + sb.toString());
-        LOGGER.debug("request url: " + request.getRequestURI());
-        LOGGER.debug("request path info: " + request.getPathInfo());
-
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
@@ -55,7 +51,7 @@ public class XHRRequestsController extends HttpServlet {
         try {
             XHRCommand command = COMMAND_FACTORY.defineCommand(request);
             command.execute(request, response);
-        } catch(CommandException | IOException ex) {
+        } catch (CommandException | IOException ex) {
             LOGGER.error("Failed to execute command", ex);
             throw new ServletException(ex);
         }

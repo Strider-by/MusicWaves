@@ -211,11 +211,21 @@ body
 
 .user_role
 {
-    width: 100px;
+    width: 120px;
 }
 
 .registered
 {
     width: 100px;
 }
+
+/*.users_headers div
+{
+    text-transform: capitalize;
+}
+
+.users_headers .user_id
+{
+    text-transform: lowercase;
+}*/
 

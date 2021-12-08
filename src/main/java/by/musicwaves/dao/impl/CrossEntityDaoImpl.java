@@ -1,6 +1,6 @@
 package by.musicwaves.dao.impl;
 
-import by.musicwaves.dao.DaoException;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dto.*;
 import by.musicwaves.dao.requesthandler.SQLRequestHandler;
 import by.musicwaves.dao.CrossEntityDao;
@@ -14,10 +14,8 @@ import org.apache.logging.log4j.Logger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CrossEntityDaoImpl implements CrossEntityDao {
 
@@ -150,7 +148,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
 
     @Override
-    public MusicSearchPageResultsQuantityContainer<List<FoundArtistForMusicSearchPageDTO>> findArtistsForMusicSearchPage(
+    public MusicSearchResultsContainer<List<ArtistDto>> findArtistsForMusicSearchPage(
             String searchString, int userId, int limit, int offset) throws DaoException {
 
         List<List<Map<String, String>>> results = requestHandler.processCustomSelectRequest(
@@ -167,8 +165,8 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
         }
 
         // preparing DTO
-        MusicSearchPageResultsQuantityContainer<List<FoundArtistForMusicSearchPageDTO>> response
-                = new MusicSearchPageResultsQuantityContainer<>();
+        MusicSearchResultsContainer<List<ArtistDto>> response
+                = new MusicSearchResultsContainer<>();
 
         // getting search results quantity
         Map<String, String> foundArtistsAlbumsAndAudioTracksDataRow = results.get(0).get(0);
@@ -182,9 +180,9 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
         // getting data for found artists
         List<Map<String, String>> artistsDataRows = results.get(1);
-        List<FoundArtistForMusicSearchPageDTO> artistsDtoList = new ArrayList<>();
+        List<ArtistDto> artistsDtoList = new ArrayList<>();
         for (Map<String, String> dataRow : artistsDataRows) {
-            FoundArtistForMusicSearchPageDTO dto = new FoundArtistForMusicSearchPageDTO();
+            ArtistDto dto = new ArtistDto();
             try {
                 int artistId = Integer.parseInt(dataRow.get("artist_id"));
                 dto.setArtistId(artistId);
@@ -207,7 +205,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
     }
 
     @Override
-    public MusicSearchPageResultsQuantityContainer<?> getSearchResultsCountForMusicSearchPage(String searchString) throws DaoException {
+    public MusicSearchResultsContainer<?> getSearchResultsCountForMusicSearchPage(String searchString) throws DaoException {
         List<List<Map<String, String>>> results = requestHandler.processCustomSelectRequest(
                 SQL.GET_SEARCH_RESULTS_QUANTITY_FOR_MUSIC_SEARCH_PAGE,
                 (statement) -> statement.setNextString("%" + searchString + "%"));
@@ -217,7 +215,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
         }
 
         // preparing DTO
-        MusicSearchPageResultsQuantityContainer<?> response = new MusicSearchPageResultsQuantityContainer<>();
+        MusicSearchResultsContainer<?> response = new MusicSearchResultsContainer<>();
 
         // getting search results quantity
         Map<String, String> foundArtistsAlbumsAndAudioTracksDataRow = results.get(0).get(0);
@@ -233,7 +231,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
     }
 
     @Override
-    public MusicSearchPageResultsQuantityContainer<List<FoundAlbumForMusicSearchPageDTO>> findAlbumsForMusicSearchPage(
+    public MusicSearchResultsContainer<List<AlbumDto>> findAlbumsForMusicSearchPage(
             String searchString, int userId, int limit, int offset) throws DaoException {
 
         List<List<Map<String, String>>> results = requestHandler.processCustomSelectRequest(
@@ -250,8 +248,8 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
         }
 
         // preparing DTO
-        MusicSearchPageResultsQuantityContainer<List<FoundAlbumForMusicSearchPageDTO>> response
-                = new MusicSearchPageResultsQuantityContainer<>();
+        MusicSearchResultsContainer<List<AlbumDto>> response
+                = new MusicSearchResultsContainer<>();
 
         // getting search results quantity
         Map<String, String> foundArtistsAlbumsAndAudioTracksDataRow = results.get(0).get(0);
@@ -265,9 +263,9 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
         // getting data for found artists
         List<Map<String, String>> artistsDataRows = results.get(1);
-        List<FoundAlbumForMusicSearchPageDTO> albumsDtoList = new ArrayList<>();
+        List<AlbumDto> albumsDtoList = new ArrayList<>();
         for (Map<String, String> dataRow : artistsDataRows) {
-            FoundAlbumForMusicSearchPageDTO dto = new FoundAlbumForMusicSearchPageDTO();
+            AlbumDto dto = new AlbumDto();
             try {
                 int artistId = Integer.parseInt(dataRow.get("artist_id"));
                 dto.setArtistId(artistId);
@@ -298,7 +296,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
     }
 
     @Override
-    public MusicSearchPageResultsQuantityContainer<List<FoundTrackForMusicSearchPageDTO>> findTracksForMusicSearchPage(
+    public MusicSearchResultsContainer<List<AudioTrackDto>> findTracksForMusicSearchPage(
             String searchString, int userId, int limit, int offset) throws DaoException {
 
         List<List<Map<String, String>>> results = requestHandler.processCustomSelectRequest(
@@ -315,8 +313,8 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
         }
 
         // preparing DTO
-        MusicSearchPageResultsQuantityContainer<List<FoundTrackForMusicSearchPageDTO>> response
-                = new MusicSearchPageResultsQuantityContainer<>();
+        MusicSearchResultsContainer<List<AudioTrackDto>> response
+                = new MusicSearchResultsContainer<>();
 
         // getting search results quantity
         Map<String, String> foundArtistsAlbumsAndAudioTracksDataRow = results.get(0).get(0);
@@ -330,9 +328,9 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
         // getting data for found artists
         List<Map<String, String>> tracksDataRows = results.get(1);
-        List<FoundTrackForMusicSearchPageDTO> tracksDtoList = new ArrayList<>();
+        List<AudioTrackDto> tracksDtoList = new ArrayList<>();
         for (Map<String, String> dataRow : tracksDataRows) {
-            FoundTrackForMusicSearchPageDTO dto = new FoundTrackForMusicSearchPageDTO();
+            AudioTrackDto dto = new AudioTrackDto();
             try {
                 int artistId = Integer.parseInt(dataRow.get("artist_id"));
                 dto.setArtistId(artistId);
@@ -369,7 +367,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
     }
 
     @Override
-    public Pair<Artist, List<FoundAlbumForMusicSearchPageDTO>> findChosenArtistDataForMusicSearchPage(
+    public Pair<Artist, List<AlbumDto>> findChosenArtistDataForMusicSearchPage(
             int userId, int artistId, int limit, int offset) throws DaoException {
 
         List<List<Map<String, String>>> requestResult = requestHandler.processCustomSelectRequest(
@@ -398,10 +396,10 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
         // getting albums data
         List<Map<String, String>> albumsDataRows = requestResult.get(1);
-        List<FoundAlbumForMusicSearchPageDTO> albums = new ArrayList<>();
+        List<AlbumDto> albums = new ArrayList<>();
 
         for (Map<String, String> row : albumsDataRows) {
-            FoundAlbumForMusicSearchPageDTO dto = new FoundAlbumForMusicSearchPageDTO();
+            AlbumDto dto = new AlbumDto();
             try {
                 int albumId = Integer.parseInt(row.get("album_id_t"));
                 dto.setAlbumId(albumId);
@@ -427,7 +425,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
     }
 
     @Override
-    public Triplet<Artist, Album, List<FoundTrackForMusicSearchPageDTO>> findChosenAlbumDataForMusicSearchPage(
+    public Triplet<Artist, Album, List<AudioTrackDto>> findChosenAlbumDataForMusicSearchPage(
             int userId, int albumId, int limit, int offset) throws DaoException {
 
         List<List<Map<String, String>>> requestResult = requestHandler.processCustomSelectRequest(
@@ -459,10 +457,10 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
         }
 
         // getting tracks data
-        List<FoundTrackForMusicSearchPageDTO> tracks = new ArrayList<>();
+        List<AudioTrackDto> tracks = new ArrayList<>();
         List<Map<String, String>> tracksDataRows = requestResult.get(1);
         for (Map<String, String> row : tracksDataRows) {
-            FoundTrackForMusicSearchPageDTO dto = new FoundTrackForMusicSearchPageDTO();
+            AudioTrackDto dto = new AudioTrackDto();
             try {
                 int trackId = Integer.parseInt(row.get("track_id"));
                 dto.setTrackId(trackId);
@@ -593,18 +591,18 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
     }
 
     @Override
-    public FoundTrackForMusicSearchPageDTO getAudioTrackDataById(int trackId) throws DaoException {
-        List<FoundTrackForMusicSearchPageDTO> foundTrackForMusicSearchPageDtos = requestHandler.processMultipleResultsSelectRequest(
+    public AudioTrackDto getAudioTrackDataById(int trackId) throws DaoException {
+        List<AudioTrackDto> audioTrackDtos = requestHandler.processMultipleResultsSelectRequest(
                 SQL.GET_CHOSEN_AUDIO_TRACK_DATA,
                 statement -> statement.setNextInt(trackId),
-                FoundTrackForMusicSearchPageDTO::new,
+                AudioTrackDto::new,
                 this::initAudioTrackDto);
 
-        return foundTrackForMusicSearchPageDtos.isEmpty() ? null : foundTrackForMusicSearchPageDtos.get(0);
+        return audioTrackDtos.isEmpty() ? null : audioTrackDtos.get(0);
     }
 
     @Override
-    public List<FoundTrackForMusicSearchPageDTO> getAudioTracksData(int[] tracksIds) throws DaoException {
+    public List<AudioTrackDto> getAudioTracksData(int[] tracksIds) throws DaoException {
         StringBuilder sql = new StringBuilder();
         sql.append(SQL.GET_TRACKS_DATA_PT_1)
                 .append(String.join(", ", "?"))
@@ -617,7 +615,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                         statement.setNextInt(trackId);
                     }
                 },
-                FoundTrackForMusicSearchPageDTO::new,
+                AudioTrackDto::new,
                 this::initAudioTrackDto);
     }
 
@@ -668,7 +666,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
         return sb.toString();
     }
 
-    private void initAudioTrackDto(FoundTrackForMusicSearchPageDTO dto, ResultSet resultSet) throws SQLException {
+    private void initAudioTrackDto(AudioTrackDto dto, ResultSet resultSet) throws SQLException {
 
         int artistId = resultSet.getInt("artist_id");
         dto.setArtistId(artistId);

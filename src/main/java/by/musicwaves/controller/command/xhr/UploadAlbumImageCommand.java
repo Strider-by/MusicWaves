@@ -1,12 +1,13 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.AlbumService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-public class UploadAlbumImageCommand extends XHRCommand {
+public class UploadAlbumImageCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(UploadAlbumImageCommand.class);
-    private final static AlbumService service = AlbumService.getInstance();
+    private final static AlbumService service = ServiceFactory.getInstance().getAlbumService();
 
     private final static String PARAM_NAME_ALBUM_ID = "id";
     private final static String JSON_FILE_NAME_OBJECT_NAME = "file";
@@ -37,7 +38,7 @@ public class UploadAlbumImageCommand extends XHRCommand {
 
         ServiceResponse<String> serviceResponse;
         try {
-            serviceResponse = service.uploadAlbumImage(albumId, request, locale);
+            serviceResponse = service.uploadAlbumImage(albumId, request);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }

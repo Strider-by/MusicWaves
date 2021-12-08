@@ -1,13 +1,12 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.dto.FoundArtistForMusicSearchPageDTO;
-import by.musicwaves.dto.MusicSearchPageResultsQuantityContainer;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.MusicSearchResultsContainer;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,12 +14,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-public class GetSearchResultsCountForMusicSearchPageCommand extends XHRCommand {
+public class GetSearchResultsCountForMusicSearchPageCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetSearchResultsCountForMusicSearchPageCommand.class);
-    private final static CrossEntityService service = CrossEntityService.getInstance();
+    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
 
     private final static String PARAM_NAME_SEARCH_STRING = "search_string";
 
@@ -36,7 +34,7 @@ public class GetSearchResultsCountForMusicSearchPageCommand extends XHRCommand {
 
         String searchString = request.getParameter(PARAM_NAME_SEARCH_STRING);
 
-        ServiceResponse <MusicSearchPageResultsQuantityContainer<?>> serviceResponse;
+        ServiceResponse<MusicSearchResultsContainer<?>> serviceResponse;
         try {
             serviceResponse = service.getSearchResultsCountForMusicSearchPage(searchString);
         } catch (ServiceException ex) {
@@ -56,7 +54,7 @@ public class GetSearchResultsCountForMusicSearchPageCommand extends XHRCommand {
     }
 
     private void appendServiceProvidedData(
-            ServiceResponse<MusicSearchPageResultsQuantityContainer<?>> serviceResponse,
+            ServiceResponse<MusicSearchResultsContainer<?>> serviceResponse,
             JsonSelfWrapper json) {
 
         json.openObject("results_quantity");

@@ -4,7 +4,7 @@ body
     display: flex;
     min-height: 99vh;
     flex-direction: column;
-    margin: 0.1em;
+    margin: 0.0em;
 }
 
 .menu
@@ -934,6 +934,7 @@ div.empty_cell:active
     justify-content: center;
     display: flex;
     font-size: .8em;
+    margin-bottom: 10px;
 }
 
 #control_buttons
@@ -1232,25 +1233,37 @@ div.empty_cell:active
     margin-right: 10px;
 }
 
+#stop_b
+{
+    font-size: xx-small;
+}
 
+#heading_menu
+{
+    color: white;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    padding-left: 7px;
+    background-color: #767798;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
 
+#heading_menu_button_section
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0.3);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#heading_menu_button_section button
+{
+    height: 40px;
+    width: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+    user-select: none;
+}
 

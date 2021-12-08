@@ -1,31 +1,27 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.controller.command.Validator;
-import by.musicwaves.entity.Role;
+import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
 import by.musicwaves.service.UserService;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
-import by.musicwaves.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public class CheckIfLoginIsAvailableCommand extends XHRCommand {
+public class CheckIfLoginIsAvailableCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(CheckIfLoginIsAvailableCommand.class);
-    private final static UserService service = UserService.getInstance();
+    private final static UserService service = ServiceFactory.getInstance().getUserService();
 
     private final static String PARAM_NAME_LOGIN = "login";
 
@@ -36,9 +32,9 @@ public class CheckIfLoginIsAvailableCommand extends XHRCommand {
         User user = getUser(request);
 
         Locale locale = Optional.ofNullable(user)
-            .map(User::getLanguage)
-            .map(Language::getLocale)
-            .orElse(request.getLocale());
+                .map(User::getLanguage)
+                .map(Language::getLocale)
+                .orElse(request.getLocale());
 
 
         String login = Validator.assertNonNullOrEmpty(request.getParameter(PARAM_NAME_LOGIN));

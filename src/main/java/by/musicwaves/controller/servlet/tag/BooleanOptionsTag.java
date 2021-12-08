@@ -37,7 +37,7 @@ public class BooleanOptionsTag extends SimpleTagSupport {
         Locale locale = Optional.ofNullable(user)
                 .map(User::getLanguage)
                 .map(Language::getLocale)
-                .orElse(Language.UNKNOWN.getLocale());
+                .orElse(Language.DEFAULT.getLocale());
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
         StringBuilder sb = new StringBuilder();
 
@@ -64,7 +64,5 @@ public class BooleanOptionsTag extends SimpleTagSupport {
             LOGGER.error("We have caught an exception during writing to JSP", ex);
             throw new JspException(ex);
         }
-
     }
-
 }

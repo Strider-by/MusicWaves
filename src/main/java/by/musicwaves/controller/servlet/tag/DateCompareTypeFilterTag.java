@@ -1,6 +1,6 @@
 package by.musicwaves.controller.servlet.tag;
 
-import by.musicwaves.dao.DateCompareType;
+import by.musicwaves.dao.util.DateCompareType;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
 import org.apache.logging.log4j.LogManager;
@@ -31,7 +31,7 @@ public class DateCompareTypeFilterTag extends SimpleTagSupport {
         Locale locale = Optional.ofNullable(user)
                 .map(User::getLanguage)
                 .map(Language::getLocale)
-                .orElse(Language.UNKNOWN.getLocale());
+                .orElse(Language.DEFAULT.getLocale());
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
         StringBuilder sb = new StringBuilder();
 
@@ -58,8 +58,5 @@ public class DateCompareTypeFilterTag extends SimpleTagSupport {
             LOGGER.error("We have caught an exception during writing to JSP", ex);
             throw new JspException(ex);
         }
-
     }
-
-
 }

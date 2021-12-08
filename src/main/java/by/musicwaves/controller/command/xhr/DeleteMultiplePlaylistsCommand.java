@@ -1,12 +1,11 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Validator;
-import by.musicwaves.entity.Playlist;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.PlaylistService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,10 +16,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class DeleteMultiplePlaylistsCommand extends XHRCommand {
+public class DeleteMultiplePlaylistsCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(DeleteMultiplePlaylistsCommand.class);
-    private final static PlaylistService service = PlaylistService.getInstance();
+    private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
     private final static String PARAM_NAME_IDS = "id[]";
 
     @Override

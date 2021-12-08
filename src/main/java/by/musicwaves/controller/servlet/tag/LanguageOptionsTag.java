@@ -5,23 +5,21 @@ import by.musicwaves.entity.ancillary.Language;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
-
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 
 public class LanguageOptionsTag extends SimpleTagSupport {
 
-    //private int selectedOptionId;
     private final static Logger LOGGER = LogManager.getLogger(LanguageOptionsTag.class);
     private final static List<Language> languages;
 
@@ -37,7 +35,6 @@ public class LanguageOptionsTag extends SimpleTagSupport {
         PageContext pageContext = (PageContext) getJspContext();
         HttpSession session = pageContext.getSession();
         User user = (User) session.getAttribute("user");
-        //int languageId = user != null ? user.getLanguage().getDatabaseId() : -1;
         int userLanguageId = Optional.ofNullable(user)
                 .map(User::getLanguage)
                 .map(Language::getDatabaseId)
@@ -51,7 +48,7 @@ public class LanguageOptionsTag extends SimpleTagSupport {
             sb.append("<option value=\"");
             sb.append(currentLanguageId);
             sb.append("\"");
-            if(userLanguageId == currentLanguageId) {
+            if (userLanguageId == currentLanguageId) {
                 sb.append("selected");
             }
             sb.append(">");
@@ -73,8 +70,5 @@ public class LanguageOptionsTag extends SimpleTagSupport {
             LOGGER.error("We have caught an exception during writing to JSP");
             throw new JspException(ex);
         }
-
     }
-
-
 }

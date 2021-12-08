@@ -1,15 +1,15 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
-import by.musicwaves.controller.command.Validator;
-import by.musicwaves.entity.Artist;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.AudioTrack;
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.AudioTrackService;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.BooleanOption;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
 
-public class CreateAudioTrackCommand extends XHRCommand {
+public class CreateAudioTrackCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(CreateAudioTrackCommand.class);
-    private final static AudioTrackService service = AudioTrackService.getInstance();
+    private final static AudioTrackService service = ServiceFactory.getInstance().getAudioTrackService();
 
     private final static String PARAM_NAME_ALBUM_ID = "album_id";
     private final static String PARAM_NAME_NAME = "name";

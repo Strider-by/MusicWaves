@@ -4,8 +4,8 @@ import by.musicwaves.controller.command.xhr.*;
 
 import java.util.Arrays;
 
-public enum XHRCommandEnum
-{
+public enum XHRCommandEnum {
+
     UNKNOWN_COMMAND(null, new UnknownCommand()),
     CHANGE_USER_ROLE_COMMAND("change_user_role", new ChangeUserRoleCommand()),
     FIND_USERS("find_users", new FindUsersCommand()),
@@ -40,7 +40,7 @@ public enum XHRCommandEnum
     SET_AUDIO_TRACK_AS_FAVOURITE("set_track_as_favourite", new SetAudioTrackAsFavouriteCommand()),
     UNSET_AUDIO_TRACK_AS_FAVOURITE("unset_track_as_favourite", new UnsetAudioTrackAsFavouriteCommand()),
     CREATE_PLAYLIST("create_playlist", new CreatePlaylistCommand()),
-    DELETE_MULTIPLE_PLAYLISTS("delete_multiple_playlists",  new DeleteMultiplePlaylistsCommand()),
+    DELETE_MULTIPLE_PLAYLISTS("delete_multiple_playlists", new DeleteMultiplePlaylistsCommand()),
     GET_PLAYLIST_ITEMS("get_playlist_items", new GetPlaylistTracksCommand()),
     RECORD_PLAYLIST_ITEMS("record_playlist", new RecordPlaylistItemsCommand()),
     GET_USER_PLAYLISTS("get_user_playlists", new GetUserPlaylistsCommand()),
@@ -56,14 +56,6 @@ public enum XHRCommandEnum
         this.command = command;
     }
 
-    public String getAlias() {
-        return alias;
-    }
-
-    public XHRCommand getCommand() {
-        return command;
-    }
-
     public static XHRCommand getCommandByAlias(String alias) {
         return Arrays.stream(values())
                 .filter(command -> command.alias != null)
@@ -71,5 +63,13 @@ public enum XHRCommandEnum
                 .findAny()
                 .map(XHRCommandEnum::getCommand)
                 .orElse(UNKNOWN_COMMAND.command);
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public XHRCommand getCommand() {
+        return command;
     }
 }

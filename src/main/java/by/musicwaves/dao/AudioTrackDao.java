@@ -1,9 +1,8 @@
 package by.musicwaves.dao;
 
 
-import by.musicwaves.entity.Album;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.entity.AudioTrack;
-import by.musicwaves.util.Pair;
 
 import java.util.List;
 

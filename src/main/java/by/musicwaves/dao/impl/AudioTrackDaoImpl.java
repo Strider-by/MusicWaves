@@ -1,7 +1,7 @@
 package by.musicwaves.dao.impl;
 
 import by.musicwaves.dao.AudioTrackDao;
-import by.musicwaves.dao.DaoException;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.requesthandler.SQLRequestHandler;
 import by.musicwaves.dao.util.PreparedStatementContainer;
 import by.musicwaves.entity.AudioTrack;

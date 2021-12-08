@@ -1,6 +1,6 @@
 package by.musicwaves.dao.impl;
 
-import by.musicwaves.dao.DaoException;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.PlaylistDao;
 import by.musicwaves.dao.requesthandler.SQLRequestHandler;
 import by.musicwaves.dao.util.PreparedStatementContainer;

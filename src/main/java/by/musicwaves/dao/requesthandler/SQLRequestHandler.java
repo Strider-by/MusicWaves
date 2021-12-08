@@ -3,7 +3,7 @@ package by.musicwaves.dao.requesthandler;
 import java.sql.Connection;
 import java.util.List;
 import by.musicwaves.dao.connection.ConnectionPool;
-import by.musicwaves.dao.DaoException;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.util.EntityDependentStatementInitializer;
 import by.musicwaves.dao.util.EntityInitializer;
 import by.musicwaves.dao.util.PreparedStatementContainerInitializer;

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public enum Language {
-    UNKNOWN("???", "Not defined", 0, Locale.ENGLISH, false),
+    DEFAULT("???", "Not defined", 0, Locale.ENGLISH, false),
     BELARUSIAN("БЕЛ", "Беларуская", 1, new Locale("be"), true),
     ENGLISH("ENG", "English", 2, Locale.ENGLISH, true),
     RUSSIAN("РУС", "Русский", 3, new Locale("ru"), true);
@@ -42,14 +42,14 @@ public enum Language {
         return Arrays.stream(values())
                 .filter(language -> language.databaseId == id)
                 .findAny()
-                .orElse(Language.UNKNOWN);
+                .orElse(Language.DEFAULT);
     }
 
     public static Language getByNativeName(String name) {
         return Arrays.stream(values())
                 .filter(language -> language.nativeName.equalsIgnoreCase(name))
                 .findAny()
-                .orElse(Language.UNKNOWN);
+                .orElse(Language.DEFAULT);
     }
 
     

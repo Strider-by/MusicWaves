@@ -1,13 +1,14 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.CommandException;
-import by.musicwaves.controller.command.Converter;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Artist;
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
-import by.musicwaves.service.ServiceException;
-import by.musicwaves.service.ServiceResponse;
 import by.musicwaves.service.ArtistService;
+import by.musicwaves.service.exception.ServiceException;
+import by.musicwaves.service.factory.ServiceFactory;
 import by.musicwaves.util.BooleanOption;
 import by.musicwaves.util.JsonSelfWrapper;
 import by.musicwaves.util.Pair;
@@ -19,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class FindArtistsCommand extends XHRCommand {
+public class FindArtistsCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(FindArtistsCommand.class);
-    private final static ArtistService service = ArtistService.getInstance();
+    private final static ArtistService service = ServiceFactory.getInstance().getArtistService();
 
     private final static String PARAM_NAME_NAME = "name";
     private final static String PARAM_NAME_NAME_SEARCH_TYPE_ID = "name_search_type_id";
@@ -51,8 +52,8 @@ public class FindArtistsCommand extends XHRCommand {
         // processed parameters must be presented and be valid integer values
         // if not - CommandException will be thrown
         int nameSearchTypeId = Converter.toInt(request.getParameter(PARAM_NAME_NAME_SEARCH_TYPE_ID));
-        int pageNumber = Converter.toInt(request.getParameter(XHRCommand.PARAM_NAME_PAGE_NUMBER));
-        int recordsPerPage = Converter.toInt(request.getParameter(XHRCommand.PARAM_NAME_RECORDS_PER_PAGE));
+        int pageNumber = Converter.toInt(request.getParameter(AbstractXHRCommand.PARAM_NAME_PAGE_NUMBER));
+        int recordsPerPage = Converter.toInt(request.getParameter(AbstractXHRCommand.PARAM_NAME_RECORDS_PER_PAGE));
 
 
         ServiceResponse<Pair<Integer, List<Artist>>> serviceResponse;

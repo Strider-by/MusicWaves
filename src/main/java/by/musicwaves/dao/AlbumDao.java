@@ -1,8 +1,8 @@
 package by.musicwaves.dao;
 
 
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.entity.Album;
-import by.musicwaves.entity.Artist;
 import by.musicwaves.util.Pair;
 
 import java.util.List;

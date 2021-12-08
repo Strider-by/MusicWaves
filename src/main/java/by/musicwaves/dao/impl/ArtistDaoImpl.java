@@ -1,9 +1,11 @@
 package by.musicwaves.dao.impl;
 
-import by.musicwaves.dao.*;
+import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.requesthandler.SQLRequestHandler;
 import by.musicwaves.dao.ArtistDao;
 import by.musicwaves.dao.util.PreparedStatementContainer;
+import by.musicwaves.dao.util.SQLTypesWorker;
+import by.musicwaves.dao.util.SimilarityType;
 import by.musicwaves.entity.Artist;
 import by.musicwaves.util.Pair;
 import by.musicwaves.util.Triplet;
