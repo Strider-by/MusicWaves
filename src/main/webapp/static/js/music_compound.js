@@ -22,6 +22,9 @@ function init()
 
 
     window.valueHolders = {};
+    window.mainMenu = {};
+    window.mainMenu.logout = document.getElementById("logout_button");
+    window.mainMenu.logout.addEventListener("click", () => logout());
 
 }
 

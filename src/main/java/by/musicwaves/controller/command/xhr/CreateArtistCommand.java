@@ -1,11 +1,12 @@
 package by.musicwaves.controller.command.xhr;
 
+import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.util.Validator;
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Artist;
-import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.ArtistService;
 import by.musicwaves.service.exception.ServiceException;
@@ -17,43 +18,33 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Locale;
 
 public class CreateArtistCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(CreateArtistCommand.class);
     private final static ArtistService service = ServiceFactory.getInstance().getArtistService();
-
     private final static String PARAM_NAME_NAME = "name";
     private final static String PARAM_NAME_VISIBLE = "visible";
-
     private final static String JSON_ARTIST_OBJECT_NAME = "artist";
 
+    public CreateArtistCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
 
-        // user must be logged in and it must be an administrator
         User user = getUser(request);
-        if (user == null || (user.getRole() != Role.ADMINISTRATOR && user.getRole() != Role.MUSIC_CURATOR)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
         Locale locale = user.getLanguage().getLocale();
-
-        // can come as a valid value, empty string or don't come at all
-        // if it comes as empty string or don't come at all, store it as null
-        String name = Validator.assertNonNullOrEmpty(request.getParameter(PARAM_NAME_NAME));
+        String name = Validator.assertNonNull(request.getParameter(PARAM_NAME_NAME));
         Boolean visible = BooleanOption.getById(
-                Converter.toIntegerPossiblyNullOrEmptyString(
-                        request.getParameter(PARAM_NAME_VISIBLE)))
-                .getValue();
+                Converter.toInt(request.getParameter(PARAM_NAME_VISIBLE))).getValue();
 
 
         ServiceResponse<Artist> serviceResponse;
         try {
-            serviceResponse = service.createArtist(
-                    name, visible, locale);
+            serviceResponse = service.createArtist(name, visible, locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }
@@ -66,7 +57,7 @@ public class CreateArtistCommand extends AbstractXHRCommand {
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
     private void appendServiceProvidedData(ServiceResponse<Artist> serviceResponse, JsonSelfWrapper json) {

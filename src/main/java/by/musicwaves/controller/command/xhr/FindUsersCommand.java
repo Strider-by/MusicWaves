@@ -1,9 +1,10 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
-import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.UserService;
 import by.musicwaves.service.exception.ServiceException;
@@ -15,42 +16,39 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 
 public class FindUsersCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(FindUsersCommand.class);
     private final static UserService service = ServiceFactory.getInstance().getUserService();
-
     private final static String PARAM_NAME_ID = "id";
     private final static String PARAM_NAME_LOGIN = "login";
     private final static String PARAM_NAME_ROLE_ID = "role_id";
     private final static String PARAM_NAME_REGISTER_DATE = "register_date";
     private final static String PARAM_NAME_LOGIN_SEARCH_TYPE_ID = "login_search_type_id";
     private final static String PARAM_NAME_REGISTER_DATE_COMPARE_TYPE_ID = "register_date_compare_type_id";
-
     private final static String JSON_USERS_ARRAY_NAME = "users";
 
+    public FindUsersCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
-        LOGGER.debug("FindUsersCommand#execute reached");
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
 
-        // user must be logged in and it must be an administrator
         User user = getUser(request);
-        if (user == null || user.getRole() != Role.ADMINISTRATOR) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
-
+        Locale locale = user.getLanguage().getLocale();
         // These parameters can come both as an empty value or a valid integer value
         // So we treat them properly.
+        // todo: check usage and change to non-null-value-required
         Integer id = Converter.toIntegerPossiblyNullOrEmptyString(request.getParameter(PARAM_NAME_ID));
         Integer roleId = Converter.toIntegerPossiblyNullOrEmptyString(request.getParameter(PARAM_NAME_ROLE_ID));
         LocalDate registerDate = Converter.toLocalDatePossiblyNullOrEmptyString(request.getParameter(PARAM_NAME_REGISTER_DATE));
 
-        // can come as a valid login value, empty string or don't come at all (we get null by getting this parameter)
+        // can come as a valid login value or an empty string
         // if it comes as empty string, store it as null
         String login = Converter.toNullIfEmpty(request.getParameter(PARAM_NAME_LOGIN));
 
@@ -70,7 +68,7 @@ public class FindUsersCommand extends AbstractXHRCommand {
                     id, login, loginSearchTypeId, roleId,
                     registerDate, registerDateCompareTypeId,
                     fieldIdToBeSortedBy, sortOrderId,
-                    pageNumber, recordsPerPage);
+                    pageNumber, recordsPerPage, locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }
@@ -83,7 +81,7 @@ public class FindUsersCommand extends AbstractXHRCommand {
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
     private void appendServiceProvidedData(ServiceResponse<Pair<Integer, List<User>>> serviceResponse, JsonSelfWrapper json) {

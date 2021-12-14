@@ -34,7 +34,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     public final ServiceResponse<
             MusicSearchResultsContainer<
                                     List<ArtistDto>>> findArtistsForMusicSearchPage(
-                            String searchString, int userId, int limit, int offset) throws ServiceException {
+                            String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException {
 
         try {
             MusicSearchResultsContainer<List<ArtistDto>> daoResponse
@@ -47,7 +47,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
 
     @Override
     public ServiceResponse<MusicSearchResultsContainer<?>> getSearchResultsCountForMusicSearchPage(
-            String searchString) throws ServiceException {
+            String searchString, Locale locale) throws ServiceException {
 
         try {
             MusicSearchResultsContainer<?> daoResponse = dao.getSearchResultsCountForMusicSearchPage(searchString);
@@ -61,7 +61,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     public ServiceResponse<
             MusicSearchResultsContainer<
                                 List<AlbumDto>>> findAlbumsForMusicSearchPage(
-                                    String searchString, int userId, int limit, int offset) throws ServiceException {
+                                    String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException {
 
         try {
             MusicSearchResultsContainer<List<AlbumDto>> daoResponse
@@ -76,7 +76,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     public ServiceResponse<
             MusicSearchResultsContainer<
                                 List<AudioTrackDto>>> findTracksForMusicSearchPage(
-                            String searchString, int userId, int limit, int offset) throws ServiceException {
+                            String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException {
 
         try {
             MusicSearchResultsContainer<List<AudioTrackDto>> daoResponse
@@ -89,7 +89,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
 
     @Override
     public ServiceResponse<Pair<Artist, List<AlbumDto>>> findChosenArtistAlbumsForMusicSearchPage(
-            int userId, int artistId, int limit, int offset) throws ServiceException {
+            int userId, int artistId, int limit, int offset, Locale locale) throws ServiceException {
 
         ServiceResponse<Pair<Artist, List<AlbumDto>>> serviceResponse = new ServiceResponse<>();
         try {
@@ -103,7 +103,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
 
     @Override
     public ServiceResponse<Triplet<Artist, Album, List<AudioTrackDto>>> findChosenAlbumTracksForMusicSearchPage(
-            int userId, int albumId, int limit, int offset) throws ServiceException {
+            int userId, int albumId, int limit, int offset, Locale locale) throws ServiceException {
 
         ServiceResponse<Triplet<Artist, Album, List<AudioTrackDto>>> serviceResponse = new ServiceResponse<>();
         try {
@@ -116,7 +116,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     }
 
     @Override
-    public ServiceResponse<?> setArtistAsFavourite(int userId, int artistId) throws ServiceException {
+    public ServiceResponse<?> setArtistAsFavourite(int userId, int artistId, Locale locale) throws ServiceException {
 
         try {
             dao.setArtistAsFavourite(userId, artistId);
@@ -140,7 +140,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     }
 
     @Override
-    public ServiceResponse<?> setAlbumAsFavourite(int userId, int albumId) throws ServiceException {
+    public ServiceResponse<?> setAlbumAsFavourite(int userId, int albumId, Locale locale) throws ServiceException {
 
         try {
             dao.setAlbumAsFavourite(userId, albumId);
@@ -152,7 +152,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     }
 
     @Override
-    public ServiceResponse<?> unsetAlbumAsFavourite(int userId, int albumId) throws ServiceException {
+    public ServiceResponse<?> unsetAlbumAsFavourite(int userId, int albumId, Locale locale) throws ServiceException {
 
         try {
             dao.unsetAlbumAsFavourite(userId, albumId);
@@ -164,7 +164,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     }
 
     @Override
-    public ServiceResponse<?> setAudioTrackAsFavourite(int userId, int trackId) throws ServiceException {
+    public ServiceResponse<?> setAudioTrackAsFavourite(int userId, int trackId, Locale locale) throws ServiceException {
 
         try {
             dao.setAudioTrackAsFavourite(userId, trackId);
@@ -210,7 +210,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
     }
 
     @Override
-    public ServiceResponse<AudioTrackDto> getAudioTrackDataById(int trackId) throws ServiceException {
+    public ServiceResponse<AudioTrackDto> getAudioTrackDataById(int trackId, Locale locale) throws ServiceException {
         AudioTrackDto trackData;
         try {
             trackData = dao.getAudioTrackDataById(trackId);

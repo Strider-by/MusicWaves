@@ -1,9 +1,12 @@
 package by.musicwaves.controller.filter;
 
 import by.musicwaves.controller.resource.ApplicationPage;
+import by.musicwaves.entity.User;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -11,8 +14,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-public class PageAliasToRealJspFilter implements Filter {
+public class PageAccessFilter implements Filter {
 
+    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
     private final static Set<String> PAGE_ALIASES;
 
     static {
@@ -33,13 +37,35 @@ public class PageAliasToRealJspFilter implements Filter {
 
         ApplicationPage page;
         if (PAGE_ALIASES.contains(pageAlias)) {
-            // page found
+            // page found, filtering
             page = ApplicationPage.getPageByAlias(pageAlias);
-            servletRequest.getRequestDispatcher(page.getPathToPage()).forward(servletRequest, servletResponse);
+            User user = getUser(servletRequest);
+            boolean accessGranted = isAccessGranted(page, user);
+
+            if (!accessGranted) {
+                // redirecting to entrance page
+                page = ApplicationPage.ENTRANCE;
+                ((HttpServletResponse) servletResponse).sendRedirect(page.getAlias());
+            } else {
+                // forwarding to requested page
+                servletRequest.getRequestDispatcher(page.getPathToPage()).forward(servletRequest, servletResponse);
+            }
+
         } else {
             // Requested address was not found among application pages. Skipping.
             filterChain.doFilter(servletRequest, servletResponse);
         }
+    }
+
+    private User getUser(ServletRequest servletRequest) {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(SESSION_ATTRIBUTE_NAME_USER);
+        return user;
+    }
+
+    private boolean isAccessGranted(ApplicationPage page, User user) {
+        return page.getAccessLevel().isAccessGranted(user);
     }
 
 }

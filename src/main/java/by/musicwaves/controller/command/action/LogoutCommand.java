@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
 
@@ -11,8 +12,13 @@ import java.io.IOException;
 
 public class LogoutCommand extends AbstractActionCommand {
 
+    public LogoutCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+
         TransitType transitType = TransitType.REDIRECT;
         ApplicationPage targetPage = ApplicationPage.ENTRANCE;
 

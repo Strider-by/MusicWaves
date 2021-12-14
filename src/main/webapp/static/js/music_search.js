@@ -11,6 +11,10 @@ function run()
     activatePageControl();
 
     window.MessageType = Object.freeze({message: {}, warning: {}, error: {}});
+
+    window.mainMenu = {};
+    window.mainMenu.logout = document.getElementById("logout_button");
+    window.mainMenu.logout.addEventListener("click", () => logout());
 }
 
 function setFormControlListeners()
@@ -104,6 +108,12 @@ function setFormControlListeners()
             function ()
             {
                 document.getElementById("dialog_window").close();
+            });
+
+    document.getElementById("delete_playlist").addEventListener("click",
+            function ()
+            {
+                deletePlaylist();
             });
 
     window.pageControl = {};
@@ -1259,7 +1269,7 @@ function filterPlaylistsList()
         }
     }
 
-// setting first availible option value OR empty value if the isn't any
+// setting first available option value OR empty value if the isn't any
     let selection = document.getElementById("availible_playlists");
     for (let i = 0; i < options.length; i++)
     {
@@ -1465,6 +1475,42 @@ async function createPlaylist()
     {
         showMessage(window.textbundle.requestFailed, window.MessageType.error);
     }
+}
+
+
+async function deletePlaylist()
+{
+    let playlistId = document.getElementById("availible_playlists").value;
+    if (playlistId === "")
+    {
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("command", "delete_multiple_playlists");
+    formData.append("id[]", playlistId);
+
+    try
+    {
+        let response = await sendFormData(formData);
+        let respJson = await response.json();
+        if(respJson)
+        {
+            requestUserPlaylists();
+            let currentPlaylistId = document.getElementById("used_playlist_id").innerHTML;
+            if(currentPlaylistId == playlistId)
+            {
+                document.getElementById("used_playlist_name").innerHTML = "";
+                document.getElementById("used_playlist_id").innerHTML = "";
+                cleanPlaylistTracksArea();
+            }
+        }
+    } catch (ex)
+    {
+        console.log(ex);
+        showMessage(window.textbundle.requestFailed, window.MessageType.error);
+    }
+
 }
 
 /////////////////////////////////

@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags"%>
 <%@ page isELIgnored="false" %>
 <jsp:include page="parts/locale_setup.jsp"/>
 <fmt:setBundle basename="internationalization.jsp.entrance" var="page"  scope="request"/>
@@ -25,9 +26,12 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="/static/img/favicon-200x200.png" sizes="200x200">
         <link rel="stylesheet" href="../static/css/entrance.css">
         <link rel="stylesheet" href="../static/css/common.css">
+        <link rel="stylesheet" href="../static/css/messages.css">
         <script src="../static/js/entrance.js"></script>
+        <script src="../static/js/messages.js"></script>
         <script src="../static/js/cookie-worker.js"></script>
         <title>${title}</title>
         <style>
@@ -37,12 +41,16 @@
         <div id="upper_menu">
         </div>
         <div id="central">
-            <div id="message_box" class="hidden">
-                <div id="message">TEST</div>
-                <div id="message_controls">
-                    <button>B1</button>
-                    <button>B2</button>
+            <div id="message_box_container" class="hidden">
+                <div id="msg_body_container">
+                    <ul id="system_warnings">
+                        <ctg:list list="${errors}" htmlElementTag="li"/>
+                    </ul>
+                    <ul id="system_messages">
+                        <ctg:list list="${messages}" htmlElementTag="li"/>
+                    </ul>
                 </div>
+                <div id="msg_close_button_container"><button class="" id="close_message_box_button">Close</button></div>
             </div>
             <div id="mode_selector" class="">
                 <div id="reg_selector">

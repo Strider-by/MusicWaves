@@ -101,8 +101,8 @@ label span
 
 #outer_container
 {
-    border: solid 0.25px rgba(255,255,255,.55);
-    background: rgba(200, 200, 200, 0.3);
+    /*border: solid 0.25px rgba(255,255,255,.55);*/
+    background: /*rgba(200, 200, 200, 0.3);*/ #53504b;
     padding: 10px;
 }
 
@@ -285,7 +285,7 @@ label span
 {
     width: calc(100% - 20px);
     height: calc(100% - 20px);
-    border: solid .5px rgba(255,255,255,.5);
+    border: solid .5px #53504b;;
     background-color: rgba(255,255,255,.3);
     padding: 10px;
 }
@@ -694,7 +694,7 @@ input, select
 
     margin-left: 10px;
     transition-duration: .3s;
-    background-color: crimson;
+    background-color: #c19f4a;
     color: white;
     border: solid .5px whitesmoke;
 }
@@ -861,7 +861,7 @@ div.empty_cell:active
     flex-direction: column;
 }
 
-#create_new_playlist, #reload_playlists_list, #clean_playlists_filter, #use_playlist
+#create_new_playlist, #reload_playlists_list, #clean_playlists_filter, #use_playlist, #delete_playlist
 {
     border: .5px solid green;
     background-color: whitesmoke;
@@ -871,6 +871,11 @@ div.empty_cell:active
     margin-left: 5px;
 }
 
+#delete_playlist
+{
+    background-color: #ce2100;
+    color: white;
+}
 
 
 #create_new_playlist:hover, #reload_playlists_list:hover, #clean_playlists_filter:hover, #use_playlist:hover
@@ -1005,7 +1010,7 @@ div.empty_cell:active
 
 #clean_playlists_filter
 {
-    margin-right: 40px;
+    /*margin-right: 40px;*/
 }
 
 #current_playlist_name
@@ -1041,15 +1046,18 @@ div.empty_cell:active
 
 #cleanse_playlist
 {
-    background-color: crimson;
+    background-color: #c19f4a;
+    /*color: black;*/
     color: white;
 }
 
-#cleanse_playlist:active
+#delete_playlist:active
 {
-    background-color: white;
-    color: crimson;
+    background-color: crimson;
+    color: white;
+    border-color: white;
 }
+
 .audiotrack_row
 {
     border-top: solid .5px whitesmoke;

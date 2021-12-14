@@ -1,7 +1,10 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
 import by.musicwaves.dto.ServiceResponse;
@@ -20,33 +23,27 @@ import java.io.IOException;
 
 public class ChangeLanguageCommand extends AbstractActionCommand {
 
-    private static final Logger LOGGER = LogManager.getLogger(ChangeLanguageCommand.class);
+    private final static Logger LOGGER = LogManager.getLogger(ChangeLanguageCommand.class);
     private final static String PARAM_NAME_LANGUAGE_ID = "language_id";
     private final static String SESSION_ATTRIBUTE_LOCALE = "locale";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
+    public ChangeLanguageCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
         ApplicationPage targetPage = ApplicationPage.PROFILE;
         TransitType transitType = TransitType.REDIRECT;
 
-        String stringLanguageId = request.getParameter(PARAM_NAME_LANGUAGE_ID);
-        User user = getUser(request);
 
         try {
-            // user is not logged in (m.b. session has expired)
-            if (user == null) {
-                targetPage = ApplicationPage.ENTRANCE;
-                transfer(request, response, targetPage, transitType);
-                return;
-            }
-
-            // check if languageId is a valid Integer value
-            Validator.assertIsValidInteger(stringLanguageId);
-            int intLanguageId = Integer.parseInt(stringLanguageId);
+            User user = getUser(request);
+            int languageId = Converter.toInt(request.getParameter(PARAM_NAME_LANGUAGE_ID));
 
             // running service
-            ServiceResponse<Language> serviceResponse = service.changeLanguage(user, intLanguageId);
+            ServiceResponse<Language> serviceResponse = service.changeLanguage(user, languageId);
 
             // if service succeeded
             if (serviceResponse.isSuccess()) {
@@ -57,7 +54,6 @@ public class ChangeLanguageCommand extends AbstractActionCommand {
 
             // set  messages and error codes to be shown for user or to be processed by front-end
             attachServiceResponse(request, serviceResponse);
-
             // going to proper page
             transfer(request, response, targetPage, transitType);
 

@@ -36,7 +36,7 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public ServiceResponse<Pair<Integer, List<Artist>>> findArtists(String name, int nameSearchTypeId, Boolean visible, int pageNumber, int recordsPerPage) throws ServiceException {
+    public ServiceResponse<Pair<Integer, List<Artist>>> findArtists(String name, int nameSearchTypeId, Boolean visible, int pageNumber, int recordsPerPage, Locale locale) throws ServiceException {
         ServiceResponse<Pair<Integer, List<Artist>>> serviceResponse = new ServiceResponse<>();
 
         Pair<Integer, List<Artist>> daoResponse;

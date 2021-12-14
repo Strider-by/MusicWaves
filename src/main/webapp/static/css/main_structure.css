@@ -53,6 +53,13 @@ body
     margin-left: 5px;
     margin-right: 5px;
     user-select: none;
+    padding: 5px;
+}
+
+.heading_menu_button img
+{
+    height: 100%;
+    width: 100%;
 }
 
 #main_window, #message_box_container

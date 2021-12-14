@@ -34,7 +34,7 @@ public class AudioTrackServiceImpl implements AudioTrackService {
 
 
     @Override
-    public ServiceResponse<List<AudioTrack>> findAudioTracks(int albumId) throws ServiceException {
+    public ServiceResponse<List<AudioTrack>> findAudioTracks(int albumId, Locale locale) throws ServiceException {
         ServiceResponse<List<AudioTrack>> serviceResponse = new ServiceResponse<>();
 
         List<AudioTrack> daoResponse;

@@ -25,7 +25,9 @@ function init()
                 recordRepeatOnEndOption();
             });
 
-
+    window.mainMenu = {};
+    window.mainMenu.logout = document.getElementById("logout_button");
+    window.mainMenu.logout.addEventListener("click", () => logout());
 }
 
 function initPlayer()

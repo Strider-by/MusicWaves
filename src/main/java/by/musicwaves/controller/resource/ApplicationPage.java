@@ -4,22 +4,24 @@ import java.util.Arrays;
 
 public enum ApplicationPage {
 
-    UNKNOWN_PAGE(null, null),
-    ENTRANCE("entrance", "/WEB-INF/jsp/entrance.jsp"),
-    PROFILE("profile", "/WEB-INF/jsp/profile.jsp"),
-    MUSIC_COMPOUND("music-compound", "/WEB-INF/jsp/music_compound.jsp"),
-    MUSIC_SEARCH("music-search", "/WEB-INF/jsp/music_search.jsp"),
-    PLAYLISTS("playlists", "/WEB-INF/jsp/playlists.jsp"),
-    LISTEN_MUSIC("listen", "/WEB-INF/jsp/listen.jsp"),
-    USERS("users", "/WEB-INF/jsp/users.jsp");
+    UNKNOWN_PAGE(null, null, null),
+    ENTRANCE("entrance", "/WEB-INF/jsp/entrance.jsp", AccessLevel.ALL),
+    PROFILE("profile", "/WEB-INF/jsp/profile.jsp", AccessLevel.USER_PLUS),
+    MUSIC_COMPOUND("music-compound", "/WEB-INF/jsp/music_compound.jsp", AccessLevel.MUSIC_CURATOR_PLUS),
+    MUSIC_SEARCH("music-search", "/WEB-INF/jsp/music_search.jsp", AccessLevel.USER_PLUS),
+    PLAYLISTS("playlists", "/WEB-INF/jsp/playlists.jsp", AccessLevel.USER_PLUS),
+    LISTEN_MUSIC("listen", "/WEB-INF/jsp/listen.jsp", AccessLevel.USER_PLUS),
+    USERS("users", "/WEB-INF/jsp/users.jsp", AccessLevel.ADMINISTRATOR_ONLY);
 
 
     private final String alias;
     private final String pathToPage;
+    private final AccessLevel accessLevel;
 
-    ApplicationPage(String alias, String pathToPage) {
+    ApplicationPage(String alias, String pathToPage, AccessLevel accessLevel) {
         this.alias = alias;
         this.pathToPage = pathToPage;
+        this.accessLevel = accessLevel;
     }
 
     public static ApplicationPage getPageByAlias(String alias) {
@@ -37,4 +39,7 @@ public enum ApplicationPage {
         return pathToPage;
     }
 
+    public AccessLevel getAccessLevel() {
+        return accessLevel;
+    }
 }

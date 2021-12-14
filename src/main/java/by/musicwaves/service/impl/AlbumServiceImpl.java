@@ -36,7 +36,7 @@ public class AlbumServiceImpl implements AlbumService {
 
 
     @Override
-    public ServiceResponse<Pair<Integer, List<Album>>> findAlbums(int artistId, String name, Integer year, Boolean visible, int pageNumber, int recordsPerPage) throws ServiceException {
+    public ServiceResponse<Pair<Integer, List<Album>>> findAlbums(int artistId, String name, Integer year, Boolean visible, int pageNumber, int recordsPerPage, Locale locale) throws ServiceException {
         ServiceResponse<Pair<Integer, List<Album>>> serviceResponse = new ServiceResponse<>();
 
         Pair<Integer, List<Album>> daoResponse;
@@ -98,7 +98,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public ServiceResponse<?> deleteAlbum(int id) throws ServiceException {
+    public ServiceResponse<?> deleteAlbum(int id, Locale locale) throws ServiceException {
         ServiceResponse<?> serviceResponse = new ServiceResponse<>();
         Pair<String, List<String>> filesToDelete;
         try {
@@ -124,7 +124,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public ServiceResponse<String> uploadAlbumImage(int albumId, HttpServletRequest request) throws ServiceException {
+    public ServiceResponse<String> uploadAlbumImage(int albumId, HttpServletRequest request, Locale locale) throws ServiceException {
         // saving new file
         String newFileName;
         try {

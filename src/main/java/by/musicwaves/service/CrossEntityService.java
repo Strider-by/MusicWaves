@@ -14,36 +14,36 @@ public interface CrossEntityService {
     ServiceResponse<
             MusicSearchResultsContainer<
                     List<ArtistDto>>> findArtistsForMusicSearchPage(
-            String searchString, int userId, int limit, int offset) throws ServiceException;
+            String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException;
 
     ServiceResponse<MusicSearchResultsContainer<?>> getSearchResultsCountForMusicSearchPage(
-            String searchString) throws ServiceException;
+            String searchString, Locale locale) throws ServiceException;
 
     ServiceResponse<
             MusicSearchResultsContainer<
                                 List<AlbumDto>>> findAlbumsForMusicSearchPage(
-            String searchString, int userId, int limit, int offset) throws ServiceException;
+            String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException;
 
     ServiceResponse<
             MusicSearchResultsContainer<
                                 List<AudioTrackDto>>> findTracksForMusicSearchPage(
-            String searchString, int userId, int limit, int offset) throws ServiceException;
+            String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException;
 
     ServiceResponse<Pair<Artist, List<AlbumDto>>> findChosenArtistAlbumsForMusicSearchPage(
-            int userId, int artistId, int limit, int offset) throws ServiceException;
+            int userId, int artistId, int limit, int offset, Locale locale) throws ServiceException;
 
     ServiceResponse<Triplet<Artist, Album, List<AudioTrackDto>>> findChosenAlbumTracksForMusicSearchPage(
-            int userId, int albumId, int limit, int offset) throws ServiceException;
+            int userId, int albumId, int limit, int offset, Locale locale) throws ServiceException;
 
-    ServiceResponse<?> setArtistAsFavourite(int userId, int artistId) throws ServiceException;
+    ServiceResponse<?> setArtistAsFavourite(int userId, int artistId, Locale locale) throws ServiceException;
 
     ServiceResponse<?> unsetArtistAsFavourite(int userId, int artistId) throws ServiceException;
 
-    ServiceResponse<?> setAlbumAsFavourite(int userId, int albumId) throws ServiceException;
+    ServiceResponse<?> setAlbumAsFavourite(int userId, int albumId, Locale locale) throws ServiceException;
 
-    ServiceResponse<?> unsetAlbumAsFavourite(int userId, int albumId) throws ServiceException;
+    ServiceResponse<?> unsetAlbumAsFavourite(int userId, int albumId, Locale locale) throws ServiceException;
 
-    ServiceResponse<?> setAudioTrackAsFavourite(int userId, int trackId) throws ServiceException;
+    ServiceResponse<?> setAudioTrackAsFavourite(int userId, int trackId, Locale locale) throws ServiceException;
 
     ServiceResponse<?> unsetAudioTrackAsFavourite(int userId, int trackId) throws ServiceException;
 
@@ -51,7 +51,7 @@ public interface CrossEntityService {
 
     ServiceResponse<?> recordPlaylistElements(int userId, int playlistId, int[] tracksIds, Locale locale) throws ServiceException;
 
-    ServiceResponse<AudioTrackDto> getAudioTrackDataById(int trackId) throws ServiceException;
+    ServiceResponse<AudioTrackDto> getAudioTrackDataById(int trackId, Locale locale) throws ServiceException;
 
     ServiceResponse<List<AudioTrackDto>> getAudioTracksData(int[] tracksIds, Locale locale) throws ServiceException;
 }

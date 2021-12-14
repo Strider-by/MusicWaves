@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface AudioTrackService {
-    ServiceResponse<List<AudioTrack>> findAudioTracks(int albumId) throws ServiceException;
+    ServiceResponse<List<AudioTrack>> findAudioTracks(int albumId, Locale locale) throws ServiceException;
 
     ServiceResponse<AudioTrack> createAudioTrack(int albumId, String name, boolean visible, Locale locale) throws ServiceException;
 

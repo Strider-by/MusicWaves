@@ -1,6 +1,8 @@
 package by.musicwaves.controller.command.xhr;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.PlaylistService;
@@ -12,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -22,15 +23,14 @@ public class DeleteMultiplePlaylistsCommand extends AbstractXHRCommand {
     private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
     private final static String PARAM_NAME_IDS = "id[]";
 
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public DeleteMultiplePlaylistsCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
 
-        // user must be logged in
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
+
         User user = getUser(request);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
         Locale locale = user.getLanguage().getLocale();
         int userId = user.getId();
         int[] playlistsIds;
@@ -40,16 +40,12 @@ public class DeleteMultiplePlaylistsCommand extends AbstractXHRCommand {
                     .mapToInt(Integer::parseInt)
                     .toArray();
         } catch (NullPointerException | NumberFormatException ex) {
-            LOGGER.warn("wrong parameters", ex);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            throw new ValidationException(ex);
         }
-
 
         ServiceResponse<?> serviceResponse;
         try {
-            serviceResponse = service.deleteMultiplePlaylists(
-                    userId, playlistsIds, locale);
+            serviceResponse = service.deleteMultiplePlaylists(userId, playlistsIds, locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }
@@ -61,7 +57,7 @@ public class DeleteMultiplePlaylistsCommand extends AbstractXHRCommand {
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
 }

@@ -1,6 +1,8 @@
 package by.musicwaves.controller.command.xhr;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.CrossEntityService;
@@ -12,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -20,22 +21,19 @@ public class RecordPlaylistItemsCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(RecordPlaylistItemsCommand.class);
     private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
-
     private final static String PARAM_NAME_PLAYLIST_ID = "playlist_id";
     private final static String PARAM_NAME_TRACKS_IDS = "tracks_id[]";
 
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public RecordPlaylistItemsCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
 
-        // user must be logged in
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
+
         User user = getUser(request);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
         Locale locale = user.getLanguage().getLocale();
         int userId = user.getId();
-
         int playlistId;
         int[] tracksIds;
         try {
@@ -45,9 +43,7 @@ public class RecordPlaylistItemsCommand extends AbstractXHRCommand {
                     .mapToInt(Integer::parseInt)
                     .toArray();
         } catch (NullPointerException | NumberFormatException ex) {
-            LOGGER.warn("Provided request parameters are not valid", ex);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-            return;
+            throw new ValidationException(ex);
         }
 
         ServiceResponse<?> serviceResponse;
@@ -65,7 +61,7 @@ public class RecordPlaylistItemsCommand extends AbstractXHRCommand {
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
 }

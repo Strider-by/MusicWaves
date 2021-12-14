@@ -22,9 +22,10 @@ Setting variables
     <title id = "page_title">
         ${title}
     </title>
+    <link rel="icon" type="image/png" href="/static/img/favicon-200x200.png" sizes="200x200">
     <link type="text/css" rel="stylesheet" href="/static/css/listen.css" />
+    <link type="text/css" rel="stylesheet" href="../static/css/main_structure.css">
     <link type="text/css" rel="stylesheet" href="/static/css/messages.css" />
-    <link rel="icon" type="image/png" href="/static/images/favicon-200x200.png" sizes="200x200">
     <script src="/static/js/common.js" charset="utf-8"></script>
     <script src="/static/js/listen.js" charset="utf-8"></script>
     <script src="/static/js/messages.js" charset="utf-8"></script>
@@ -55,7 +56,6 @@ Setting variables
             window.textbundle.track = "track";
             window.textbundle.year = "year";
 
-
         </script>
 </head>
 
@@ -67,8 +67,9 @@ Setting variables
         <div id="heading_menu">
             <p>${title}</p>
             <div id="heading_menu_button_section">
-                <button class="heading_menu_button">1</button>
-                <button class="heading_menu_button">2</button>
+                <ctg:administrator-only-accessible-pages-menu-buttons/>
+                <ctg:curator-and-higher-accessible-pages-menu-buttons/>
+                <ctg:user-accessible-pages-menu-buttons/>
                 <button id="logout_button" class="heading_menu_button">[X]</button>
             </div>
         </div>

@@ -1,7 +1,9 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.AudioTrackDto;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
@@ -14,31 +16,28 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.Locale;
 
-public class GetVisibleAudioTrackData extends AbstractXHRCommand {
+public class GetVisibleAudioTrackDataCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(GetVisibleAudioTrackData.class);
+    private final static Logger LOGGER = LogManager.getLogger(GetVisibleAudioTrackDataCommand.class);
     private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
-
     private final static String PARAM_NAME_TRACK_ID = "track_id";
 
+    public GetVisibleAudioTrackDataCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
 
-        // user must be logged in
         User user = getUser(request);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
-
+        Locale locale = user.getLanguage().getLocale();
         int trackId = Converter.toInt(request.getParameter(PARAM_NAME_TRACK_ID));
-
 
         ServiceResponse<AudioTrackDto> serviceResponse;
         try {
-            serviceResponse = service.getAudioTrackDataById(trackId);
+            serviceResponse = service.getAudioTrackDataById(trackId, locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }
@@ -46,13 +45,12 @@ public class GetVisibleAudioTrackData extends AbstractXHRCommand {
         JsonSelfWrapper json = new JsonSelfWrapper();
         json.openJson();
 
-
         appendServiceProvidedData(serviceResponse, json);
         appendServiceExecutionResult(serviceResponse, json);
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
     private void appendServiceProvidedData(ServiceResponse<AudioTrackDto> serviceResponse, JsonSelfWrapper json) {

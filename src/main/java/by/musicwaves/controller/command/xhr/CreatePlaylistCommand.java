@@ -1,7 +1,9 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Playlist;
 import by.musicwaves.entity.User;
@@ -14,35 +16,30 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Locale;
 
 public class CreatePlaylistCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(CreatePlaylistCommand.class);
     private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
-
     private final static String PARAM_NAME_NAME = "name";
     private final static String JSON_PLAYLIST_OBJECT_NAME = "playlist";
 
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public CreatePlaylistCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
 
-        // user must be logged in
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
+
         User user = getUser(request);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
         Locale locale = user.getLanguage().getLocale();
         int userId = user.getId();
         String playlistName = Validator.assertNonNullOrEmpty(request.getParameter(PARAM_NAME_NAME));
 
-
         ServiceResponse<Playlist> serviceResponse;
         try {
-            serviceResponse = service.createPlaylist(
-                    userId, playlistName, locale);
+            serviceResponse = service.createPlaylist(userId, playlistName, locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }
@@ -55,7 +52,7 @@ public class CreatePlaylistCommand extends AbstractXHRCommand {
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
     private void appendServiceProvidedData(ServiceResponse<Playlist> serviceResponse, JsonSelfWrapper json) {

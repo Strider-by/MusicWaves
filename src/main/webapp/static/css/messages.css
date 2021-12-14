@@ -66,11 +66,16 @@
 
 #dialog_window.warning #dialog_window_header
 {
-    background-color: #f9fa79;
+    background-color: rgb(255 107 0);
 }
 
 #dialog_window.message #dialog_window_header
 {
     background-color: rgb(57, 122, 62);
+}
+
+#dialog_window.unknown #dialog_window_header
+{
+    background-color: rgb(150, 150, 150);
 }
 

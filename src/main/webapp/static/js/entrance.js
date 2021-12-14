@@ -39,6 +39,8 @@ function init()
 
 
     enableEntranceMode();
+    appendMessagePart();
+    getAndShowServiceMessages();
 }
 
 function login()

@@ -71,7 +71,9 @@ function init()
     window.navigation.buttons.firstPage.addEventListener("click", () => goToFirstPage());
     window.navigation.buttons.lastPage.addEventListener("click", () => goToLastPage());
 
-
+    window.mainMenu = {};
+    window.mainMenu.logout = document.getElementById("logout_button");
+    window.mainMenu.logout.addEventListener("click", () => logout());
 }
 
 function appendUserDataRow(user)

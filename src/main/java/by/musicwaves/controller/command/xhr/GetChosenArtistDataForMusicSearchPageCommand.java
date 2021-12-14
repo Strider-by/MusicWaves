@@ -1,7 +1,9 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.command.util.Converter;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.AlbumDto;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Artist;
@@ -16,38 +18,35 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class GetChosenArtistDataForMusicSearchPageCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetChosenArtistDataForMusicSearchPageCommand.class);
     private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
-
     private final static String PARAM_NAME_ARTIST_ID = "artist_id";
     private final static String PARAM_NAME_PAGE_NUMBER = "page";
     private final static String PARAM_NAME_LIMIT = "limit";
 
+    public GetChosenArtistDataForMusicSearchPageCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
 
-        // user must be logged in
         User user = getUser(request);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+        Locale locale = user.getLanguage().getLocale();
         int userId = user.getId();
-
         int artistId = Converter.toInt(request.getParameter(PARAM_NAME_ARTIST_ID));
         int limit = Converter.toInt(request.getParameter(PARAM_NAME_LIMIT));
         int page = Converter.toInt(request.getParameter(PARAM_NAME_PAGE_NUMBER));
         int offset = (page - 1) * limit;
 
         if (offset < 0 || limit < 0) {
-            throw new CommandException("Invalid limit or offset parameter");
+            throw new ValidationException("Invalid limit or offset parameter");
         }
-
 
         ServiceResponse<Pair<Artist, List<AlbumDto>>> serviceResponse;
         try {
@@ -55,7 +54,8 @@ public class GetChosenArtistDataForMusicSearchPageCommand extends AbstractXHRCom
                     userId,
                     artistId,
                     limit,
-                    offset);
+                    offset,
+                    locale);
         } catch (ServiceException ex) {
             throw new CommandException(ex);
         }
@@ -63,13 +63,12 @@ public class GetChosenArtistDataForMusicSearchPageCommand extends AbstractXHRCom
         JsonSelfWrapper json = new JsonSelfWrapper();
         json.openJson();
 
-
         appendServiceProvidedData(serviceResponse, json);
         appendServiceExecutionResult(serviceResponse, json);
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
     private void appendServiceProvidedData(

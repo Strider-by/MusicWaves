@@ -1,6 +1,9 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
 import by.musicwaves.dto.ServiceResponse;
@@ -22,31 +25,40 @@ import java.util.Locale;
 public class LoginCommand extends AbstractActionCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(LoginCommand.class);
-
     private final static String PARAM_NAME_LOGIN = "login";
     private final static String PARAM_NAME_PASSWORD = "password";
     private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
     private final static String SESSION_ATTRIBUTE_NAME_LOCALE = "locale";
-
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
 
+    public LoginCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
+
         ApplicationPage targetPage;
         TransitType transitType = TransitType.REDIRECT;
 
-        String login = request.getParameter(PARAM_NAME_LOGIN);
-        String password = request.getParameter(PARAM_NAME_PASSWORD);
-        Locale locale = Language.DEFAULT.getLocale();
+        String login = Validator.assertNonNull(request.getParameter(PARAM_NAME_LOGIN));
+        char[] password = Validator.assertNonNull(request.getParameter(PARAM_NAME_PASSWORD)).toCharArray();
+
+        Locale locale = request.getLocale();
+        // todo: do I need this check? Can null value be returned when I invoke this?
+        if (locale == null) {
+            locale = Language.DEFAULT.getLocale();
+        }
 
         try {
             // check if we have this user in our database
             ServiceResponse<User> serviceResponse = service.login(login, password, locale);
-
             // if login credentials are all right
             if (serviceResponse.isSuccess()) {
                 User user = serviceResponse.getStoredValue();
+                // invalidate old session to be sure there is no old data left stored
+                request.getSession().invalidate();
                 HttpSession session = request.getSession();
                 session.setAttribute(SESSION_ATTRIBUTE_NAME_USER, user);
                 session.setAttribute(SESSION_ATTRIBUTE_NAME_LOCALE, user.getLanguage().getLocale());
@@ -59,9 +71,6 @@ public class LoginCommand extends AbstractActionCommand {
 
             // set  messages and error codes to be shown for user or to be processed by front-end
             attachServiceResponse(request, serviceResponse);
-
-            LOGGER.debug("Service response is: \n" + serviceResponse);
-
             // going to proper page
             transfer(request, response, targetPage, transitType);
 

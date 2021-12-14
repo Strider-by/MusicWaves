@@ -1,7 +1,9 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
 import by.musicwaves.dto.ServiceResponse;
@@ -25,8 +27,12 @@ public class DeleteAccountByUserCommand extends AbstractActionCommand {
     private final static String PARAM_NAME_PASSWORD = "password";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
+    public DeleteAccountByUserCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
         ApplicationPage targetPage;
         TransitType transitType = TransitType.REDIRECT;
 
@@ -34,15 +40,7 @@ public class DeleteAccountByUserCommand extends AbstractActionCommand {
         HttpSession session = request.getSession();
         User user = getUser(request);
 
-
         try {
-            // user is not logged in
-            if (user == null) {
-                targetPage = ApplicationPage.ENTRANCE;
-                transfer(request, response, targetPage, transitType);
-                return;
-            }
-
             ServiceResponse<?> serviceResponse = service.deleteUserAccount(user, password);
 
             // if everything went well, we can now forget about user via invalidating session

@@ -70,6 +70,30 @@
     </tag>
 
     <tag>
+        <name>administrator-only-accessible-pages-menu-buttons</name>
+        <description>This tag creates buttons that leads to pages that only user with administrator role can access
+            and that are visible only for administrators.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.AdministratorButtonsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>curator-and-higher-accessible-pages-menu-buttons</name>
+        <description>This tag creates buttons that leads to pages that users with administrator or curator roles can access
+            and that are visible only for administrators and curators.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.CuratorAndHigherButtonsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
+        <name>user-accessible-pages-menu-buttons</name>
+        <description>This tag creates buttons that leads to pages that only user with administrator role can access
+            and that are visible only for administrators.</description>
+        <tag-class>by.musicwaves.controller.servlet.tag.UserButtonsTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+
+    <tag>
         <name>list</name>
         <description>This tag can be used to output list of elements</description>
         <tag-class>by.musicwaves.controller.servlet.tag.ListOutputTag</tag-class>

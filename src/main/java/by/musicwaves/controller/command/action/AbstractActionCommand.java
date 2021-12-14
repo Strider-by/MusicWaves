@@ -1,49 +1,34 @@
 package by.musicwaves.controller.command.action;
 
+import by.musicwaves.controller.command.AbstractCommand;
 import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.resource.ApplicationPage;
-import by.musicwaves.controller.resource.TransitType;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
-import by.musicwaves.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
-public abstract class AbstractActionCommand implements ActionCommand {
+public abstract class AbstractActionCommand extends AbstractCommand implements ActionCommand {
 
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private final static Logger LOGGER = LogManager.getLogger(AbstractActionCommand.class);
+    private final static String SESSION_SERVICE_RESPONSE_ATTRIBUTE = "serviceResponse";
 
-    public AbstractActionCommand() {
-    }
-
-    public static void attachServiceResponse(HttpServletRequest request, ServiceResponse serviceResponse) {
-        HttpSession session = request.getSession(true);
-        session.setAttribute("serviceResponse", serviceResponse);
-    }
-
-    protected User getUser(HttpServletRequest request) {
-        return (User) request.getSession().getAttribute(SESSION_ATTRIBUTE_NAME_USER);
+    public AbstractActionCommand(AccessLevel accessLevel) {
+        super(accessLevel);
     }
 
     @Override
-    public abstract void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
-
-    public void transfer(HttpServletRequest request, HttpServletResponse response,
-                         ApplicationPage targetPage, TransitType transitType) throws ServletException, IOException {
-        switch (transitType) {
-            case FORWARD:
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(targetPage.getPathToPage());
-                dispatcher.forward(request, response);
-                break;
-
-            case REDIRECT:
-                response.sendRedirect(targetPage.getAlias());
-                break;
-        }
+    protected void processAccessForbiddenState(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        sendToDefaultPage(request, response);
     }
+
+    protected static void attachServiceResponse(HttpServletRequest request, ServiceResponse serviceResponse) {
+        HttpSession session = request.getSession(true);
+        session.setAttribute(SESSION_SERVICE_RESPONSE_ATTRIBUTE, serviceResponse);
+    }
+
 
 }

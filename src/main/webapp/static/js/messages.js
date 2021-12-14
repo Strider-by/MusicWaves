@@ -17,7 +17,7 @@ function showMessage(text, messageType, headingMessage)
             dialogueWindow.className = "error";
             break;
         default:
-            dialogueWindow.className = "message";
+            dialogueWindow.className = "unknown";
             break;
     }
 
@@ -53,6 +53,45 @@ function appendMessagePart()
             {
                 document.getElementById("dialog_window").close();
             });
+}
+
+function getAndShowServiceMessages()
+{
+    let systemWarnings = document.getElementById("system_warnings").getElementsByTagName("li");
+    let systemMessages = document.getElementById("system_messages").getElementsByTagName("li");
+
+    let showRequired = systemMessages.length > 0 || systemWarnings.length > 0;
+    if (!showRequired)
+    {
+        return;
+    }
+
+    let messageLevel;
+    if (systemWarnings.length > 0)
+    {
+        messageLevel = window.MessageType.warning;
+    }
+    else
+    {
+        messageLevel = window.MessageType.message;
+    }
+
+    let sb = ""
+    for (var msg of systemWarnings)
+    {
+        sb += "! &nbsp;&nbsp;" + msg.innerText + "<br>";
+    }
+
+    if (systemWarnings.length > 0 && systemMessages.length > 0)
+    {
+        sb += "<br>";
+    }
+    for (var msg of systemMessages)
+    {
+        sb += "&bull; &nbsp;&nbsp;" + msg.innerText + "<br>";
+    }
+
+    showMessage(sb, messageLevel);
 }
 
 

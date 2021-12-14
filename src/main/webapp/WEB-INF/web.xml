@@ -18,23 +18,42 @@
     <filter>
         <filter-name>EncodingSetFilter</filter-name>
         <filter-class>by.musicwaves.controller.filter.EncodingSetFilter</filter-class>
-    </filter>
-
-
-    <filter>
-        <filter-name>PageAliasToRealJspFilter</filter-name>
-        <filter-class>by.musicwaves.controller.filter.PageAliasToRealJspFilter</filter-class>
         <init-param>
-            <param-name>active</param-name>
-            <param-value>true</param-value>
+            <description>encoding parameter</description>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
         </init-param>
     </filter>
 
+    <filter>
+        <filter-name>PageAccessFilter</filter-name>
+        <filter-class>by.musicwaves.controller.filter.PageAccessFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>AntiInjectionFilter</filter-name>
+        <filter-class>by.musicwaves.controller.filter.AntiInjectionFilter</filter-class>
+    </filter>
+
     <filter-mapping>
-        <filter-name>PageAliasToRealJspFilter</filter-name>
+        <filter-name>EncodingSetFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>PageAccessFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AntiInjectionFilter</filter-name>
+        <url-pattern>/xhr/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AntiInjectionFilter</filter-name>
+        <url-pattern>/action/*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>UploadableResourcesController</servlet-name>
@@ -59,11 +78,26 @@
     <servlet>
         <servlet-name>AsyncRequestsController</servlet-name>
         <servlet-class>by.musicwaves.controller.servlet.XHRRequestsController</servlet-class>
+        <multipart-config>
+            <max-file-size>1073741824</max-file-size>
+            <max-request-size>1203741824</max-request-size>
+            <file-size-threshold>500000</file-size-threshold>
+        </multipart-config>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DirectRequestsController</servlet-name>
+        <servlet-class>by.musicwaves.controller.servlet.Controller</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>AsyncRequestsController</servlet-name>
         <url-pattern>/xhr/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DirectRequestsController</servlet-name>
+        <url-pattern>/action/*</url-pattern>
     </servlet-mapping>
 
 </web-app>

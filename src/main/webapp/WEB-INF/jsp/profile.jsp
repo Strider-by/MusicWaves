@@ -49,6 +49,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link rel="icon" type="image/png" href="/static/img/favicon-200x200.png" sizes="200x200">
         <link rel="stylesheet" href="../static/css/profile.css">
         <link rel="stylesheet" href="../static/css/common.css">
         <link rel="stylesheet" href="../static/css/main_structure.css">
@@ -64,8 +65,9 @@
         <div id="heading_menu">
             <p>${title}</p>
             <div id="heading_menu_button_section">
-                <button class="heading_menu_button">1</button>
-                <button class="heading_menu_button">2</button>
+                <ctg:administrator-only-accessible-pages-menu-buttons/>
+                <ctg:curator-and-higher-accessible-pages-menu-buttons/>
+                <ctg:user-accessible-pages-menu-buttons/>
                 <button id="logout_button" class="heading_menu_button">[X]</button>
             </div>
         </div>

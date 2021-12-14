@@ -1,7 +1,9 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
 import by.musicwaves.dto.ServiceResponse;
@@ -33,9 +35,12 @@ public class ChangePasswordCommand extends AbstractActionCommand {
         allowedRequestMethods.add("POST");
     }
 
+    public ChangePasswordCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
         ApplicationPage targetPage;
         TransitType transitType = TransitType.REDIRECT;
 
@@ -46,30 +51,21 @@ public class ChangePasswordCommand extends AbstractActionCommand {
         String requestMethod = request.getMethod();
 
         try {
-            // non-allowed request method usage will cause CommandException throw
+            // non-allowed request method usage will cause ValidationException throw
             Validator.assertIsAllowedRequestMethod(requestMethod, allowedRequestMethods);
-
-            // user is not logged in (m.b. session has expired)
-            if (user == null) {
-                targetPage = ApplicationPage.ENTRANCE;
-                transfer(request, response, targetPage, transitType);
-                return;
-            }
 
             // running service
             ServiceResponse<String> serviceResponse = service.changePassword(user, oldPassword, newPassword1, newPassword2);
-
             if (serviceResponse.isSuccess()) {
-                // if service succeeded
-                // we want user to log in anew after his password has been changed
+                // if service succeeded we want user to log in anew after his password has been changed
                 request.getSession().invalidate();
                 targetPage = ApplicationPage.ENTRANCE;
             } else {
                 targetPage = ApplicationPage.PROFILE;
-                // set  messages and error codes to be shown for user or to be processed by front-end
-                attachServiceResponse(request, serviceResponse);
             }
 
+            // set  messages and error codes to be shown for user or to be processed by front-end
+            attachServiceResponse(request, serviceResponse);
             // going to target page
             transfer(request, response, targetPage, transitType);
 

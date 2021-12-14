@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ServiceResponse<Integer> registerUser(String login, char[] password1, char[] password2, String inviteCode, Language language) throws ServiceException {
 
+        login = login.trim();
         ServiceResponse<Integer> response = new ServiceResponse<>();
         boolean inviteCodeIsValid = checkInviteCode(inviteCode);
         boolean loginIsValid = checkLogin(login);
@@ -76,13 +77,14 @@ public class UserServiceImpl implements UserService {
             response.addErrorOccurrence(ServiceErrorEnum.LOGIN_ALREADY_IN_USE, locale);
         } else {
             response.setStoredValue(userId);
+            response.addMessageOccurrence(ServiceMessageEnum.REGISTRATION_IS_COMPLETED, locale);
         }
 
         return response;
     }
 
     @Override
-    public ServiceResponse<User> login(String login, CharSequence password, Locale locale) throws ServiceException {
+    public ServiceResponse<User> login(String login, char[] password, Locale locale) throws ServiceException {
         ServiceResponse<User> response = new ServiceResponse<>();
         String hashedPassword = PasswordWorker.processPasswordHashing(password);
         User user;
@@ -212,6 +214,7 @@ public class UserServiceImpl implements UserService {
         //  password is correct, we can delete account now
         try {
             userDao.delete(user);
+            serviceResponse.addMessageOccurrence(ServiceMessageEnum.ACCOUNT_HAS_BEEN_DELETED, locale);
         } catch (DaoException ex) {
             throw new ServiceException(ex);
         }
@@ -220,7 +223,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ServiceResponse<Boolean> deleteUserAccountByAdministration(int userId) throws ServiceException {
+    public ServiceResponse<Boolean> deleteUserAccountByAdministration(int userId, Locale locale) throws ServiceException {
 
         ServiceResponse<Boolean> serviceResponse = new ServiceResponse<>();
         boolean deleted;
@@ -238,7 +241,7 @@ public class UserServiceImpl implements UserService {
     public ServiceResponse<Pair<Integer, List<User>>> findUsers(
             Integer id, String login, int loginSearchTypeId,
             Integer roleId, LocalDate registerDate, int registerDateCompareTypeId,
-            int fieldIdToBeSortedBy, int sortOrderId, int pageNumber, int recordsPerPage) throws ServiceException {
+            int fieldIdToBeSortedBy, int sortOrderId, int pageNumber, int recordsPerPage, Locale locale) throws ServiceException {
 
         ServiceResponse<Pair<Integer, List<User>>> serviceResponse = new ServiceResponse<>();
 
@@ -304,15 +307,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkPassword(char[] password) {
-        // dummy
-        // todo: empty password is forbidden
-        return true;
+        return password.length >= 3;
     }
 
     private boolean checkLogin(String login) {
-        // dummy
-        // todo: empty login is forbidden
-        return true;
+        return !login.contains("<") && !login.contains(">") && login.length() > 0;
     }
 
     private boolean checkIfPasswordMatchesGivenUser(User user, char[] password) {

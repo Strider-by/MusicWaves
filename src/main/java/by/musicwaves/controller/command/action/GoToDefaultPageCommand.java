@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
 
@@ -10,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class GoToDefaultPageCommand extends AbstractActionCommand {
+
+    public GoToDefaultPageCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
@@ -19,7 +25,7 @@ public class GoToDefaultPageCommand extends AbstractActionCommand {
         try {
             transfer(request, response, targetPage, transitType);
         } catch (ServletException | IOException ex) {
-            throw new CommandException("Failed to execute command", ex);
+            throw new CommandException("Failed to execute Go to default page command", ex);
         }
     }
 }

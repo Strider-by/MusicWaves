@@ -1,6 +1,8 @@
 package by.musicwaves.controller.command.xhr;
 
 import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Playlist;
 import by.musicwaves.entity.User;
@@ -13,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,21 +22,18 @@ public class GetUserPlaylistsCommand extends AbstractXHRCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(GetUserPlaylistsCommand.class);
     private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
-
     private final static String JSON_PLAYLIST_ITEMS_ARRAY_NAME = "playlists";
 
-    @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, CommandException {
+    public GetUserPlaylistsCommand(AccessLevel accessLevel) {
+        super(accessLevel);
+    }
 
-        // user must be logged in
+    @Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
+
         User user = getUser(request);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
         Locale locale = user.getLanguage().getLocale();
         int userId = user.getId();
-
 
         ServiceResponse<List<Playlist>> serviceResponse;
         try {
@@ -53,7 +51,7 @@ public class GetUserPlaylistsCommand extends AbstractXHRCommand {
         appendServiceMessages(serviceResponse, json);
 
         json.closeJson();
-        response.getWriter().write(json.toString());
+        sendResultJson(json, response);
     }
 
     private void appendServiceProvidedData(ServiceResponse<List<Playlist>> serviceResponse, JsonSelfWrapper json) {

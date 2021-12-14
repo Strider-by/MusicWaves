@@ -27,7 +27,9 @@
     <title id = "page_title">
         ${title}
     </title>
+    <link rel="icon" type="image/png" href="/static/img/favicon-200x200.png" sizes="200x200">
     <link type="text/css" rel="stylesheet" href="../static/css/music_search.css" />
+    <link type="text/css" rel="stylesheet" href="../static/css/main_structure.css">
     <script src="../static/js/common.js" charset="utf-8"></script>
     <script src="../static/js/long-press.js" charset="utf-8"></script>
     <script src="../static/js/music_search.js" charset="utf-8"></script>
@@ -60,8 +62,9 @@
         <div id="heading_menu">
             <p>${title}</p>
             <div id="heading_menu_button_section">
-                <button class="heading_menu_button">1</button>
-                <button class="heading_menu_button">2</button>
+                <ctg:administrator-only-accessible-pages-menu-buttons/>
+                <ctg:curator-and-higher-accessible-pages-menu-buttons/>
+                <ctg:user-accessible-pages-menu-buttons/>
                 <button id="logout_button" class="heading_menu_button">[X]</button>
             </div>
         </div>
@@ -142,14 +145,13 @@
                                         <input id="playlist_name_filter" maxlength="20">
                                         <button id="clean_playlists_filter">&#10005;</button>
                                         <button id="create_new_playlist">+</button>
-                                        <div class="questionmark"
-                                             title="20 symbols maax">?</div>
                                 </div>
                                 <div class="flex">
                                     <select id="availible_playlists">
                                     </select>
                                     <button id="reload_playlists_list">&orarr;</button>
                                     <button id="use_playlist">&crarr;</button>
+                                    <button id="delete_playlist">&#9249;</button>
                                 </div>
                             </div>
                             <div id="tracks_list">
@@ -159,7 +161,7 @@
                                     <div id="playlist_control_block">
                                         <button id="save_playlist">&#128190;</button>
                                         <button id="reload_playlist">&orarr;</button>
-                                        <button id="cleanse_playlist">&#9249;*</button>
+                                        <button id="cleanse_playlist">x</button>
                                     </div>
                                 </div>
                                 <div id="track_items">
