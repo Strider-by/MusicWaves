@@ -1,8 +1,8 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.Playlist;
 import by.musicwaves.entity.User;
@@ -24,8 +24,8 @@ public class GetUserPlaylistsCommand extends AbstractXHRCommand {
     private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
     private final static String JSON_PLAYLIST_ITEMS_ARRAY_NAME = "playlists";
 
-    public GetUserPlaylistsCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public GetUserPlaylistsCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override

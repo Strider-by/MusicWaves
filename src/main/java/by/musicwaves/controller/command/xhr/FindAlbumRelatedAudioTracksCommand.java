@@ -1,9 +1,9 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Converter;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Converter;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.AudioTrack;
 import by.musicwaves.entity.User;
@@ -26,8 +26,8 @@ public class FindAlbumRelatedAudioTracksCommand extends AbstractXHRCommand {
     private final static String PARAM_NAME_ALBUM_ID = "album";
     private final static String JSON_TRACKS_ARRAY_NAME = "tracks";
 
-    public FindAlbumRelatedAudioTracksCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public FindAlbumRelatedAudioTracksCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override

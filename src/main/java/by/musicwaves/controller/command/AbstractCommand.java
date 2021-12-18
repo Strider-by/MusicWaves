@@ -1,12 +1,12 @@
 package by.musicwaves.controller.command;
 
 import by.musicwaves.controller.command.action.AbstractActionCommand;
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.factory.ActionCommandEnum;
-import by.musicwaves.controller.resource.AccessLevel;
-import by.musicwaves.controller.resource.ApplicationPage;
-import by.musicwaves.controller.resource.TransitType;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.ActionCommandEnum;
+import by.musicwaves.controller.util.AccessLevelEnum;
+import by.musicwaves.controller.util.ApplicationPageEnum;
+import by.musicwaves.controller.util.TransitTypeEnum;
 import by.musicwaves.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,14 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.musicwaves.controller.util.Constant.SESSION_ATTRIBUTE_NAME_USER;
+
 public abstract class AbstractCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(AbstractActionCommand.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-    private final AccessLevel accessLevel;
+    private final AccessLevelEnum accessLevelEnum;
 
-    public AbstractCommand(AccessLevel accessLevel) {
-        this.accessLevel = accessLevel;
+    public AbstractCommand(AccessLevelEnum accessLevelEnum) {
+        this.accessLevelEnum = accessLevelEnum;
     }
 
     /**
@@ -72,7 +73,7 @@ public abstract class AbstractCommand {
      */
     private boolean checkAccess(HttpServletRequest request) {
         User user = getUser(request);
-        return accessLevel.isAccessGranted(user);
+        return accessLevelEnum.isAccessGranted(user);
     }
 
     /**
@@ -115,7 +116,7 @@ public abstract class AbstractCommand {
      */
     protected void sendToEntrancePage(HttpServletRequest request, HttpServletResponse response) throws CommandException {
         try {
-            transfer(request, response, ApplicationPage.ENTRANCE, TransitType.REDIRECT);
+            transfer(request, response, ApplicationPageEnum.ENTRANCE, TransitTypeEnum.REDIRECT);
         } catch (IOException | ServletException ex) {
             throw new CommandException(ex);
         }
@@ -136,14 +137,14 @@ public abstract class AbstractCommand {
      * Can be used to transfer request to some Application page either via redirect or via forward.
      *
      * @param targetPage  - page to be transferred to.
-     * @param transitType - type of transition.
+     * @param transitTypeEnum - type of transition.
      * @throws ServletException in some cases when forwarding is failed.
      * @throws IOException      in some cases when forwarding or redirecting is failed.
      */
     protected void transfer(HttpServletRequest request, HttpServletResponse response,
-                            ApplicationPage targetPage, TransitType transitType) throws ServletException, IOException {
+                            ApplicationPageEnum targetPage, TransitTypeEnum transitTypeEnum) throws ServletException, IOException {
 
-        switch (transitType) {
+        switch (transitTypeEnum) {
             case FORWARD:
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(targetPage.getPathToPage());
                 dispatcher.forward(request, response);

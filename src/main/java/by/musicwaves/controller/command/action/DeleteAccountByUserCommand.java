@@ -1,11 +1,11 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Validator;
-import by.musicwaves.controller.resource.AccessLevel;
-import by.musicwaves.controller.resource.ApplicationPage;
-import by.musicwaves.controller.resource.TransitType;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Validator;
+import by.musicwaves.controller.util.AccessLevelEnum;
+import by.musicwaves.controller.util.ApplicationPageEnum;
+import by.musicwaves.controller.util.TransitTypeEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.UserService;
@@ -27,14 +27,14 @@ public class DeleteAccountByUserCommand extends AbstractActionCommand {
     private final static String PARAM_NAME_PASSWORD = "password";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
-    public DeleteAccountByUserCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public DeleteAccountByUserCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
-        ApplicationPage targetPage;
-        TransitType transitType = TransitType.REDIRECT;
+        ApplicationPageEnum targetPage;
+        TransitTypeEnum transitTypeEnum = TransitTypeEnum.REDIRECT;
 
         char[] password = Validator.assertNonNull(request.getParameter(PARAM_NAME_PASSWORD)).toCharArray();
         HttpSession session = request.getSession();
@@ -46,17 +46,17 @@ public class DeleteAccountByUserCommand extends AbstractActionCommand {
             // if everything went well, we can now forget about user via invalidating session
             if (serviceResponse.isSuccess()) {
                 session.invalidate();
-                targetPage = ApplicationPage.ENTRANCE;
+                targetPage = ApplicationPageEnum.ENTRANCE;
             }
             // if something went wrong (most likely - the password was incorrect)
             else {
-                targetPage = ApplicationPage.PROFILE;
+                targetPage = ApplicationPageEnum.PROFILE;
             }
 
             // set messages and error codes to be shown for user or to be processed by front-end
             attachServiceResponse(request, serviceResponse);
             // go to proper page
-            transfer(request, response, targetPage, transitType);
+            transfer(request, response, targetPage, transitTypeEnum);
 
         } catch (ServletException | IOException | ServiceException ex) {
             throw new CommandException("Failed to execute command", ex);

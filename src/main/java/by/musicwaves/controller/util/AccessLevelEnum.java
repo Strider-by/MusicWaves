@@ -1,4 +1,4 @@
-package by.musicwaves.controller.resource;
+package by.musicwaves.controller.util;
 
 import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
@@ -14,7 +14,7 @@ import static java.util.EnumSet.of;
  * Represents access levels that can be used to control if some user can get access to some Command or Page with some
  * access restrictions.
  */
-public enum AccessLevel {
+public enum AccessLevelEnum {
 
     ALL(noneOf(Role.class)) {
         @Override
@@ -31,10 +31,9 @@ public enum AccessLevel {
     MUSIC_CURATOR_PLUS(of(MUSIC_CURATOR, ADMINISTRATOR)),
     ADMINISTRATOR_ONLY(of(ADMINISTRATOR));
 
-
     private final EnumSet<Role> includedRoles;
 
-    AccessLevel(EnumSet<Role> includedRoles) {
+    AccessLevelEnum(EnumSet<Role> includedRoles) {
         this.includedRoles = includedRoles;
     }
 

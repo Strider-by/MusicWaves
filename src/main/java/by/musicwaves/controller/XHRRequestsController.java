@@ -1,7 +1,7 @@
-package by.musicwaves.controller.servlet;
+package by.musicwaves.controller;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.factory.XHRCommandFactory;
+import by.musicwaves.controller.command.XHRCommandFactory;
+import by.musicwaves.controller.exception.CommandException;
 import by.musicwaves.controller.command.xhr.XHRCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

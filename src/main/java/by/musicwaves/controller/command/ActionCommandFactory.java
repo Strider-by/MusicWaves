@@ -1,12 +1,13 @@
-package by.musicwaves.controller.command.factory;
+package by.musicwaves.controller.command;
 
 import by.musicwaves.controller.command.action.ActionCommand;
+import by.musicwaves.controller.util.ActionCommandEnum;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ActionCommandFactory {
+import static by.musicwaves.controller.util.Constant.PARAM_NAME_COMMAND;
 
-    private final static String PARAM_NAME_COMMAND = "command";
+public class ActionCommandFactory {
 
     public ActionCommand defineCommand(HttpServletRequest request) {
         String commandParamValue = request.getParameter(PARAM_NAME_COMMAND);

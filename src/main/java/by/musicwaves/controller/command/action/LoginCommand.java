@@ -1,11 +1,11 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Validator;
-import by.musicwaves.controller.resource.AccessLevel;
-import by.musicwaves.controller.resource.ApplicationPage;
-import by.musicwaves.controller.resource.TransitType;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Validator;
+import by.musicwaves.controller.util.AccessLevelEnum;
+import by.musicwaves.controller.util.ApplicationPageEnum;
+import by.musicwaves.controller.util.TransitTypeEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
@@ -22,25 +22,26 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Locale;
 
+import static by.musicwaves.controller.util.Constant.SESSION_ATTRIBUTE_NAME_USER;
+
 public class LoginCommand extends AbstractActionCommand {
 
     private final static Logger LOGGER = LogManager.getLogger(LoginCommand.class);
     private final static String PARAM_NAME_LOGIN = "login";
     private final static String PARAM_NAME_PASSWORD = "password";
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
     private final static String SESSION_ATTRIBUTE_NAME_LOCALE = "locale";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
 
-    public LoginCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public LoginCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
 
-        ApplicationPage targetPage;
-        TransitType transitType = TransitType.REDIRECT;
+        ApplicationPageEnum targetPage;
+        TransitTypeEnum transitTypeEnum = TransitTypeEnum.REDIRECT;
 
         String login = Validator.assertNonNull(request.getParameter(PARAM_NAME_LOGIN));
         char[] password = Validator.assertNonNull(request.getParameter(PARAM_NAME_PASSWORD)).toCharArray();
@@ -62,17 +63,17 @@ public class LoginCommand extends AbstractActionCommand {
                 HttpSession session = request.getSession();
                 session.setAttribute(SESSION_ATTRIBUTE_NAME_USER, user);
                 session.setAttribute(SESSION_ATTRIBUTE_NAME_LOCALE, user.getLanguage().getLocale());
-                targetPage = ApplicationPage.PROFILE;
+                targetPage = ApplicationPageEnum.PROFILE;
             }
             // if there is no user with such credentials
             else {
-                targetPage = ApplicationPage.ENTRANCE;
+                targetPage = ApplicationPageEnum.ENTRANCE;
             }
 
             // set  messages and error codes to be shown for user or to be processed by front-end
             attachServiceResponse(request, serviceResponse);
             // going to proper page
-            transfer(request, response, targetPage, transitType);
+            transfer(request, response, targetPage, transitTypeEnum);
 
         } catch (ServletException | IOException | ServiceException ex) {
             throw new CommandException("Failed to execute login command", ex);

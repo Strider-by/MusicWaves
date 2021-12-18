@@ -1,6 +1,6 @@
 package by.musicwaves.controller.filter;
 
-import by.musicwaves.controller.resource.ApplicationPage;
+import by.musicwaves.controller.util.ApplicationPageEnum;
 import by.musicwaves.entity.User;
 
 import javax.servlet.*;
@@ -13,6 +13,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static by.musicwaves.controller.util.Constant.SESSION_ATTRIBUTE_NAME_USER;
+
 
 /**
  * Exists to check that user gets access only to the pages it should get access to.
@@ -21,12 +23,11 @@ import java.util.stream.Collectors;
  */
 public class PageAccessFilter implements Filter {
 
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
     private final static Set<String> PAGE_ALIASES;
 
     static {
-        PAGE_ALIASES = Arrays.stream(ApplicationPage.values())
-                .map(ApplicationPage::getAlias)
+        PAGE_ALIASES = Arrays.stream(ApplicationPageEnum.values())
+                .map(ApplicationPageEnum::getAlias)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
     }
@@ -41,16 +42,16 @@ public class PageAccessFilter implements Filter {
         // 1 since URI is something like "/some-alias" and the very first part with index [0] is actually empty
         String pageAlias = originalUri.substring(1);
 
-        ApplicationPage page;
+        ApplicationPageEnum page;
         if (PAGE_ALIASES.contains(pageAlias)) {
             // page found, filtering
-            page = ApplicationPage.getPageByAlias(pageAlias);
+            page = ApplicationPageEnum.getPageByAlias(pageAlias);
             User user = getUser(servletRequest);
             boolean accessGranted = isAccessGranted(page, user);
 
             if (!accessGranted) {
                 // redirecting to entrance page
-                page = ApplicationPage.ENTRANCE;
+                page = ApplicationPageEnum.ENTRANCE;
                 ((HttpServletResponse) servletResponse).sendRedirect(page.getAlias());
             } else {
                 // forwarding to requested page
@@ -70,7 +71,7 @@ public class PageAccessFilter implements Filter {
         return user;
     }
 
-    private boolean isAccessGranted(ApplicationPage page, User user) {
+    private boolean isAccessGranted(ApplicationPageEnum page, User user) {
         return page.getAccessLevel().isAccessGranted(user);
     }
 

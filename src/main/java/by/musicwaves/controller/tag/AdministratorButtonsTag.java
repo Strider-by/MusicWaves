@@ -1,29 +1,17 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
-import by.musicwaves.controller.resource.AccessLevel;
-import by.musicwaves.controller.resource.ApplicationPage;
+import by.musicwaves.controller.util.AccessLevelEnum;
+import by.musicwaves.controller.util.ApplicationPageEnum;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
-public class AdministratorButtonsTag extends SimpleTagSupport {
-
-    private final static Logger LOGGER = LogManager.getLogger(AdministratorButtonsTag.class);
+public class AdministratorButtonsTag extends AbstractTag {
     private final static String BUNDLE_BASENAME = "internationalization.jsp.buttons";
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-
     private final static String BUTTONS_GROUP_BLOCK_PATTERN = "<div class=\"%s\">";
     private final static String MENU_BUTTONS_GROUP_CLASS = "heading_menu_button_section";
     private final static String BUTTON_PATTERN
@@ -31,18 +19,14 @@ public class AdministratorButtonsTag extends SimpleTagSupport {
             + "<img src=\"/static/img/%s\"/></button>";
     private final static String BUTTON_CLASS = "heading_menu_button";
 
-    public void doTag() throws JspException {
+    @Override
+    protected boolean isValidCondition(PageContext pageContext) {
+        return AccessLevelEnum.ADMINISTRATOR_ONLY.isAccessGranted(getUser(pageContext));
+    }
 
-        PageContext pageContext = (PageContext) getJspContext();
-        HttpSession session = pageContext.getSession();
-        User user = (User) session.getAttribute(SESSION_ATTRIBUTE_NAME_USER);
-
-        // if user doesn't fits by his rights, there will be no buttons shown
-        if (!AccessLevel.ADMINISTRATOR_ONLY.isAccessGranted(user)) {
-            return;
-        }
-
-        Locale locale = Optional.ofNullable(user)
+    @Override
+    protected StringBuilder prepareCustomHtmlElement(PageContext pageContext) {
+        Locale locale = Optional.ofNullable(getUser(pageContext))
                 .map(User::getLanguage)
                 .map(Language::getLocale)
                 .orElse(Language.DEFAULT.getLocale());
@@ -65,19 +49,12 @@ public class AdministratorButtonsTag extends SimpleTagSupport {
 
         // closing group tag
         sb.append("</div>");
-
-        try {
-            JspWriter out = pageContext.getOut();
-            out.println(sb);
-        } catch (IOException ex) {
-            LOGGER.error("We have caught an exception during writing to JSP", ex);
-            throw new JspException(ex);
-        }
+        return sb;
     }
 
     private enum Button {
 
-        USERS_PAGE(ApplicationPage.USERS.getAlias(), "users", "users-menu-button.svg");
+        USERS_PAGE(ApplicationPageEnum.USERS.getAlias(), "users", "users-menu-button.svg");
 
         private final String link;
         private final String titlePropertyKey;

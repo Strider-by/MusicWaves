@@ -1,11 +1,11 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Validator;
-import by.musicwaves.controller.resource.AccessLevel;
-import by.musicwaves.controller.resource.ApplicationPage;
-import by.musicwaves.controller.resource.TransitType;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Validator;
+import by.musicwaves.controller.util.AccessLevelEnum;
+import by.musicwaves.controller.util.ApplicationPageEnum;
+import by.musicwaves.controller.util.TransitTypeEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.UserService;
@@ -35,14 +35,14 @@ public class ChangePasswordCommand extends AbstractActionCommand {
         allowedRequestMethods.add("POST");
     }
 
-    public ChangePasswordCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public ChangePasswordCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException, ValidationException {
-        ApplicationPage targetPage;
-        TransitType transitType = TransitType.REDIRECT;
+        ApplicationPageEnum targetPage;
+        TransitTypeEnum transitTypeEnum = TransitTypeEnum.REDIRECT;
 
         char[] oldPassword = Validator.assertNonNull(request.getParameter(PARAM_NAME_OLD_PASSWORD)).toCharArray();
         char[] newPassword1 = Validator.assertNonNull(request.getParameter(PARAM_NAME_NEW_PASSWORD_1)).toCharArray();
@@ -59,15 +59,15 @@ public class ChangePasswordCommand extends AbstractActionCommand {
             if (serviceResponse.isSuccess()) {
                 // if service succeeded we want user to log in anew after his password has been changed
                 request.getSession().invalidate();
-                targetPage = ApplicationPage.ENTRANCE;
+                targetPage = ApplicationPageEnum.ENTRANCE;
             } else {
-                targetPage = ApplicationPage.PROFILE;
+                targetPage = ApplicationPageEnum.PROFILE;
             }
 
             // set  messages and error codes to be shown for user or to be processed by front-end
             attachServiceResponse(request, serviceResponse);
             // going to target page
-            transfer(request, response, targetPage, transitType);
+            transfer(request, response, targetPage, transitTypeEnum);
 
         } catch (ServletException | IOException | ServiceException ex) {
             throw new CommandException("Failed to execute command", ex);

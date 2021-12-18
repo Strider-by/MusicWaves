@@ -1,6 +1,6 @@
 package by.musicwaves.controller.command;
 
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.exception.CommandException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
