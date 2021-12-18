@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface PlaylistService {
+
     ServiceResponse<Playlist> createPlaylist(int userId, String playlistName, Locale locale) throws ServiceException;
 
     ServiceResponse<?> deleteMultiplePlaylists(int userId, int[] playlistsIds, Locale locale) throws ServiceException;

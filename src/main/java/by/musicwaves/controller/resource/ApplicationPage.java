@@ -2,6 +2,11 @@ package by.musicwaves.controller.resource;
 
 import java.util.Arrays;
 
+/**
+ * Represents list of pages that are used in the application.
+ * Pages are set with the aliases by which user can get access to them, paths to actual jsp, and {@link AccessLevel}
+ * access restriction that can be used to prevent users from getting to pages where they should not get to.
+ */
 public enum ApplicationPage {
 
     UNKNOWN_PAGE(null, null, null),
@@ -24,6 +29,12 @@ public enum ApplicationPage {
         this.accessLevel = accessLevel;
     }
 
+    /**
+     * Gets Application page by provided page alias. If there is no page that suits that alias, UNKNOWN_PAGE shall be returned.
+     *
+     * @param alias - the alias to be converted to the requested page if it is possible
+     * @return - Application page that matches given alias
+     */
     public static ApplicationPage getPageByAlias(String alias) {
         return Arrays.stream(ApplicationPage.values())
                 .filter(applicationPage -> alias.equals(applicationPage.getAlias()))

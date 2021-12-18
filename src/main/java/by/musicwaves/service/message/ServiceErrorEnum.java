@@ -3,6 +3,9 @@ package by.musicwaves.service.message;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Provides values that can be used to get access to localized service error messages
+ */
 public enum ServiceErrorEnum {
 
     LOGIN_DOES_NOT_FIT_LIMITATIONS,

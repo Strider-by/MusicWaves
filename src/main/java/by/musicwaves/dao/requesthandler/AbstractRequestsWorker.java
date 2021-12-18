@@ -1,27 +1,27 @@
 package by.musicwaves.dao.requesthandler;
 
 import by.musicwaves.dao.util.PreparedStatementContainer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 public class AbstractRequestsWorker {
 
-    protected SQLRequestHandler requestHandler;
     private final static Logger LOGGER = LogManager.getLogger(AbstractRequestsWorker.class);
+    protected SQLRequestHandler requestHandler;
 
     public AbstractRequestsWorker(SQLRequestHandler requestHandler) {
         this.requestHandler = requestHandler;
     }
 
     protected Connection getConnection() {
-        return requestHandler.getConnection();
+        return SQLRequestHandler.getConnection();
     }
 
     protected void returnConnection(Connection connection) {
-        requestHandler.returnConnection(connection);
+        SQLRequestHandler.returnConnection(connection);
     }
 
     protected void returnConnection(Connection connection, boolean errorOccurred) {
@@ -33,11 +33,11 @@ public class AbstractRequestsWorker {
     }
 
     protected void returnInvalidConnection(Connection connection) {
-        requestHandler.returnInvalidConnection(connection);
+        SQLRequestHandler.returnInvalidConnection(connection);
     }
 
     protected Connection exchangeInvalidConnection(Connection connection) {
-        return requestHandler.exchangeInvalidConnection(connection);
+        return SQLRequestHandler.exchangeInvalidConnection(connection);
     }
 
     protected void closeStatement(PreparedStatementContainer statementContainer) {

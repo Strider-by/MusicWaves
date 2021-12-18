@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This servlet works with {@link XHRCommand} commands
+ */
 public class XHRRequestsController extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(XHRRequestsController.class);

@@ -3,24 +3,33 @@ package by.musicwaves.dao.requesthandler;
 import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.util.EntityDependentStatementInitializer;
 import by.musicwaves.dao.util.PreparedStatementContainer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
 // todo: merge with UpdateRequestsWorker?
-// done: checked closing statement and returning of the connection
-// done: returning possibly bad connection
-public class DeleteRequestsWorker extends AbstractRequestsWorker
-{
+
+/**
+ * Maintains requests that delete records from a database
+ */
+public class DeleteRequestsWorker extends AbstractRequestsWorker {
+
     private final static Logger LOGGER = LogManager.getLogger(DeleteRequestsWorker.class);
 
     public DeleteRequestsWorker(SQLRequestHandler requestHandler) {
         super(requestHandler);
     }
 
-
+    /**
+     * Deletes record from a database with provided id using provided sql string
+     *
+     * @param id  id to be mapped to prepared statement
+     * @param sql sql string to be base of prepared statement
+     * @return quantity of rows that were affected by this request
+     * @throws DaoException if either something goes wrong  with connection or database treats our sql expression as an invalid one
+     */
     public int processDeleteByIdRequest(Integer id, String sql) throws DaoException {
 
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
@@ -35,17 +44,27 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
         } catch (SQLException ex) {
             errorOccurred = true;
             throw new DaoException(ex);
-        }
-        finally {
+        } finally {
             closeStatement(statementContainer);
             returnConnection(connection, errorOccurred);
         }
     }
 
+    /**
+     * Deletes record from a database with an id that is extracted from provided entity
+     *
+     * @param instance    entity to extract id from
+     * @param sql         sql string to be base of prepared statement
+     * @param initializer special object that extracts data from supported entity object and map it to prepared statement
+     * @param <T>         type of the entity that we work with
+     * @return quantity of rows that were affected by this request
+     * @throws DaoException if either something goes wrong with connection OR database treats our sql expression as
+     *                      an invalid one OR we failed to get data from returned Result set
+     */
     public <T> int processDeleteRequest(
             T instance,
             String sql,
-            EntityDependentStatementInitializer<T> eInitializer) throws DaoException {
+            EntityDependentStatementInitializer<T> initializer) throws DaoException {
 
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
         Connection connection = getConnection();
@@ -53,7 +72,7 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
 
         try {
             statementContainer.wrap(connection.prepareStatement(sql));
-            eInitializer.init(instance, statementContainer);
+            initializer.init(instance, statementContainer);
             int affectedRows = executeUpdate(statementContainer);
             return affectedRows;
         } catch (SQLException ex) {
@@ -65,26 +84,47 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
         }
     }
 
+    /**
+     * Deletes instance using provided sql string
+     *
+     * @param sql sql string to be directly executed
+     * @return quantity of rows that were affected by this request
+     * @throws DaoException if either something goes wrong  with connection or database treats our sql expression as an invalid one
+     */
     public int processDeleteRequest(String sql) throws DaoException {
 
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
         Connection connection = getConnection();
-        boolean errorOccured = false;
+        boolean errorOccurred = false;
 
         try {
             statementContainer.wrap(connection.prepareStatement(sql));
             int affectedRows = executeUpdate(statementContainer);
             return affectedRows;
         } catch (SQLException ex) {
-            errorOccured = true;
+            errorOccurred = true;
             throw new DaoException(ex);
         } finally {
             closeStatement(statementContainer);
-            returnConnection(connection, errorOccured);
+            returnConnection(connection, errorOccurred);
         }
     }
 
     // todo: why did I make here 2 edsInitializers again?
+
+    /**
+     * Delete several records from a database using id-s extracted from provided entities
+     *
+     * @param instances       entities to get id-s from
+     * @param sql             sql string to be base of prepared statement
+     * @param edsInitializer1 special object that extracts data from supported entity object and map it to prepared statement
+     * @param edsInitializer2 special object that extracts data from supported entity object and map it to prepared statement
+     *                        (in case first one is not enough). Can be null.
+     * @param <T>             type of the entity that we work with
+     * @return an array of quantities of rows that were affected by that that request, each position in this array
+     * is for corresponding entity set in the parameter
+     * @throws DaoException if either something goes wrong with connection or database treats our sql expression as an invalid one
+     */
     public <T> int[] processMultipleDeleteRequest(
             T[] instances,
             String sql,
@@ -93,7 +133,7 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
 
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
         Connection connection = getConnection();
-        boolean errorOccured = false;
+        boolean errorOccurred = false;
 
         try {
             statementContainer.wrap(connection.prepareStatement(sql));
@@ -109,11 +149,11 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
             return affectedRows;
 
         } catch (SQLException ex) {
-            errorOccured = true;
+            errorOccurred = true;
             throw new DaoException(ex);
         } finally {
             closeStatement(statementContainer);
-            returnConnection(connection, errorOccured);
+            returnConnection(connection, errorOccurred);
         }
     }
 
@@ -125,7 +165,6 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
             int[] affectedRows = preparedStatementContainer.executeBatch();
             return affectedRows;
         } catch (SQLException ex) {
-            LOGGER.error("Failed to execute batch delete request \n" + preparedStatementContainer, ex);
             throw ex;
         }
     }
@@ -138,7 +177,6 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker
             int affectedRows = preparedStatementContainer.executeUpdate();
             return affectedRows;
         } catch (SQLException ex) {
-            LOGGER.error("Failed to execute delete request \n" + preparedStatementContainer, ex);
             throw ex;
         }
     }

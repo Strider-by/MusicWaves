@@ -20,15 +20,21 @@ public abstract class AbstractActionCommand extends AbstractCommand implements A
         super(accessLevel);
     }
 
-    @Override
-    protected void processAccessForbiddenState(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        sendToDefaultPage(request, response);
-    }
-
+    /**
+     * Attaches ServiceResponse parameter object as a session attribute so it can be accessed from jsp to build page.
+     * If session doesn't exist (invalidated), it shall be created.
+     *
+     * @param request         - is used to get access to session
+     * @param serviceResponse - unchanged is being attached to session
+     */
     protected static void attachServiceResponse(HttpServletRequest request, ServiceResponse serviceResponse) {
         HttpSession session = request.getSession(true);
         session.setAttribute(SESSION_SERVICE_RESPONSE_ATTRIBUTE, serviceResponse);
     }
 
+    @Override
+    protected void processAccessForbiddenState(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+        sendToEntrancePage(request, response);
+    }
 
 }

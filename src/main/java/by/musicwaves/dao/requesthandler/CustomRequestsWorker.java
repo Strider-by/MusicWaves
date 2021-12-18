@@ -10,8 +10,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// done: checked closing statement and returning of the connection
-// done: returning possibly bad connection
+/**
+ * Maintains requests that don't fit other Request workers
+ */
 public class CustomRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(CustomRequestsWorker.class);
@@ -23,6 +24,14 @@ public class CustomRequestsWorker extends AbstractRequestsWorker {
 
     // SINGLE RESULT METHODS //
 
+    /**
+     * Processes request that returns single string value as the result
+     *
+     * @param sql         - sql string to be base of prepared statement
+     * @param initializer - special object that maps data it contains to prepared statement
+     * @return string gotten as the result of built request
+     * @throws DaoException if something goes wrong either with connection or database take our sql expression as an invalid one
+     */
     public String processStringResultRequest(String sql, PreparedStatementContainerInitializer initializer) throws DaoException {
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
         Connection connection = getConnection();
@@ -31,13 +40,13 @@ public class CustomRequestsWorker extends AbstractRequestsWorker {
         try {
             connection.setAutoCommit(true);
             statementContainer.wrap(connection.prepareStatement(sql));
-            if(initializer != null) {
+            if (initializer != null) {
                 initializer.init(statementContainer);
             }
 
             ResultSet queryResult = statementContainer.executeQuery();
-            // todo: debug and change
-            // doesn't work so far
+            // todo: change it the way it shall work even when statement is complex and contains substatements
+            //  and the first substatement returns nothing
             boolean resultIsPresent = queryResult.next();
             LOGGER.debug("Result is present " + resultIsPresent);
             return queryResult.getString(1);
@@ -51,11 +60,20 @@ public class CustomRequestsWorker extends AbstractRequestsWorker {
         }
     }
 
+    /**
+     * Processes request that returns single boolean value as the result
+     *
+     * @param sql         - sql string to be base of prepared statement
+     * @param initializer - special object that maps data it contains to prepared statement
+     * @return boolean gotten as the result of built request
+     * @throws DaoException if something goes wrong either with connection or database take our sql expression as
+     *                      an invalid one, OR the value we got from this request can not be converted to boolean
+     */
     public boolean processBooleanResultRequest(String sql, PreparedStatementContainerInitializer initializer) throws DaoException {
 
         String booleanString = processStringResultRequest(sql, initializer);
 
-        if(!"1".equals(booleanString) && !"0".equals(booleanString)) {
+        if (!"1".equals(booleanString) && !"0".equals(booleanString)) {
             ClassCastException classCastException = new ClassCastException("Provided value does not match expected values");
             throw new DaoException(classCastException);
         }
@@ -63,6 +81,15 @@ public class CustomRequestsWorker extends AbstractRequestsWorker {
         return "1".equals(booleanString);
     }
 
+    /**
+     * Processes request that returns single int value as the result
+     *
+     * @param sql         - sql string to be base of prepared statement
+     * @param initializer - special object that maps data it contains to prepared statement
+     * @return int gotten as the result of built request
+     * @throws DaoException if something goes wrong either with connection or database take our sql expression as
+     *                      an invalid one, OR the value we got from this request can not be converted to int
+     */
     public int processIntegerResultRequest(String sql, PreparedStatementContainerInitializer initializer) throws DaoException {
         String integerString = processStringResultRequest(sql, initializer);
         try {
@@ -75,6 +102,13 @@ public class CustomRequestsWorker extends AbstractRequestsWorker {
 
     // OTHER //
 
+    /**
+     * Processes request that works with multiple similar requests fit into one general request
+     *
+     * @param sql          sql string to be base of prepared statement
+     * @param initializers special objects that maps data they contain to prepared statement
+     * @throws DaoException if something goes wrong either with connection or database take our sql expression as an invalid one
+     */
     public void processBatchRequest(String sql, PreparedStatementContainerInitializer... initializers) throws DaoException {
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
         Connection connection = getConnection();
@@ -94,7 +128,6 @@ public class CustomRequestsWorker extends AbstractRequestsWorker {
 
         } catch (SQLException ex) {
             errorOccurred = true;
-            LOGGER.error("Failed to execute batch request", ex);
             throw new DaoException(ex);
         } finally {
             closeStatement(statementContainer);

@@ -4,6 +4,8 @@ import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.util.EntityInitializer;
 import by.musicwaves.dao.util.PreparedStatementContainer;
 import by.musicwaves.dao.util.PreparedStatementContainerInitializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,11 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
-// done: checked closing statement and returning of the connection
-// done: returning possibly bad connection
+/**
+ * Works with requests that return some value from a database
+ */
 public class SelectRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(SelectRequestsWorker.class);
@@ -27,6 +28,18 @@ public class SelectRequestsWorker extends AbstractRequestsWorker {
         super(requestHandler);
     }
 
+    /**
+     * Processes request that returns several results
+     *
+     * @param sql                  sql string to be base of prepared statement
+     * @param statementInitializer object that is used to initialize sql statement
+     * @param entityCreator        object that creates entity that needs to be filled with data gotten by the request
+     * @param entityInitializer    object that fills entity with data based on returned Result set row
+     * @param <T>                  type of the entity we work with
+     * @return list of newly created entities
+     * @throws DaoException if either something goes wrong with connection OR database treats our sql expression as
+     *                      an invalid one OR we failed to get data from returned Result set
+     */
     public <T> List<T> processMultipleResultsSelectRequest(
             String sql,
             PreparedStatementContainerInitializer statementInitializer,
@@ -57,8 +70,7 @@ public class SelectRequestsWorker extends AbstractRequestsWorker {
             }
         } catch (SQLException ex) {
             errorOccurred = true;
-            LOGGER.error("Failed to execute request \n" + statementContainer, ex);
-            throw new DaoException(ex);
+            throw new DaoException("Failed to execute request \n" + statementContainer, ex);
         } finally {
             closeStatement(statementContainer);
             returnConnection(connection, errorOccurred);
@@ -68,6 +80,19 @@ public class SelectRequestsWorker extends AbstractRequestsWorker {
 
 
     // todo: switch to Optional<T> to avoid possible null returning?
+
+    /**
+     * Precesses request that returns single result and transform returned data to an entity object
+     *
+     * @param sql                  sql string to be base of prepared statement
+     * @param statementInitializer object that is used to initialize sql statement
+     * @param entityCreator        object that creates entity that needs to be filled with data gotten by the request
+     * @param entityInitializer    object that fills entity with data based on returned Result set row
+     * @param <T>                  type of the entity we work with
+     * @return newly created entity
+     * @throws DaoException if either something goes wrong with connection OR database treats our sql expression as
+     *                      an invalid one OR we failed to get data from returned Result set
+     */
     public <T> T processSingleResultSelectRequest(
             String sql, PreparedStatementContainerInitializer statementInitializer,
             Supplier<T> entityCreator, EntityInitializer<T> entityInitializer) throws DaoException {
@@ -96,8 +121,7 @@ public class SelectRequestsWorker extends AbstractRequestsWorker {
             }
         } catch (SQLException ex) {
             errorOccurred = true;
-            LOGGER.error("Failed to execute request \n" + statementContainer, ex);
-            throw new DaoException(ex);
+            throw new DaoException("Failed to execute request \n" + statementContainer, ex);
         } finally {
             closeStatement(statementContainer);
             returnConnection(connection, errorOccurred);
@@ -105,7 +129,21 @@ public class SelectRequestsWorker extends AbstractRequestsWorker {
     }
 
 
-    // todo: test it
+    /**
+     * Processes request that returns several result sets. To be able to return such result, all result sets
+     * are transformed to {@link List}<{@link Map}> of strings where each List represents separate Result set
+     * and each element of List (Map of strings) represents data row of that Result set. Keys of this Map are names
+     * of columns in Result set so Access to particular value we seek can be gotten by: <pre>
+     * list.get(n)  --  get result set by it's number;
+     *     .get(m)  --  get data row by it's number starting from 0
+     *     .get(o)  --  get particular data cell by the name of it's column. </pre>
+     * If subrequest does not return result set, it isn't represented in resulting list.
+     *
+     * @param sql sql string to be base of prepared statement
+     * @return list of lists of maps of strings that can be used to get required data
+     * @throws DaoException if either something goes wrong with connection OR database treats our sql expression as
+     *                      an invalid one OR we failed to get data from returned Result set
+     */
     public List<List<Map<String, String>>> processCustomSelectRequest(
             String sql,
             PreparedStatementContainerInitializer initializer) throws DaoException {

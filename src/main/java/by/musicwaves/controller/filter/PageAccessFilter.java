@@ -14,6 +14,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+/**
+ * Exists to check that user gets access only to the pages it should get access to.
+ * If user tries to get somewhere he is not being waited for, he shall be redirected to the entrance page.
+ * Additionally this filter forwards to the actual jsp pages, parsing request URI and converting them to pages aliases.
+ */
 public class PageAccessFilter implements Filter {
 
     private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
@@ -33,6 +38,7 @@ public class PageAccessFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String originalUri = ((HttpServletRequest) servletRequest).getRequestURI();
+        // 1 since URI is something like "/some-alias" and the very first part with index [0] is actually empty
         String pageAlias = originalUri.substring(1);
 
         ApplicationPage page;

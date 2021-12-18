@@ -1,6 +1,7 @@
 package by.musicwaves.util;
 
 public class Triplet<S, U, V> extends Pair<S, U> {
+
     private V thirdValue;
 
     public Triplet(S firstValue, U secondValue, V thirdValue) {

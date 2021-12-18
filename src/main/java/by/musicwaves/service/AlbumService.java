@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface AlbumService {
+
     ServiceResponse<Pair<Integer, List<Album>>> findAlbums(int artistId, String name, Integer year, Boolean visible, int pageNumber, int recordsPerPage, Locale locale) throws ServiceException;
 
     ServiceResponse<Album> createAlbum(int artistId, String name, int year, boolean visible, Locale locale) throws ServiceException;

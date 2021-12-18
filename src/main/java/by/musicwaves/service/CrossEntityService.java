@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface CrossEntityService {
+
     ServiceResponse<
             MusicSearchResultsContainer<
                     List<ArtistDto>>> findArtistsForMusicSearchPage(
@@ -21,12 +22,12 @@ public interface CrossEntityService {
 
     ServiceResponse<
             MusicSearchResultsContainer<
-                                List<AlbumDto>>> findAlbumsForMusicSearchPage(
+                    List<AlbumDto>>> findAlbumsForMusicSearchPage(
             String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException;
 
     ServiceResponse<
             MusicSearchResultsContainer<
-                                List<AudioTrackDto>>> findTracksForMusicSearchPage(
+                    List<AudioTrackDto>>> findTracksForMusicSearchPage(
             String searchString, int userId, int limit, int offset, Locale locale) throws ServiceException;
 
     ServiceResponse<Pair<Artist, List<AlbumDto>>> findChosenArtistAlbumsForMusicSearchPage(

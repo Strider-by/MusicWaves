@@ -21,6 +21,7 @@
 <fmt:message bundle="${page}" key="track" var="track"/>
 <fmt:message bundle="${page}" key="tracks" var="tracks"/>
 <fmt:message bundle="${page}" key="playlists" var="playlists"/>
+<fmt:message bundle="${page}" key="year" var="year"/>
 
 <html>
 <head>

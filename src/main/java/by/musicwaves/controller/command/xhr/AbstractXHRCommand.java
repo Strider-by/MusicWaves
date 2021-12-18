@@ -32,9 +32,17 @@ public abstract class AbstractXHRCommand extends AbstractCommand implements XHRC
 
     @Override
     protected void processAccessForbiddenState(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        sendBadRequestError(response);
+        sendForbiddenError(response);
     }
 
+    /**
+     * Appends messages and error messages passed with ServiceResponse object to the provided JsonSelfWrapper object
+     * to be processed on frontend. If there are no messages or error messages, corresponding json arrays still shall be created,
+     * but left empty.
+     *
+     * @param serviceResponse - used to extract stored messages and error messages
+     * @param json            - object to store messages and error messages
+     */
     protected void appendServiceMessages(ServiceResponse serviceResponse, JsonSelfWrapper json) {
 
         List<String> messages = serviceResponse.getMessages();
@@ -59,10 +67,22 @@ public abstract class AbstractXHRCommand extends AbstractCommand implements XHRC
         json.closeArray();
     }
 
+    /**
+     * Appends boolean type result of command execution (if it succeeded or not) to the provided JsonSelfWrapper object.
+     *
+     * @param serviceResponse - used to extract stored messages and error messages
+     * @param json            - object to store messages and error messages
+     */
     protected void appendServiceExecutionResult(ServiceResponse serviceResponse, JsonSelfWrapper json) {
         json.appendBoolean(JSON_SERVICE_IS_SUCCESS_FIELD_NAME, serviceResponse.isSuccess());
     }
 
+    /**
+     * Converts JsonSelfWrapper parameter object to json string and sends it to frontend.
+     *
+     * @param json - JsonSelfWrapper to be converted to json string
+     * @throws CommandException if method failed to send response
+     */
     protected void sendResultJson(JsonSelfWrapper json, HttpServletResponse response) throws CommandException {
         try {
             response.getWriter().write(json.toString());

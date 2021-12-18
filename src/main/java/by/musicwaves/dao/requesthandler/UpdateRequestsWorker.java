@@ -4,14 +4,15 @@ import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.util.EntityDependentStatementInitializer;
 import by.musicwaves.dao.util.PreparedStatementContainer;
 import by.musicwaves.dao.util.PreparedStatementContainerInitializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 
-// done: checked closing statement and returning of the connection
-// done: returning possibly bad connection
+/**
+ * Works with requests that updates data already stored in a database
+ */
 public class UpdateRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(UpdateRequestsWorker.class);
@@ -20,9 +21,17 @@ public class UpdateRequestsWorker extends AbstractRequestsWorker {
         super(requestHandler);
     }
 
-
     /**
+     * Updates data in a database based on data of provided entity parameter
+     *
+     * @param instance       entity to extract data that shall be placed in database
+     * @param sql            sql string to be base of prepared statement
+     * @param edsInitializer initializer that maps data to prepared statement taking it from provided entity
+     * @param sdsInitializer initializer that maps data to prepared statement. Not dependent on provided entity object
+     * @param <T>            type of the entity we work with
      * @return quantity of rows that were affected by executed request
+     * @throws DaoException if either something goes wrong with connection OR database treats our sql expression as
+     *                      an invalid one OR we failed to get data from returned Result set
      */
     public <T> int processUpdateRequest(
             T instance, String sql,
@@ -52,12 +61,17 @@ public class UpdateRequestsWorker extends AbstractRequestsWorker {
         }
     }
 
-
     /**
+     * Updates data in a database based on data of provided entity parameter
+     *
+     * @param sql            sql string to be base of prepared statement
+     * @param sdsInitializer initializer that maps data to prepared statement. Not dependent on provided entity object
      * @return quantity of rows that were affected by executed request
+     * @throws DaoException if either something goes wrong with connection OR database treats our sql expression as
+     *                      an invalid one OR we failed to get data from returned Result set
      */
     public int processUpdateRequest(
-            String sql, 
+            String sql,
             PreparedStatementContainerInitializer sdsInitializer) throws DaoException {
 
         PreparedStatementContainer statementContainer = new PreparedStatementContainer();
@@ -82,9 +96,12 @@ public class UpdateRequestsWorker extends AbstractRequestsWorker {
         }
     }
 
-
     /**
-     * @return quantity of rows that were affected by executed request
+     * Updates instance using provided sql string
+     *
+     * @param sql sql string to be directly executed
+     * @return quantity of rows that were affected by this request
+     * @throws DaoException if either something goes wrong  with connection or database treats our sql expression as an invalid one
      */
     public int processUpdateRequest(String sql) throws DaoException {
 
@@ -107,8 +124,21 @@ public class UpdateRequestsWorker extends AbstractRequestsWorker {
         }
     }
 
-
     // todo: why did I make here 2 edsInitializers again?
+
+    /**
+     * Update several records in a database using provided entities
+     *
+     * @param instances       entities to get data from
+     * @param sql             sql string to be base of prepared statement
+     * @param edsInitializer1 special object that extracts data from supported entity object and map it to prepared statement
+     * @param edsInitializer2 special object that extracts data from supported entity object and map it to prepared statement
+     *                        (in case first one is not enough). Can be null.
+     * @param <T>             type of the entity that we work with
+     * @return an array of quantities of rows that were affected by that that request, each position in this array
+     * is for corresponding entity set in the parameter
+     * @throws DaoException if either something goes wrong with connection or database treats our sql expression as an invalid one
+     */
     public <T> int[] processMultipleUpdateRequest(
             T[] instances,
             String sql,
@@ -141,7 +171,6 @@ public class UpdateRequestsWorker extends AbstractRequestsWorker {
             returnConnection(connection, errorOccurred);
         }
     }
-
 
     private int[] executeBatch(PreparedStatementContainer preparedStatementContainer) throws SQLException {
         Connection connection = preparedStatementContainer.getConnection();

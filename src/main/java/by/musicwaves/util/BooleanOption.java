@@ -9,16 +9,23 @@ public enum BooleanOption {
     POSITIVE_OPTION(1, "yes", true, true),
     NEGATIVE_OPTION(2, "no", false, true);
 
-    private int id;
-    private String propertyKey;
     Boolean value;
     boolean validTagOption;
+    private final int id;
+    private final String propertyKey;
 
     BooleanOption(int id, String propertyKey, Boolean value, boolean validTagOption) {
         this.propertyKey = propertyKey;
         this.id = id;
         this.value = value;
         this.validTagOption = validTagOption;
+    }
+
+    public static BooleanOption getById(int id) {
+        return Arrays.stream(values())
+                .filter(option -> id == option.id)
+                .findAny()
+                .orElse(UNKNOWN_OPTION);
     }
 
     public String getPropertyKey() {
@@ -35,12 +42,5 @@ public enum BooleanOption {
 
     public boolean isValidTagOption() {
         return validTagOption;
-    }
-
-    public static BooleanOption getById(int id) {
-        return Arrays.stream(values())
-                .filter(option -> id == option.id)
-                .findAny()
-                .orElse(UNKNOWN_OPTION);
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface ArtistService {
+
     ServiceResponse<Pair<Integer, List<Artist>>> findArtists(String name, int nameSearchTypeId, Boolean visible, int pageNumber, int recordsPerPage, Locale locale) throws ServiceException;
 
     ServiceResponse<Artist> createArtist(String name, boolean visible, Locale locale) throws ServiceException;

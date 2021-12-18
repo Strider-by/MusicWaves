@@ -13,13 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 
-
+/**
+ * This servlet provides access to the uploadable resources ({@link UploadableResource}) files and additionally prevents
+ * access to them if the user, that requested specific resource, in not logged in.
+ */
 public class UploadableResourcesController extends HttpServlet {
 
     private final static Logger LOGGER = LogManager.getLogger(UploadableResourcesController.class);
     private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-    private static final int EXPECTED_URI_PARTS_QUANTITY = 3;
     private static final int ALIAS_URI_PART_NUMBER = 1;
+    private static final int FILE_NAME_URI_PART_NUMBER = 2;
+    private static final int EXPECTED_URI_PARTS_QUANTITY = 3;
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -36,7 +40,7 @@ public class UploadableResourcesController extends HttpServlet {
         // checking if request is valid
         String uri = request.getRequestURI();
         String[] parts = uri.split("/");
-        if(parts.length != EXPECTED_URI_PARTS_QUANTITY) {
+        if (parts.length != EXPECTED_URI_PARTS_QUANTITY) {
             // something is wrong
             LOGGER.warn("Request uri does not meet expectations, found " + parts.length + " elements; " + uri);
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -44,15 +48,15 @@ public class UploadableResourcesController extends HttpServlet {
         }
 
         String resourceAlias = parts[ALIAS_URI_PART_NUMBER];
-        UploadableResource resourceType  = UploadableResource.getByAlias(resourceAlias);
-        if(resourceType == UploadableResource.UNKNOWN_RESOURCE) {
+        UploadableResource resourceType = UploadableResource.getByAlias(resourceAlias);
+        if (resourceType == UploadableResource.UNKNOWN_RESOURCE) {
             // something is wrong
             LOGGER.warn("Cannot process variable resource request: uri[" + uri + "] resourceType[" + resourceType + "]");
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
 
-        File resource = new File(resourceType.getPathToResourceDirectory() + File.separator + parts[2]);
+        File resource = new File(resourceType.getPathToResourceDirectory() + File.separator + parts[FILE_NAME_URI_PART_NUMBER]);
         LOGGER.debug("Resource path is: " + resource.getAbsolutePath());
         LOGGER.debug("Resource is present: " + (resource.exists() && resource.isFile()));
         if (!resource.exists() || resource.isDirectory()) {
@@ -62,7 +66,7 @@ public class UploadableResourcesController extends HttpServlet {
 
         try (InputStream is = new FileInputStream(resource); OutputStream os = response.getOutputStream()) {
             int read;
-            byte bytes[] = new byte[1024];
+            byte[] bytes = new byte[1024];
 
             while ((read = is.read(bytes)) != -1) {
                 os.write(bytes, 0, read);

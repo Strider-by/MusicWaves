@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 public interface UserService {
+
     ServiceResponse<Integer> registerUser(String login, char[] password1, char[] password2, String inviteCode, Language language) throws ServiceException;
 
     ServiceResponse<User> login(String login, char[] password, Locale locale) throws ServiceException;
