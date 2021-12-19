@@ -3,6 +3,7 @@ package by.musicwaves.controller.util;
 import by.musicwaves.controller.command.xhr.*;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public enum XHRCommandEnum {
 

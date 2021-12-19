@@ -15,9 +15,8 @@ import java.io.IOException;
  * This servlet works with {@link XHRCommand} commands
  */
 public class XHRRequestsController extends HttpServlet {
-
     private final static Logger LOGGER = LogManager.getLogger(XHRRequestsController.class);
-    private final static XHRCommandFactory COMMAND_FACTORY = new XHRCommandFactory();
+    private final XHRCommandFactory COMMAND_FACTORY = new XHRCommandFactory();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {

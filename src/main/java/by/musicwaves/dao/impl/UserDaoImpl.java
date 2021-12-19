@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDaoImpl implements UserDao {
-
-    private static final UserDao instance = new UserDaoImpl();
-    private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
     private final static Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+    private static final UserDao instance = new UserDaoImpl();
+
+    private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
 
     private static final class SQL {
         public final static String SELECT_ALL = "SELECT * FROM users ";

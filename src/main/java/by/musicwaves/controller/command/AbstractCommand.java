@@ -88,6 +88,13 @@ public abstract class AbstractCommand {
             throw new CommandException(ex);
         }
     }
+    protected void sendError(int errorNumber, HttpServletResponse response) throws CommandException {
+        try {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        } catch (IOException ex) {
+            throw new CommandException(ex);
+        }
+    }
 
     /**
      * Sends Bad request 400 error as a response to a command call.

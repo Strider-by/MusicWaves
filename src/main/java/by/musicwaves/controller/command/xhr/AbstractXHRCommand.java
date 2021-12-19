@@ -32,7 +32,7 @@ public abstract class AbstractXHRCommand extends AbstractCommand implements XHRC
 
     @Override
     protected void processAccessForbiddenState(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        sendForbiddenError(response);
+        sendError(HttpServletResponse.SC_FORBIDDEN, response);
     }
 
     /**

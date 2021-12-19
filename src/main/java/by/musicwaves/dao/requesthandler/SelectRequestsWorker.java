@@ -24,10 +24,6 @@ public class SelectRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(SelectRequestsWorker.class);
 
-    public SelectRequestsWorker(SQLRequestHandler requestHandler) {
-        super(requestHandler);
-    }
-
     /**
      * Processes request that returns several results
      *

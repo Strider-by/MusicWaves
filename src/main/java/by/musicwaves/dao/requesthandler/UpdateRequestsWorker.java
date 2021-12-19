@@ -17,10 +17,6 @@ public class UpdateRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(UpdateRequestsWorker.class);
 
-    public UpdateRequestsWorker(SQLRequestHandler requestHandler) {
-        super(requestHandler);
-    }
-
     /**
      * Updates data in a database based on data of provided entity parameter
      *

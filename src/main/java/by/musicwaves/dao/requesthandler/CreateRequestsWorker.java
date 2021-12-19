@@ -19,11 +19,6 @@ public class CreateRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(CreateRequestsWorker.class);
 
-    public CreateRequestsWorker(SQLRequestHandler requestHandler) {
-        super(requestHandler);
-    }
-
-
     /**
      * Records instance data fields to database getting data from entity instance parameter using provided initializer.
      * Gotten parameters are being mapped to prepared statement based on provided sql string parameter.

@@ -22,7 +22,7 @@ import java.util.Locale;
 public class AudioTrackServiceImpl implements AudioTrackService {
 
     private static final AudioTrackServiceImpl service = new AudioTrackServiceImpl();
-    private static final AudioTrackDao audioTrackDao = AudioTrackDaoImpl.getInstance();
+    private final AudioTrackDao audioTrackDao = AudioTrackDaoImpl.getInstance();
     private final static Logger LOGGER = LogManager.getLogger(AudioTrackServiceImpl.class);
 
     private AudioTrackServiceImpl() {

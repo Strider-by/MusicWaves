@@ -1,6 +1,5 @@
 package by.musicwaves.dao.requesthandler;
 
-import by.musicwaves.dao.connection.ConnectionPool;
 import by.musicwaves.dao.exception.DaoException;
 import by.musicwaves.dao.util.EntityDependentStatementInitializer;
 import by.musicwaves.dao.util.EntityInitializer;
@@ -8,7 +7,6 @@ import by.musicwaves.dao.util.PreparedStatementContainerInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -20,36 +18,19 @@ import java.util.function.Supplier;
 public class SQLRequestHandler {
 
     private final static Logger LOGGER = LogManager.getLogger(SQLRequestHandler.class);
-    private final static ConnectionPool connectionPool = ConnectionPool.INSTANCE;
     private final static SQLRequestHandler sqlRequestHandlerInstance = new SQLRequestHandler();
 
-    private final CreateRequestsWorker createRequestsWorker = new CreateRequestsWorker(this);
-    private final SelectRequestsWorker selectRequestsWorker = new SelectRequestsWorker(this);
-    private final UpdateRequestsWorker updateRequestsWorker = new UpdateRequestsWorker(this);
-    private final DeleteRequestsWorker deleteRequestsWorker = new DeleteRequestsWorker(this);
-    private final CustomRequestsWorker customRequestsWorker = new CustomRequestsWorker(this);
+    private final CreateRequestsWorker createRequestsWorker = new CreateRequestsWorker();
+    private final SelectRequestsWorker selectRequestsWorker = new SelectRequestsWorker();
+    private final UpdateRequestsWorker updateRequestsWorker = new UpdateRequestsWorker();
+    private final DeleteRequestsWorker deleteRequestsWorker = new DeleteRequestsWorker();
+    private final CustomRequestsWorker customRequestsWorker = new CustomRequestsWorker();
 
     private SQLRequestHandler() {
     }
 
     public static SQLRequestHandler getInstance() {
         return sqlRequestHandlerInstance;
-    }
-
-    static Connection getConnection() {
-        return connectionPool.getConnection();
-    }
-
-    static void returnConnection(Connection connection) {
-        connectionPool.returnConnection(connection);
-    }
-
-    static void returnInvalidConnection(Connection connection) {
-        connectionPool.returnInvalidConnection(connection);
-    }
-
-    static Connection exchangeInvalidConnection(Connection connection) {
-        return connectionPool.exchangeInvalidConnection(connection);
     }
 
     // Methods that will delegate calls to corresponding class methods //

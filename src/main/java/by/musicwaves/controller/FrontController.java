@@ -16,15 +16,12 @@ import java.io.IOException;
  */
 public class FrontController extends HttpServlet {
     private final static Logger LOGGER = LogManager.getLogger(FrontController.class);
-
     private final ActionCommandFactory COMMAND_FACTORY = new ActionCommandFactory();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        ActionCommand commandProcessor = COMMAND_FACTORY.defineCommand(request);
-
         try {
+            ActionCommand commandProcessor = COMMAND_FACTORY.defineCommand(request);
             commandProcessor.checkAccessAndExecute(request, response);
         } catch (CommandException ex) {
             LOGGER.error("Command failed to be executed", ex);

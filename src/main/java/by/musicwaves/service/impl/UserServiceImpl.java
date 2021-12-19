@@ -167,20 +167,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public ServiceResponse<String> changeLogin(User user, char[] password, String newLogin) throws ServiceException {
         String passwordHashed = PasswordWorker.processPasswordHashing(password);
-        ServiceResponse<String> response = new ServiceResponse<>();
+        ServiceResponse<String> response;
         Locale locale = user.getLanguage().getLocale();
 
         boolean newLoginFitsLimitations = checkLogin(newLogin);
         boolean oldPasswordIsValid = user.getHashedPassword().equals(passwordHashed);
 
         if (!newLoginFitsLimitations || !oldPasswordIsValid) {
-            if (!newLoginFitsLimitations)
-                response.addErrorOccurrence(ServiceErrorEnum.LOGIN_DOES_NOT_FIT_LIMITATIONS, locale);
-            if (!oldPasswordIsValid) response.addErrorOccurrence(ServiceErrorEnum.INVALID_PASSWORD, locale);
-
-            return response;
+            response = changeLoginNotAllowed(locale, newLoginFitsLimitations, oldPasswordIsValid);
+        } else {
+            response = changeLoginAllowed(user, newLogin, locale);
         }
+        return response;
+    }
 
+    private ServiceResponse<String> changeLoginAllowed(User user, String newLogin, Locale locale) throws ServiceException {
+        ServiceResponse<String> response = new ServiceResponse<>();
         // all passed parameters are valid, running actual login update
         boolean loginHasBeenChanged;
         try {
@@ -195,7 +197,17 @@ public class UserServiceImpl implements UserService {
         } else {
             response.setStoredValue(newLogin);
         }
+        return response;
+    }
 
+    private ServiceResponse<String> changeLoginNotAllowed(Locale locale, boolean newLoginFitsLimitations, boolean oldPasswordIsValid) {
+        ServiceResponse<String> response = new ServiceResponse<>();
+        if (!newLoginFitsLimitations) {
+            response.addErrorOccurrence(ServiceErrorEnum.LOGIN_DOES_NOT_FIT_LIMITATIONS, locale);
+        }
+        if (!oldPasswordIsValid) {
+            response.addErrorOccurrence(ServiceErrorEnum.INVALID_PASSWORD, locale);
+        }
         return response;
     }
 
@@ -268,13 +280,12 @@ public class UserServiceImpl implements UserService {
         // if we cannot get proper Role value, return error and interrupt service execution
         if (newRole == Role.UNKNOWN) {
             serviceResponse.addErrorOccurrence(ServiceErrorEnum.INVALID_ROLE_PARAMETER_VALUE, locale);
-            return serviceResponse;
-        }
-
-        try {
-            userDao.updateUserRole(userId, roleId);
-        } catch (DaoException ex) {
-            throw new ServiceException(ex);
+        } else {
+            try {
+                userDao.updateUserRole(userId, roleId);
+            } catch (DaoException ex) {
+                throw new ServiceException(ex);
+            }
         }
 
         return serviceResponse;
