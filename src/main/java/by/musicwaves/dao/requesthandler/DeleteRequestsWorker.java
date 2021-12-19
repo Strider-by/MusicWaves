@@ -18,10 +18,6 @@ public class DeleteRequestsWorker extends AbstractRequestsWorker {
 
     private final static Logger LOGGER = LogManager.getLogger(DeleteRequestsWorker.class);
 
-    public DeleteRequestsWorker(SQLRequestHandler requestHandler) {
-        super(requestHandler);
-    }
-
     /**
      * Deletes record from a database with provided id using provided sql string
      *

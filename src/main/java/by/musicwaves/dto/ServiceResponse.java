@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class ServiceResponse<T> {
 
-    private  boolean success = true;
+    private boolean success = true;
     private T storedValue;
     private List<String> messages = new ArrayList<>();
     private List<String> errorMessages = new ArrayList<>();

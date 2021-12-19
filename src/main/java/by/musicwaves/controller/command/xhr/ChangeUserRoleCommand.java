@@ -1,9 +1,9 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Converter;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Converter;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.service.UserService;
 import by.musicwaves.service.exception.ServiceException;
@@ -20,8 +20,8 @@ public class ChangeUserRoleCommand extends AbstractXHRCommand {
     private final static String PARAM_NAME_USER_ID = "user_id";
     private final static String PARAM_NAME_ROLE_ID = "role_id";
 
-    public ChangeUserRoleCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public ChangeUserRoleCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override

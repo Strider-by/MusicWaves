@@ -1,9 +1,9 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.resource.AccessLevel;
-import by.musicwaves.controller.resource.ApplicationPage;
-import by.musicwaves.controller.resource.TransitType;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.util.AccessLevelEnum;
+import by.musicwaves.controller.util.ApplicationPageEnum;
+import by.musicwaves.controller.util.TransitTypeEnum;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,18 +12,18 @@ import java.io.IOException;
 
 public class GoToDefaultPageCommand extends AbstractActionCommand {
 
-    public GoToDefaultPageCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public GoToDefaultPageCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-        ApplicationPage targetPage = ApplicationPage.ENTRANCE;
-        TransitType transitType = TransitType.REDIRECT;
+        ApplicationPageEnum targetPage = ApplicationPageEnum.ENTRANCE;
+        TransitTypeEnum transitTypeEnum = TransitTypeEnum.REDIRECT;
 
         try {
-            transfer(request, response, targetPage, transitType);
+            transfer(request, response, targetPage, transitTypeEnum);
         } catch (ServletException | IOException ex) {
             throw new CommandException("Failed to execute Go to default page command", ex);
         }

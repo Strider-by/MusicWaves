@@ -1,8 +1,8 @@
 package by.musicwaves.controller.command.xhr;
 
 import by.musicwaves.controller.command.AbstractCommand;
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.util.JsonSelfWrapper;
 import org.apache.logging.log4j.LogManager;
@@ -26,13 +26,13 @@ public abstract class AbstractXHRCommand extends AbstractCommand implements XHRC
     private final static String JSON_SERVICE_ERROR_CODES_ARRAY_NAME = "error_codes";
     private final static String JSON_SERVICE_IS_SUCCESS_FIELD_NAME = "success";
 
-    public AbstractXHRCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public AbstractXHRCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override
     protected void processAccessForbiddenState(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        sendForbiddenError(response);
+        sendError(HttpServletResponse.SC_FORBIDDEN, response);
     }
 
     /**

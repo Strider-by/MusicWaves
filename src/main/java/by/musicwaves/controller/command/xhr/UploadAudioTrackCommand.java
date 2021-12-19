@@ -1,9 +1,9 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Converter;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Converter;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
 import by.musicwaves.service.AudioTrackService;
@@ -24,8 +24,8 @@ public class UploadAudioTrackCommand extends AbstractXHRCommand {
     private final static String PARAM_NAME_TRACK_ID = "id";
     private final static String JSON_FILE_NAME_OBJECT_NAME = "file";
 
-    public UploadAudioTrackCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public UploadAudioTrackCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override

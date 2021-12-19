@@ -1,6 +1,7 @@
 package by.musicwaves.controller.command.util;
 
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Converter;
 import org.junit.Test;
 
 import java.time.LocalDate;

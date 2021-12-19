@@ -1,7 +1,7 @@
-package by.musicwaves.controller.command.util;
+package by.musicwaves.controller.util;
 
 
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.ValidationException;
 
 import java.util.List;
 

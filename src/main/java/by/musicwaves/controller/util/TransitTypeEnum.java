@@ -1,9 +1,9 @@
-package by.musicwaves.controller.resource;
+package by.musicwaves.controller.util;
 
 /**
  * Represents types of transitions we can use in our application.
  */
-public enum TransitType {
+public enum TransitTypeEnum {
     REDIRECT,
     FORWARD
 }

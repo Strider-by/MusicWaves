@@ -1,10 +1,10 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.command.util.Converter;
-import by.musicwaves.controller.command.util.Validator;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.Converter;
+import by.musicwaves.controller.util.Validator;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.AudioTrackDto;
 import by.musicwaves.dto.MusicSearchResultsContainer;
 import by.musicwaves.dto.ServiceResponse;
@@ -29,8 +29,8 @@ public class FindAudioTracksForMusicSearchPageCommand extends AbstractXHRCommand
     private final static String PARAM_NAME_PAGE_NUMBER = "page";
     private final static String PARAM_NAME_LIMIT = "limit";
 
-    public FindAudioTracksForMusicSearchPageCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public FindAudioTracksForMusicSearchPageCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override

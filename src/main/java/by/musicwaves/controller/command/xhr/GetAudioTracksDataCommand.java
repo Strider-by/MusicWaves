@@ -1,8 +1,8 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
-import by.musicwaves.controller.resource.AccessLevel;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
+import by.musicwaves.controller.util.AccessLevelEnum;
 import by.musicwaves.dto.AudioTrackDto;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
@@ -25,8 +25,8 @@ public class GetAudioTracksDataCommand extends AbstractXHRCommand {
     private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
     private final static String PARAM_NAME_TRACKS_IDS = "tracks_id[]";
 
-    public GetAudioTracksDataCommand(AccessLevel accessLevel) {
-        super(accessLevel);
+    public GetAudioTracksDataCommand(AccessLevelEnum accessLevelEnum) {
+        super(accessLevelEnum);
     }
 
     @Override

@@ -1,20 +1,19 @@
-package by.musicwaves.controller.command.factory;
+package by.musicwaves.controller.util;
 
 import by.musicwaves.controller.command.action.*;
-import by.musicwaves.controller.resource.AccessLevel;
 
 import java.util.Arrays;
 
 public enum ActionCommandEnum {
 
-    REGISTER("register", new RegisterUserCommand(AccessLevel.ALL)),
-    LOGIN("login", new LoginCommand(AccessLevel.ALL)),
-    LOGOUT("logout", new LogoutCommand(AccessLevel.ALL)),
-    GO_TO_DEFAULT_PAGE("go_to_default_page", new GoToDefaultPageCommand(AccessLevel.ALL)),
-    CHANGE_LANGUAGE("change_language", new ChangeLanguageCommand(AccessLevel.USER_PLUS)),
-    CHANGE_PASSWORD("change_password", new ChangePasswordCommand(AccessLevel.USER_PLUS)),
-    CHANGE_LOGIN("change_login", new ChangeLoginCommand(AccessLevel.USER_PLUS)),
-    DELETE_ACCOUNT_BY_USER("delete_account", new DeleteAccountByUserCommand(AccessLevel.USER_PLUS));
+    REGISTER("register", new RegisterUserCommand(AccessLevelEnum.ALL)),
+    LOGIN("login", new LoginCommand(AccessLevelEnum.ALL)),
+    LOGOUT("logout", new LogoutCommand(AccessLevelEnum.ALL)),
+    GO_TO_DEFAULT_PAGE("go_to_default_page", new GoToDefaultPageCommand(AccessLevelEnum.ALL)),
+    CHANGE_LANGUAGE("change_language", new ChangeLanguageCommand(AccessLevelEnum.USER_PLUS)),
+    CHANGE_PASSWORD("change_password", new ChangePasswordCommand(AccessLevelEnum.USER_PLUS)),
+    CHANGE_LOGIN("change_login", new ChangeLoginCommand(AccessLevelEnum.USER_PLUS)),
+    DELETE_ACCOUNT_BY_USER("delete_account", new DeleteAccountByUserCommand(AccessLevelEnum.USER_PLUS));
 
     private final String alias;
     private final AbstractActionCommand command;

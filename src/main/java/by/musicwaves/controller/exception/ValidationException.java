@@ -1,4 +1,4 @@
-package by.musicwaves.controller.command.exception;
+package by.musicwaves.controller.exception;
 
 public class ValidationException extends Exception {
 
