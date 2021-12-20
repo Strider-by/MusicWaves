@@ -1,6 +1,6 @@
-package by.musicwaves.controller.servlet;
+package by.musicwaves.controller;
 
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.exception.CommandException;
 import by.musicwaves.controller.command.factory.XHRCommandFactory;
 import by.musicwaves.controller.command.xhr.XHRCommand;
 import org.apache.logging.log4j.LogManager;
@@ -14,10 +14,10 @@ import java.io.IOException;
 /**
  * This servlet works with {@link XHRCommand} commands
  */
-public class XHRRequestsController extends HttpServlet {
+public class AsyncRequestsController extends HttpServlet {
 
-    private final static Logger LOGGER = LogManager.getLogger(XHRRequestsController.class);
-    private final static XHRCommandFactory COMMAND_FACTORY = new XHRCommandFactory();
+    private static final Logger LOGGER = LogManager.getLogger(AsyncRequestsController.class);
+    private static final XHRCommandFactory COMMAND_FACTORY = new XHRCommandFactory();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {

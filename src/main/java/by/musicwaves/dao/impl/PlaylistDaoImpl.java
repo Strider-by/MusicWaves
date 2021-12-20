@@ -17,7 +17,7 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
     private static final PlaylistDaoImpl instance = new PlaylistDaoImpl();
     private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(PlaylistDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(PlaylistDaoImpl.class);
 
     public static PlaylistDaoImpl getInstance() {
         return instance;
@@ -25,28 +25,28 @@ public class PlaylistDaoImpl implements PlaylistDao {
 
     private static final class SQL {
 
-        public final static String SELECT_ALL
+        public static final String SELECT_ALL
                 = "SELECT * FROM playlists";
-        public final static String CREATE_INSTANCE
+        public static final String CREATE_INSTANCE
                 = "INSERT INTO playlists (name, user_id) VALUES (?, ?)";
-        public final static String UPDATE_INSTANCE
+        public static final String UPDATE_INSTANCE
                 = "UPDATE playlists SET name = ?, user_id = ?";
-        public final static String DELETE_INSTANCE
+        public static final String DELETE_INSTANCE
                 = "DELETE FROM playlists";
-        public final static String DELETE_BY_USER_AND_PLAYLIST_ID
+        public static final String DELETE_BY_USER_AND_PLAYLIST_ID
                 = "DELETE FROM playlists WHERE user_id = ? AND id = ?";
-        public final static String RENAME_PLAYLIST
+        public static final String RENAME_PLAYLIST
                 = "UPDATE playlists SET name = ? WHERE user_id = ? AND id = ?";
 
         private static final class SelectBy {
-            public final static String ID
+            public static final String ID
                     = " WHERE playlists.id = ?";
-            public final static String USER_ID
+            public static final String USER_ID
                     = " WHERE playlists.user_id = ?";
         }
 
         private static final class OrderBy {
-            public final static String PLAYLIST_NAME_ASC
+            public static final String PLAYLIST_NAME_ASC
                     = " ORDER BY playlists.name ASC";
         }
     }

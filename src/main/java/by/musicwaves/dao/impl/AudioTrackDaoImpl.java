@@ -17,23 +17,23 @@ public class AudioTrackDaoImpl implements AudioTrackDao {
 
     private static final AudioTrackDao instance = new AudioTrackDaoImpl();
     private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(AudioTrackDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(AudioTrackDaoImpl.class);
 
     private static final class SQL {
-        public final static String SELECT_ALL = "SELECT * FROM tracks ";
-        public final static String CREATE_TRACK_GENERATING_TRACK_NUMBER
+        public static final String SELECT_ALL = "SELECT * FROM tracks ";
+        public static final String CREATE_TRACK_GENERATING_TRACK_NUMBER
                 = "INSERT INTO tracks (album_id, name, visible, number) \n"
                 + "SELECT ?, ?, ?, COUNT(id) + 1 FROM tracks WHERE album_id = ?";
-        private final static String UPDATE_AUDIO_TRACK_FILE_NAME
+        private static final String UPDATE_AUDIO_TRACK_FILE_NAME
                 = "SELECT file_name FROM tracks WHERE id = ?;\n"
                 + "UPDATE tracks SET file_name = ? WHERE id = ?";
-        public final static String UPDATE_INSTANCE
+        public static final String UPDATE_INSTANCE
                 = "UPDATE tracks SET name = ?, file_name = ?, visible = ? number = ?";
-        public final static String UPDATE_NAME_AND_VISIBILITY
+        public static final String UPDATE_NAME_AND_VISIBILITY
                 = "UPDATE tracks SET name = ?, visible = ?";
-        public final static String DELETE_INSTANCE
+        public static final String DELETE_INSTANCE
                 = "DELETE FROM tracks";
-        public final static String DELETE_TRACK_AND_GET_FILE_BEING_DELETED_NAME_AND_REARRANGE_ALBUM_TRACKS
+        public static final String DELETE_TRACK_AND_GET_FILE_BEING_DELETED_NAME_AND_REARRANGE_ALBUM_TRACKS
                 = "SET @track_id := ?; "
                 + "SET @Album = (SELECT album_id FROM tracks WHERE tracks.id = @track_id); "
                 // getting track file
@@ -49,14 +49,14 @@ public class AudioTrackDaoImpl implements AudioTrackDao {
                 + "WHERE album_id = @Album "
                 + "ORDER BY number; ";
 
-        public final static String REARRANGE_ALBUM_TRACKS_NUMBERS
+        public static final String REARRANGE_ALBUM_TRACKS_NUMBERS
                 = "SET @row_base = 0; "
                 + "UPDATE tracks "
                 + "SET number = (@row_base := @row_base + 1) "
                 + "WHERE album_id = ? "
                 + "ORDER BY number; ";
 
-        public final static String SHIFT_TRACK_NUMBER_UP
+        public static final String SHIFT_TRACK_NUMBER_UP
                 = "SELECT @current_number := number, @current_album := album_id FROM tracks WHERE id = ?; "
                 + "UPDATE tracks "
                 + "	SET number = "
@@ -66,7 +66,7 @@ public class AudioTrackDaoImpl implements AudioTrackDao {
                 + " END) "
                 + "WHERE @current_number > 1 AND number IN (@current_number - 1, @current_number) AND album_id = @current_album;";
 
-        public final static String SHIFT_TRACK_NUMBER_DOWN
+        public static final String SHIFT_TRACK_NUMBER_DOWN
                 = "SELECT @current_number := number, @current_album := album_id "
                 + "FROM tracks "
                 + "WHERE id = ?; "
@@ -80,28 +80,28 @@ public class AudioTrackDaoImpl implements AudioTrackDao {
                 + "AND album_id = @current_album;";
 
         private static final class SelectBy {
-            public final static String ID
+            public static final String ID
                     = " WHERE id = ?";
-            public final static String ALBUM_ID
+            public static final String ALBUM_ID
                     = " WHERE album_id = ?";
-            public final static String NAME
+            public static final String NAME
                     = " WHERE name = ?";
-            public final static String NUMBER
+            public static final String NUMBER
                     = " WHERE number = ?";
-            public final static String VISIBLE
+            public static final String VISIBLE
                     = " WHERE visible = ?";
-            public final static String FILE_NAME
+            public static final String FILE_NAME
                     = " WHERE file_name = ?";
         }
 
         private static final class OrderBy {
-            public final static String ID
+            public static final String ID
                     = " ORDER BY id ";
-            public final static String ALBUM_ID
+            public static final String ALBUM_ID
                     = " ORDER BY album_id ";
-            public final static String NAME
+            public static final String NAME
                     = " ORDER BY name ";
-            public final static String NUMBER
+            public static final String NUMBER
                     = " ORDER BY number ";
         }
     }

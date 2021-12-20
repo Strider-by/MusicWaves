@@ -6,6 +6,7 @@
 package by.musicwaves.entity;
 
 public class Album {
+
     private int id;
     private int artistId;
     private String name;

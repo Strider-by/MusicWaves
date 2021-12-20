@@ -21,7 +21,7 @@ public class CrossEntityServiceImpl implements CrossEntityService {
 
     private static final CrossEntityServiceImpl service = new CrossEntityServiceImpl();
     private static final CrossEntityDao dao = CrossEntityDaoFactory.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(CrossEntityServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(CrossEntityServiceImpl.class);
 
     private CrossEntityServiceImpl() {
     }

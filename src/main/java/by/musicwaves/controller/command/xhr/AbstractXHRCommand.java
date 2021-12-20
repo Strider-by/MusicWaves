@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
 import by.musicwaves.controller.command.AbstractCommand;
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.exception.CommandException;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.util.JsonSelfWrapper;
@@ -17,14 +17,14 @@ public abstract class AbstractXHRCommand extends AbstractCommand implements XHRC
 
     public static final String PARAM_NAME_PAGE_NUMBER = "page_number";
     public static final String PARAM_NAME_RECORDS_PER_PAGE = "records_per_page";
-    public final static String PARAM_NAME_FIELD_TO_BE_SORTED_BY = "sort_by";
-    public final static String PARAM_NAME_SORT_ORDER_ID = "sort_order_id";
-    protected final static String JSON_DATA_OBJECT_NAME = "data";
-    private final static Logger LOGGER = LogManager.getLogger(AbstractXHRCommand.class);
-    private final static String JSON_SERVICE_MESSAGES_ARRAY_NAME = "messages";
-    private final static String JSON_SERVICE_ERROR_MESSAGES_ARRAY_NAME = "error_messages";
-    private final static String JSON_SERVICE_ERROR_CODES_ARRAY_NAME = "error_codes";
-    private final static String JSON_SERVICE_IS_SUCCESS_FIELD_NAME = "success";
+    public static final String PARAM_NAME_FIELD_TO_BE_SORTED_BY = "sort_by";
+    public static final String PARAM_NAME_SORT_ORDER_ID = "sort_order_id";
+    protected static final String JSON_DATA_OBJECT_NAME = "data";
+    private static final Logger LOGGER = LogManager.getLogger(AbstractXHRCommand.class);
+    private static final String JSON_SERVICE_MESSAGES_ARRAY_NAME = "messages";
+    private static final String JSON_SERVICE_ERROR_MESSAGES_ARRAY_NAME = "error_messages";
+    private static final String JSON_SERVICE_ERROR_CODES_ARRAY_NAME = "error_codes";
+    private static final String JSON_SERVICE_IS_SUCCESS_FIELD_NAME = "success";
 
     public AbstractXHRCommand(AccessLevel accessLevel) {
         super(accessLevel);

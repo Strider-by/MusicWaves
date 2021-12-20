@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
@@ -21,11 +21,11 @@ import java.util.Locale;
 
 public class UpdateAudioTrackCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(UpdateAudioTrackCommand.class);
-    private final static AudioTrackService service = ServiceFactory.getInstance().getAudioTrackService();
-    private final static String PARAM_NAME_ID = "id";
-    private final static String PARAM_NAME_NAME = "name";
-    private final static String PARAM_NAME_VISIBLE = "visible";
+    private static final Logger LOGGER = LogManager.getLogger(UpdateAudioTrackCommand.class);
+    private static final AudioTrackService service = ServiceFactory.getInstance().getAudioTrackService();
+    private static final String PARAM_NAME_ID = "id";
+    private static final String PARAM_NAME_NAME = "name";
+    private static final String PARAM_NAME_VISIBLE = "visible";
 
     public UpdateAudioTrackCommand(AccessLevel accessLevel) {
         super(accessLevel);

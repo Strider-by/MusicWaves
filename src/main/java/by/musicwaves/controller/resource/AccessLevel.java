@@ -56,16 +56,4 @@ public enum AccessLevel {
                 .map(this::containsRole)
                 .orElse(false);
     }
-
-    /**
-     * Checks if given user is NOT allowed to perform actions granted by this AccessLevel instance.
-     * The check is based on the Role field set in User instance.
-     * Method is NPE-safe, it works correctly even when user == null or it's Role field isn't set (Role role == null).
-     *
-     * @param user - user to be checked. Can be null.
-     * @return if access is forbidden.
-     */
-    public boolean isAccessForbidden(User user) {
-        return !isAccessGranted(user);
-    }
 }

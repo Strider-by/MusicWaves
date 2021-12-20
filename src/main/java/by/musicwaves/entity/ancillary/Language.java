@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 public enum Language {
+
     DEFAULT("???", "Not defined", 0, Locale.ENGLISH, false),
     BELARUSIAN("БЕЛ", "Беларуская", 1, new Locale("be"), true),
     ENGLISH("ENG", "English", 2, Locale.ENGLISH, true),

@@ -22,7 +22,7 @@ import java.util.function.Supplier;
  */
 public class SelectRequestsWorker extends AbstractRequestsWorker {
 
-    private final static Logger LOGGER = LogManager.getLogger(SelectRequestsWorker.class);
+    private static final Logger LOGGER = LogManager.getLogger(SelectRequestsWorker.class);
 
     public SelectRequestsWorker(SQLRequestHandler requestHandler) {
         super(requestHandler);

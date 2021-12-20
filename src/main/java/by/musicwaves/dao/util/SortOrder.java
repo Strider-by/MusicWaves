@@ -7,10 +7,6 @@ public enum SortOrder {
     ASCENDING(1, "asc", " ASC "),
     DESCENDING(2, "desc", " DESC ");
 
-    int id;
-    String propertyKey;
-    String sqlEquivalent;
-
     static {
         // check that there is no repeated ids
         int initialSize = values().length;
@@ -24,10 +20,21 @@ public enum SortOrder {
         }
     }
 
+    int id;
+    String propertyKey;
+    String sqlEquivalent;
+
     SortOrder(int id, String propertyKey, String sqlEquivalent) {
         this.id = id;
         this.propertyKey = propertyKey;
         this.sqlEquivalent = sqlEquivalent;
+    }
+
+    public static SortOrder getById(int id) {
+        return Arrays.stream(values())
+                .filter(elem -> id == elem.id)
+                .findAny()
+                .orElse(SortOrder.ASCENDING);
     }
 
     public String getPropertyKey() {
@@ -40,12 +47,5 @@ public enum SortOrder {
 
     public int getId() {
         return id;
-    }
-
-    public static SortOrder getById(int id) {
-        return Arrays.stream(values())
-                .filter(elem -> id == elem.id)
-                .findAny()
-                .orElse(SortOrder.ASCENDING);
     }
 }

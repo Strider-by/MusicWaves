@@ -5,7 +5,7 @@ import by.musicwaves.controller.command.xhr.AbstractXHRCommand;
 import by.musicwaves.controller.command.xhr.XHRCommand;
 
 public class XHRCommandFactory {
-    public final static String PARAM_NAME_COMMAND = "command";
+    public static final String PARAM_NAME_COMMAND = "command";
     
     public XHRCommand defineCommand(HttpServletRequest request) {
         String commandParamValue = request.getParameter(PARAM_NAME_COMMAND);

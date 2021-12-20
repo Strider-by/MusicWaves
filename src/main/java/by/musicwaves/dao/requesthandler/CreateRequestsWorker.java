@@ -17,7 +17,7 @@ import java.sql.Statement;
  */
 public class CreateRequestsWorker extends AbstractRequestsWorker {
 
-    private final static Logger LOGGER = LogManager.getLogger(CreateRequestsWorker.class);
+    private static final Logger LOGGER = LogManager.getLogger(CreateRequestsWorker.class);
 
     public CreateRequestsWorker(SQLRequestHandler requestHandler) {
         super(requestHandler);

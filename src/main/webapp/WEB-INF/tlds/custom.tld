@@ -12,21 +12,21 @@
     <tag>
         <name>languages</name>
         <description>This tag can be used to create language options inside a select tag</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.LanguageOptionsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.LanguageOptionsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>roles</name>
         <description>This tag can be used to create role options inside a select tag. Role name is localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.RoleOptionsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.RoleOptionsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>users-sort-field-options</name>
         <description>This tag can be used to create sort options for users.jsp inside a select tag. Field names are localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.UsersPageSortOptionsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.UsersPageSortOptionsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -34,7 +34,7 @@
         <name>boolean-type-options</name>
         <description>This tag can be used to create filter options based on "empty-value" / yes / no values inside select tag.
             Displayed values are localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.BooleanOptionsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.BooleanOptionsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -42,7 +42,7 @@
         <name>artists-sort-field-options</name>
         <description>This tag can be used to create sort options for artists.jsp inside a select tag.
             Displayed values are localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.ArtistsPageSortOptionsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.ArtistsPageSortOptionsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -50,7 +50,7 @@
         <name>similarity-type-options</name>
         <description>This tag can be used to create equality type options (EQUALS, CONTAINS) inside a select tag.
             Displayed values are localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.SimilarityTypeFilterTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.SimilarityTypeFilterTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -58,14 +58,14 @@
         <name>date-compare-type-options</name>
         <description>This tag can be used to create compare type options for dates (BEFORE, AFTER, EQUALS) inside a select tag.
             Displayed values are localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.DateCompareTypeFilterTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.DateCompareTypeFilterTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>sort-order-options</name>
         <description>This tag can be used to create sort order options inside a select tag. Sort name is localized.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.SortOrderOptionsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.SortOrderOptionsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -73,7 +73,7 @@
         <name>administrator-only-accessible-pages-menu-buttons</name>
         <description>This tag creates buttons that leads to pages that only user with administrator role can access
             and that are visible only for administrators.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.AdministratorButtonsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.AdministratorButtonsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -81,7 +81,7 @@
         <name>curator-and-higher-accessible-pages-menu-buttons</name>
         <description>This tag creates buttons that leads to pages that users with administrator or curator roles can access
             and that are visible only for administrators and curators.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.CuratorAndHigherButtonsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.CuratorAndHigherButtonsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
@@ -89,14 +89,14 @@
         <name>user-accessible-pages-menu-buttons</name>
         <description>This tag creates buttons that leads to pages that only user with administrator role can access
             and that are visible only for administrators.</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.UserButtonsTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.UserButtonsTag</tag-class>
         <body-content>scriptless</body-content>
     </tag>
 
     <tag>
         <name>list</name>
         <description>This tag can be used to output list of elements</description>
-        <tag-class>by.musicwaves.controller.servlet.tag.ListOutputTag</tag-class>
+        <tag-class>by.musicwaves.controller.tag.ListOutputTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
             <name>list</name>

@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
@@ -22,11 +22,11 @@ import java.util.Locale;
 
 public class CreateArtistCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(CreateArtistCommand.class);
-    private final static ArtistService service = ServiceFactory.getInstance().getArtistService();
-    private final static String PARAM_NAME_NAME = "name";
-    private final static String PARAM_NAME_VISIBLE = "visible";
-    private final static String JSON_ARTIST_OBJECT_NAME = "artist";
+    private static final Logger LOGGER = LogManager.getLogger(CreateArtistCommand.class);
+    private static final ArtistService service = ServiceFactory.getInstance().getArtistService();
+    private static final String PARAM_NAME_NAME = "name";
+    private static final String PARAM_NAME_VISIBLE = "visible";
+    private static final String JSON_ARTIST_OBJECT_NAME = "artist";
 
     public CreateArtistCommand(AccessLevel accessLevel) {
         super(accessLevel);

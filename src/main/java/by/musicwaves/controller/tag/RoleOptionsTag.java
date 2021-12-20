@@ -1,6 +1,6 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
-import by.musicwaves.dao.impl.UserDaoImpl.Field;
+import by.musicwaves.entity.Role;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
 import org.apache.logging.log4j.LogManager;
@@ -13,21 +13,21 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
-public class UsersPageSortOptionsTag extends SimpleTagSupport {
+public class RoleOptionsTag extends SimpleTagSupport {
 
-    private final static String BUNDLE_BASENAME = "internationalization.jsp.users";
-    private final static Logger LOGGER = LogManager.getLogger(UsersPageSortOptionsTag.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-    private final static List<Field> fields;
+    private static final String BUNDLE_BASENAME = "internationalization.jsp.shared";
+    private static final Logger LOGGER = LogManager.getLogger(RoleOptionsTag.class);
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final List<Role> roles;
 
     static {
-        fields = Arrays.asList(
-                Field.ID,
-                Field.LOGIN,
-                Field.ROLE,
-                Field.REGISTER_DATE);
+        roles = Arrays.stream(Role.values())
+                .filter(Role::isValidOption)
+                .sorted(Comparator.comparing(Role::getDatabaseId))
+                .collect(Collectors.toList());
     }
 
     public void doTag() throws JspException {
@@ -40,19 +40,20 @@ public class UsersPageSortOptionsTag extends SimpleTagSupport {
                 .map(Language::getLocale)
                 .orElse(Language.DEFAULT.getLocale());
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
+        LOGGER.debug("\n\n\n\n used locale: " + locale + "; used bundle: " + bundle + "\n\n\n\n");
         StringBuilder sb = new StringBuilder();
 
-        for (Field field : fields) {
-            int fieldId = field.getId();
-            String localizedFieldName = bundle.getString(field.getPropertyKey());
+        for (Role role : roles) {
+            int roleId = role.getDatabaseId();
+            String localizedRoleName = bundle.getString(role.getPropertyKey());
 
             // opening tag
             sb.append("<option value=\"");
-            sb.append(fieldId);
+            sb.append(roleId);
             sb.append("\">");
 
             // inner Html
-            sb.append(localizedFieldName);
+            sb.append(localizedRoleName);
 
             // closing tag
             sb.append("</option>");

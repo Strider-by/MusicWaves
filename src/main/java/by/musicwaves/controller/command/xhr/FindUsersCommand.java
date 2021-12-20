@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -22,15 +22,15 @@ import java.util.Locale;
 
 public class FindUsersCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(FindUsersCommand.class);
-    private final static UserService service = ServiceFactory.getInstance().getUserService();
-    private final static String PARAM_NAME_ID = "id";
-    private final static String PARAM_NAME_LOGIN = "login";
-    private final static String PARAM_NAME_ROLE_ID = "role_id";
-    private final static String PARAM_NAME_REGISTER_DATE = "register_date";
-    private final static String PARAM_NAME_LOGIN_SEARCH_TYPE_ID = "login_search_type_id";
-    private final static String PARAM_NAME_REGISTER_DATE_COMPARE_TYPE_ID = "register_date_compare_type_id";
-    private final static String JSON_USERS_ARRAY_NAME = "users";
+    private static final Logger LOGGER = LogManager.getLogger(FindUsersCommand.class);
+    private static final UserService service = ServiceFactory.getInstance().getUserService();
+    private static final String PARAM_NAME_ID = "id";
+    private static final String PARAM_NAME_LOGIN = "login";
+    private static final String PARAM_NAME_ROLE_ID = "role_id";
+    private static final String PARAM_NAME_REGISTER_DATE = "register_date";
+    private static final String PARAM_NAME_LOGIN_SEARCH_TYPE_ID = "login_search_type_id";
+    private static final String PARAM_NAME_REGISTER_DATE_COMPARE_TYPE_ID = "register_date_compare_type_id";
+    private static final String JSON_USERS_ARRAY_NAME = "users";
 
     public FindUsersCommand(AccessLevel accessLevel) {
         super(accessLevel);

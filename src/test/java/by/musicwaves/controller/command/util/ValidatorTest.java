@@ -1,6 +1,6 @@
 package by.musicwaves.controller.command.util;
 
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.ValidationException;
 import org.junit.Test;
 
 import java.util.Arrays;

@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
@@ -21,12 +21,12 @@ import java.util.Locale;
 
 public class UpdateAlbumCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(UpdateAlbumCommand.class);
-    private final static AlbumService service = ServiceFactory.getInstance().getAlbumService();
-    private final static String PARAM_NAME_ID = "id";
-    private final static String PARAM_NAME_NAME = "name";
-    private final static String PARAM_NAME_YEAR = "year";
-    private final static String PARAM_NAME_VISIBLE = "visible";
+    private static final Logger LOGGER = LogManager.getLogger(UpdateAlbumCommand.class);
+    private static final AlbumService service = ServiceFactory.getInstance().getAlbumService();
+    private static final String PARAM_NAME_ID = "id";
+    private static final String PARAM_NAME_NAME = "name";
+    private static final String PARAM_NAME_YEAR = "year";
+    private static final String PARAM_NAME_VISIBLE = "visible";
 
     public UpdateAlbumCommand(AccessLevel accessLevel) {
         super(accessLevel);

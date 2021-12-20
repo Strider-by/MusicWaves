@@ -11,7 +11,7 @@ public enum UploadableResource {
     ALBUM_IMAGE("album-images", "album_images"),
     ARTIST_IMAGE("artist-images", "artist_images");
 
-    private final static String BUNDLE_NAME = "uploadable";
+    private static final String BUNDLE_NAME = "uploadable";
     private String pathToResourceDirectory;
     private String alias;
 

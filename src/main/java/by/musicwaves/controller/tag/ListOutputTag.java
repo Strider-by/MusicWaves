@@ -1,4 +1,4 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ListOutputTag extends SimpleTagSupport {
 
-    private final static Logger LOGGER = LogManager.getLogger(ListOutputTag.class);
+    private static final Logger LOGGER = LogManager.getLogger(ListOutputTag.class);
     private String htmlElementTag;
     private String className;
     private List list;

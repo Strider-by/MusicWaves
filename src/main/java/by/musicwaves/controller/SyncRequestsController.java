@@ -1,7 +1,7 @@
-package by.musicwaves.controller.servlet;
+package by.musicwaves.controller;
 
 import by.musicwaves.controller.command.action.ActionCommand;
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.exception.CommandException;
 import by.musicwaves.controller.command.factory.ActionCommandFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,10 +14,10 @@ import java.io.IOException;
 /**
  * This servlet works with {@link ActionCommand} commands
  */
-public class Controller extends HttpServlet {
+public class SyncRequestsController extends HttpServlet {
 
-    private final static Logger LOGGER = LogManager.getLogger(Controller.class);
-    private final static ActionCommandFactory COMMAND_FACTORY = new ActionCommandFactory();
+    private static final Logger LOGGER = LogManager.getLogger(SyncRequestsController.class);
+    private static final ActionCommandFactory COMMAND_FACTORY = new ActionCommandFactory();
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {

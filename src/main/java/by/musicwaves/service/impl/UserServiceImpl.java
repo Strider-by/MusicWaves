@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     private static final UserServiceImpl userService = new UserServiceImpl();
     private static final UserDao userDao = UserDaoFactory.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
 
     private UserServiceImpl() {
     }

@@ -26,7 +26,7 @@ public class ArtistServiceImpl implements ArtistService {
 
     private static final ArtistServiceImpl service = new ArtistServiceImpl();
     private static final ArtistDao artistDao = ArtistDaoFactory.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(ArtistServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(ArtistServiceImpl.class);
 
     private ArtistServiceImpl() {
     }

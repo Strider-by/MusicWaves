@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.action;
 
 import by.musicwaves.controller.command.AbstractCommand;
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.exception.CommandException;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 
 public abstract class AbstractActionCommand extends AbstractCommand implements ActionCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(AbstractActionCommand.class);
-    private final static String SESSION_SERVICE_RESPONSE_ATTRIBUTE = "serviceResponse";
+    private static final Logger LOGGER = LogManager.getLogger(AbstractActionCommand.class);
+    private static final String SESSION_SERVICE_RESPONSE_ATTRIBUTE = "serviceResponse";
 
     public AbstractActionCommand(AccessLevel accessLevel) {
         super(accessLevel);

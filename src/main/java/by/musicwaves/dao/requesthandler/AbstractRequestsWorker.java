@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class AbstractRequestsWorker {
 
-    private final static Logger LOGGER = LogManager.getLogger(AbstractRequestsWorker.class);
+    private static final Logger LOGGER = LogManager.getLogger(AbstractRequestsWorker.class);
     protected SQLRequestHandler requestHandler;
 
     public AbstractRequestsWorker(SQLRequestHandler requestHandler) {

@@ -1,4 +1,4 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
@@ -20,16 +20,16 @@ import java.util.ResourceBundle;
 
 public class CuratorAndHigherButtonsTag extends SimpleTagSupport {
 
-    private final static Logger LOGGER = LogManager.getLogger(CuratorAndHigherButtonsTag.class);
-    private final static String BUNDLE_BASENAME = "internationalization.jsp.buttons";
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final Logger LOGGER = LogManager.getLogger(CuratorAndHigherButtonsTag.class);
+    private static final String BUNDLE_BASENAME = "internationalization.jsp.buttons";
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
 
-    private final static String BUTTONS_GROUP_BLOCK_PATTERN = "<div class=\"%s\">";
-    private final static String MENU_BUTTONS_GROUP_CLASS = "heading_menu_button_section";
-    private final static String BUTTON_PATTERN
+    private static final String BUTTONS_GROUP_BLOCK_PATTERN = "<div class=\"%s\">";
+    private static final String MENU_BUTTONS_GROUP_CLASS = "heading_menu_button_section";
+    private static final String BUTTON_PATTERN
             = "<button class=\"%s\" onclick=\"location.href = '%s'\" title=\"%s\">"
             + "<img src=\"/static/img/%s\"/></button>";
-    private final static String BUTTON_CLASS = "heading_menu_button";
+    private static final String BUTTON_CLASS = "heading_menu_button";
 
     public void doTag() throws JspException {
 

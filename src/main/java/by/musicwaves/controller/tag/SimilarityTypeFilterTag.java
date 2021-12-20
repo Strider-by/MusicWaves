@@ -1,4 +1,4 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
 import by.musicwaves.dao.util.SimilarityType;
 import by.musicwaves.entity.User;
@@ -19,9 +19,9 @@ import java.util.ResourceBundle;
 
 public class SimilarityTypeFilterTag extends SimpleTagSupport {
 
-    private final static String BUNDLE_BASENAME = "internationalization.jsp.shared";
-    private final static Logger LOGGER = LogManager.getLogger(SimilarityTypeFilterTag.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final String BUNDLE_BASENAME = "internationalization.jsp.shared";
+    private static final Logger LOGGER = LogManager.getLogger(SimilarityTypeFilterTag.class);
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
 
     public void doTag() throws JspException {
 

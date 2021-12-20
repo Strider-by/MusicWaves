@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  */
 public class PageAccessFilter implements Filter {
 
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-    private final static Set<String> PAGE_ALIASES;
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final Set<String> PAGE_ALIASES;
 
     static {
         PAGE_ALIASES = Arrays.stream(ApplicationPage.values())

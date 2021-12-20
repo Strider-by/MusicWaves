@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
 import by.musicwaves.entity.User;
@@ -19,9 +19,9 @@ import java.util.Locale;
 
 public class DeleteMultiplePlaylistsCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(DeleteMultiplePlaylistsCommand.class);
-    private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
-    private final static String PARAM_NAME_IDS = "id[]";
+    private static final Logger LOGGER = LogManager.getLogger(DeleteMultiplePlaylistsCommand.class);
+    private static final PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
+    private static final String PARAM_NAME_IDS = "id[]";
 
     public DeleteMultiplePlaylistsCommand(AccessLevel accessLevel) {
         super(accessLevel);

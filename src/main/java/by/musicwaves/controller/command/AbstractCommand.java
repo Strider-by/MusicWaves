@@ -1,8 +1,8 @@
 package by.musicwaves.controller.command;
 
 import by.musicwaves.controller.command.action.AbstractActionCommand;
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.factory.ActionCommandEnum;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
@@ -19,8 +19,8 @@ import java.io.IOException;
 
 public abstract class AbstractCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(AbstractActionCommand.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final Logger LOGGER = LogManager.getLogger(AbstractActionCommand.class);
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
     private final AccessLevel accessLevel;
 
     public AbstractCommand(AccessLevel accessLevel) {

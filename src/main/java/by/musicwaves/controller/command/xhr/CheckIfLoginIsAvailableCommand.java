@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -21,9 +21,9 @@ import java.util.Optional;
 
 public class CheckIfLoginIsAvailableCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(CheckIfLoginIsAvailableCommand.class);
-    private final static UserService service = ServiceFactory.getInstance().getUserService();
-    private final static String PARAM_NAME_LOGIN = "login";
+    private static final Logger LOGGER = LogManager.getLogger(CheckIfLoginIsAvailableCommand.class);
+    private static final UserService service = ServiceFactory.getInstance().getUserService();
+    private static final String PARAM_NAME_LOGIN = "login";
 
     public CheckIfLoginIsAvailableCommand(AccessLevel accessLevel) {
         super(accessLevel);

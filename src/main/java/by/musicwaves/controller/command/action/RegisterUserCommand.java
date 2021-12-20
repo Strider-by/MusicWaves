@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
@@ -19,10 +19,10 @@ import java.io.IOException;
 
 public class RegisterUserCommand extends AbstractActionCommand {
 
-    private final static String PARAM_NAME_LOGIN = "login";
-    private final static String PARAM_NAME_PASSWORD_1 = "password1";
-    private final static String PARAM_NAME_PASSWORD_2 = "password2";
-    private final static String PARAM_NAME_INVITE_CODE = "invite_code";
+    private static final String PARAM_NAME_LOGIN = "login";
+    private static final String PARAM_NAME_PASSWORD_1 = "password1";
+    private static final String PARAM_NAME_PASSWORD_2 = "password2";
+    private static final String PARAM_NAME_INVITE_CODE = "invite_code";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
     public RegisterUserCommand(AccessLevel accessLevel) {

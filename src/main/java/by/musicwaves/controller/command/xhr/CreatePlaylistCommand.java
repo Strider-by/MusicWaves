@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -20,10 +20,10 @@ import java.util.Locale;
 
 public class CreatePlaylistCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(CreatePlaylistCommand.class);
-    private final static PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
-    private final static String PARAM_NAME_NAME = "name";
-    private final static String JSON_PLAYLIST_OBJECT_NAME = "playlist";
+    private static final Logger LOGGER = LogManager.getLogger(CreatePlaylistCommand.class);
+    private static final PlaylistService service = ServiceFactory.getInstance().getPlaylistService();
+    private static final String PARAM_NAME_NAME = "name";
+    private static final String JSON_PLAYLIST_OBJECT_NAME = "playlist";
 
     public CreatePlaylistCommand(AccessLevel accessLevel) {
         super(accessLevel);

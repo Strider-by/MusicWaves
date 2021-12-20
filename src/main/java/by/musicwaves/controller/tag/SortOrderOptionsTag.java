@@ -1,6 +1,6 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
-import by.musicwaves.dao.util.DateCompareType;
+import by.musicwaves.dao.util.SortOrder;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
 import org.apache.logging.log4j.LogManager;
@@ -17,11 +17,16 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 
-public class DateCompareTypeFilterTag extends SimpleTagSupport {
+public class SortOrderOptionsTag extends SimpleTagSupport {
 
-    private final static String BUNDLE_BASENAME = "internationalization.jsp.shared";
-    private final static Logger LOGGER = LogManager.getLogger(DateCompareTypeFilterTag.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final Logger LOGGER = LogManager.getLogger(SortOrderOptionsTag.class);
+    private static final String BUNDLE_BASENAME = "internationalization.jsp.shared";
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final SortOrder[] SORT_ORDERS;
+
+    static {
+        SORT_ORDERS = SortOrder.values();
+    }
 
     public void doTag() throws JspException {
 
@@ -32,12 +37,13 @@ public class DateCompareTypeFilterTag extends SimpleTagSupport {
                 .map(User::getLanguage)
                 .map(Language::getLocale)
                 .orElse(Language.DEFAULT.getLocale());
+
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
         StringBuilder sb = new StringBuilder();
 
-        for (DateCompareType type : DateCompareType.values()) {
-            int id = type.getId();
-            String localizedName = bundle.getString(type.getPropertyKey());
+        for (SortOrder sortOrder : SORT_ORDERS) {
+            int id = sortOrder.getId();
+            String localizedName = bundle.getString(sortOrder.getPropertyKey());
 
             // opening tag
             sb.append("<option value=\"");
@@ -55,7 +61,7 @@ public class DateCompareTypeFilterTag extends SimpleTagSupport {
             JspWriter out = pageContext.getOut();
             out.println(sb);
         } catch (IOException ex) {
-            LOGGER.error("We have caught an exception during writing to JSP", ex);
+            LOGGER.error("We have caught an exception during writing to JSP");
             throw new JspException(ex);
         }
     }

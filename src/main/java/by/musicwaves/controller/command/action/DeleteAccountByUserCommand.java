@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
@@ -23,8 +23,8 @@ import java.io.IOException;
 
 public class DeleteAccountByUserCommand extends AbstractActionCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(DeleteAccountByUserCommand.class);
-    private final static String PARAM_NAME_PASSWORD = "password";
+    private static final Logger LOGGER = LogManager.getLogger(DeleteAccountByUserCommand.class);
+    private static final String PARAM_NAME_PASSWORD = "password";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
     public DeleteAccountByUserCommand(AccessLevel accessLevel) {

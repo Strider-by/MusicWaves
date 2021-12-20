@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -19,10 +19,10 @@ import java.util.Locale;
 
 public class DeleteUserByAdministrationCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(DeleteUserByAdministrationCommand.class);
-    private final static UserService service = ServiceFactory.getInstance().getUserService();
-    private final static String PARAM_NAME_USER_ID = "user_id";
-    private final static String JSON_FIELD_NAME_DELETED = "deleted";
+    private static final Logger LOGGER = LogManager.getLogger(DeleteUserByAdministrationCommand.class);
+    private static final UserService service = ServiceFactory.getInstance().getUserService();
+    private static final String PARAM_NAME_USER_ID = "user_id";
+    private static final String JSON_FIELD_NAME_DELETED = "deleted";
 
     public DeleteUserByAdministrationCommand(AccessLevel accessLevel) {
         super(accessLevel);

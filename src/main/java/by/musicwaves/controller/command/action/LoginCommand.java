@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
@@ -24,11 +24,11 @@ import java.util.Locale;
 
 public class LoginCommand extends AbstractActionCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(LoginCommand.class);
-    private final static String PARAM_NAME_LOGIN = "login";
-    private final static String PARAM_NAME_PASSWORD = "password";
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-    private final static String SESSION_ATTRIBUTE_NAME_LOCALE = "locale";
+    private static final Logger LOGGER = LogManager.getLogger(LoginCommand.class);
+    private static final String PARAM_NAME_LOGIN = "login";
+    private static final String PARAM_NAME_PASSWORD = "password";
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final String SESSION_ATTRIBUTE_NAME_LOCALE = "locale";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
 

@@ -1,8 +1,8 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
-import by.musicwaves.dao.impl.ArtistDaoImpl.Field;
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
+import by.musicwaves.util.BooleanOption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,20 +13,20 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
-public class ArtistsPageSortOptionsTag extends SimpleTagSupport {
+public class BooleanOptionsTag extends SimpleTagSupport {
 
-    private final static String BUNDLE_BASENAME = "internationalization.jsp.artists";
-    private final static Logger LOGGER = LogManager.getLogger(ArtistsPageSortOptionsTag.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
-    private final static List<Field> fields;
+    private static final String BUNDLE_BASENAME = "internationalization.jsp.shared";
+    private static final Logger LOGGER = LogManager.getLogger(BooleanOptionsTag.class);
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final List<BooleanOption> BOOLEAN_OPTIONS;
 
     static {
-        fields = Arrays.asList(
-                Field.ID,
-                Field.NAME,
-                Field.VISIBILITY);
+        BOOLEAN_OPTIONS = Arrays.stream(BooleanOption.values())
+                .filter(BooleanOption::isValidTagOption)
+                .collect(Collectors.toList());
     }
 
     public void doTag() throws JspException {
@@ -41,17 +41,17 @@ public class ArtistsPageSortOptionsTag extends SimpleTagSupport {
         ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_BASENAME, locale);
         StringBuilder sb = new StringBuilder();
 
-        for (Field field : fields) {
-            int fieldId = field.getId();
-            String localizedFieldName = bundle.getString(field.getPropertyKey());
+        for (BooleanOption option : BOOLEAN_OPTIONS) {
+            int id = option.getId();
+            String localizedName = bundle.getString(option.getPropertyKey());
 
             // opening tag
             sb.append("<option value=\"");
-            sb.append(fieldId);
+            sb.append(id);
             sb.append("\">");
 
             // inner Html
-            sb.append(localizedFieldName);
+            sb.append(localizedName);
 
             // closing tag
             sb.append("</option>");

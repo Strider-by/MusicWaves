@@ -21,8 +21,8 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
     private static final CrossEntityDao instance = new CrossEntityDaoImpl();
     private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(CrossEntityDaoImpl.class);
-    private final static String EXCEPTION_MSG_QUERY_RESULT_DOES_NOT_MEET_EXPECTATIONS = "Query result does not meet expectations";
+    private static final Logger LOGGER = LogManager.getLogger(CrossEntityDaoImpl.class);
+    private static final String EXCEPTION_MSG_QUERY_RESULT_DOES_NOT_MEET_EXPECTATIONS = "Query result does not meet expectations";
 
     private CrossEntityDaoImpl() {
 
@@ -34,7 +34,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
 
     private static final class SQL {
 
-        public final static String GET_SEARCH_RESULTS_QUANTITY_FOR_MUSIC_SEARCH_PAGE
+        public static final String GET_SEARCH_RESULTS_QUANTITY_FOR_MUSIC_SEARCH_PAGE
                 = "SET @search_string := ?;\n"
                 + "SELECT \n"
                 + "(SELECT COUNT(artists.id) FROM artists \n"
@@ -44,14 +44,14 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                 + "(SELECT COUNT(tracks.id) FROM tracks LEFT JOIN albums ON tracks.album_id = albums.id LEFT JOIN artists ON albums.artist = artists.id \n"
                 + "WHERE tracks.name LIKE @search_string AND artists.visible = TRUE AND albums.visible = TRUE AND tracks.visible = TRUE) AS tracks_count; \n";
 
-        public final static String FIND_ARTISTS_FOR_MUSIC_SEARCH_PAGE
+        public static final String FIND_ARTISTS_FOR_MUSIC_SEARCH_PAGE
                 = "SET @user_id := ?; \n"
                 + "SELECT artists.id AS artist_id, artists.name AS artist_name, artists.image AS artist_image, \n"
                 + "(SELECT COUNT(id) FROM albums WHERE albums.artist = artist_id AND visible = TRUE) AS albums_count_artist_has, \n"
                 + "((SELECT COUNT(id) FROM favourite_artists WHERE artists.id = favourite_artists.artist_id AND user_id = @user_id) > 0) AS favourite\n"
                 + " FROM artists WHERE artists.name LIKE @search_string AND visible = TRUE ORDER BY artist_name LIMIT ? OFFSET ?;";
 
-        public final static String FIND_ALBUMS_FOR_MUSIC_SEARCH_PAGE
+        public static final String FIND_ALBUMS_FOR_MUSIC_SEARCH_PAGE
                 = "SET @user_id := ?; \n"
                 + "SELECT artists.id AS artist_id, artists.name AS artist_name, artists.image AS artist_image, \n"
                 + "albums.id AS album_id_t, albums.name AS album_name, albums.image AS album_image, albums.year AS album_year, \n"
@@ -61,7 +61,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                 + "WHERE albums.name LIKE @search_string AND artists.visible = TRUE AND albums.visible = TRUE \n"
                 + "ORDER BY album_name, artist_name, album_year LIMIT ? OFFSET ?;";
 
-        public final static String FIND_AUDIO_TRACKS_FOR_MUSIC_SEARCH_PAGE
+        public static final String FIND_AUDIO_TRACKS_FOR_MUSIC_SEARCH_PAGE
                 = "SET @user_id := ?; \n"
                 + "SELECT artists.id AS artist_id, artists.name AS artist_name, artists.image AS artist_image, \n"
                 + "albums.id AS album_id, albums.name AS album_name, albums.image AS album_image, albums.year AS album_year, \n"
@@ -71,7 +71,7 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                 + "WHERE tracks.name LIKE @search_string AND tracks.visible = TRUE AND artists.visible = TRUE AND albums.visible = TRUE \n"
                 + "ORDER BY track_name, album_name, artist_name, album_year LIMIT ? OFFSET ?;";
 
-        public final static String GET_CHOSEN_ARTIST_DATA_FOR_MUSIC_SEARCH_PAGE
+        public static final String GET_CHOSEN_ARTIST_DATA_FOR_MUSIC_SEARCH_PAGE
                 = "SET @user_id := ?; SET @artist_id := ?; \n"
                 + "SELECT artists.name AS artist_name, artists.image AS artist_image FROM artists WHERE artists.id = @artist_id; \n"
                 + "SELECT albums.id AS album_id_t, albums.name AS album_name, albums.image AS album_image, albums.year AS album_year, \n"
@@ -90,32 +90,32 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                 + "WHERE albums.id = @album_id AND tracks.visible = TRUE AND albums.visible = TRUE AND artists.visible = TRUE \n"
                 + "ORDER BY tracks.number LIMIT ? OFFSET ?;";
 
-        public final static String GET_CHOSEN_AUDIO_TRACK_DATA
+        public static final String GET_CHOSEN_AUDIO_TRACK_DATA
                 = "SELECT artists.id AS artist_id, artists.name AS artist_name, artists.image AS artist_image, \n"
                 + "albums.id AS album_id, albums.name AS album_name, albums.image AS album_image, albums.year AS album_year, \n"
                 + "tracks.id AS track_id, tracks.name AS track_name, tracks.file_name AS track_file \n"
                 + "FROM artists LEFT JOIN albums ON albums.artist = artists.id LEFT JOIN tracks ON tracks.album_id = albums.id \n"
                 + "WHERE tracks.id = ? AND tracks.visible = TRUE AND albums.visible = TRUE AND artists.visible = TRUE;" ;
 
-        public final static String SET_ARTIST_AS_FAVOURITE
+        public static final String SET_ARTIST_AS_FAVOURITE
                 = "INSERT IGNORE INTO favourite_artists (user_id, artist_id) VALUES (?, ?);";
 
-        public final static String UNSET_ARTIST_AS_FAVOURITE
+        public static final String UNSET_ARTIST_AS_FAVOURITE
                 = "DELETE FROM favourite_artists WHERE user_id = ? AND artist_id = ?;";
 
-        public final static String SET_ALBUM_AS_FAVOURITE
+        public static final String SET_ALBUM_AS_FAVOURITE
                 = "INSERT IGNORE INTO favourite_albums (user_id, album_id) VALUES (?, ?);";
 
-        public final static String UNSET_ALBUM_AS_FAVOURITE
+        public static final String UNSET_ALBUM_AS_FAVOURITE
                 = "DELETE FROM favourite_albums WHERE user_id = ? AND album_id = ?;";
 
-        public final static String SET_TRACK_AS_FAVOURITE
+        public static final String SET_TRACK_AS_FAVOURITE
                 = "INSERT IGNORE INTO favourite_tracks (user_id, track_id) VALUES (?, ?);";
 
-        public final static String UNSET_TRACK_AS_FAVOURITE
+        public static final String UNSET_TRACK_AS_FAVOURITE
                 = "DELETE FROM favourite_tracks WHERE user_id = ? AND track_id = ?;";
 
-        public final static String GET_PLAYLIST_TRACKS
+        public static final String GET_PLAYLIST_TRACKS
                 = "SELECT playlist_elements.id AS item_id, playlist_elements.track_id AS track_id, tracks.name AS track_name, \n"
                 + "(SELECT tracks.visible = TRUE AND albums.visible = TRUE AND artists.visible = TRUE) AS is_active_item \n"
                 + "FROM playlist_elements \n"
@@ -125,24 +125,24 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                 + "LEFT JOIN artists ON albums.artist = artists.id \n"
                 + "WHERE playlists.user_id = ? AND playlists.id = ?";
 
-        public final static String RECORD_PLAYLIST_PT_1
+        public static final String RECORD_PLAYLIST_PT_1
                 = "SET @user_id = ?; \n"
                 + "SET @playlist_id = ?; \n"
                 + "SET @access_granted = (SELECT COUNT(id) FROM playlists WHERE playlists.user_id = @user_id AND playlists.id = @playlist_id) > 0; \n"
                 + "SELECT @access_granted AS access_granted; \n"
                 + "DELETE FROM playlist_elements WHERE playlist_id = @playlist_id AND @access_granted; \n";
 
-        public final static String RECORD_PLAYLIST_PT_2
+        public static final String RECORD_PLAYLIST_PT_2
                 = "INSERT INTO playlist_elements (playlist_id, track_id) SELECT @playlist_id, ? WHERE @access_granted; \n";
 
-        public final static String GET_TRACKS_DATA_PT_1
+        public static final String GET_TRACKS_DATA_PT_1
                 = "SELECT artists.id AS artist_id, artists.name AS artist_name, artists.image AS artist_image, \n"
                 + "albums.id AS album_id, albums.name AS album_name, albums.image AS album_image, albums.year AS album_year, \n"
                 + "tracks.id AS track_id, tracks.name AS track_name, tracks.file_name AS track_file \n"
                 + "FROM artists LEFT JOIN albums ON albums.artist = artists.id LEFT JOIN tracks ON tracks.album_id = albums.id \n"
                 + "WHERE albums.visible = TRUE AND artists.visible = TRUE AND tracks.visible = TRUE AND tracks.id IN (";
 
-        public final static String GET_TRACKS_DATA_PT_2
+        public static final String GET_TRACKS_DATA_PT_2
                 = "); \n";
     }
 
@@ -618,42 +618,6 @@ public class CrossEntityDaoImpl implements CrossEntityDao {
                 AudioTrackDto::new,
                 this::initAudioTrackDto);
     }
-
-    /*public List<List<Map<String, String>>> getActiveAudioTrackData(int trackId) throws DaoException
-    {
-        return requestHandler.processCustomSelectRequest(
-                SQL_GET_ACTIVE_TRACK_DATA,
-                (statement) ->
-                {
-                    statement.setNextInt(trackId);
-                });
-    }
-
-    public List<List<Map<String, String>>> getFavouriteAlbumsData(int userId, String searchPattern, int limit, int offset) throws DaoException
-    {
-        return requestHandler.processCustomSelectRequest(
-                SQL_GET_FAVOURITE_ALBUMS_DATA,
-                (statement) ->
-                {
-                    statement.setNextInt(userId);
-                    statement.setNextString(searchPattern);
-                    statement.setNextInt(limit);
-                    statement.setNextInt(offset);
-                });
-    }
-
-    public List<List<Map<String, String>>> getFavouriteTracksData(int userId, String searchPattern, int limit, int offset) throws DaoException
-    {
-        return requestHandler.processCustomSelectRequest(
-                SQL_GET_FAVOURITE_TRACKS_DATA,
-                (statement) ->
-                {
-                    statement.setNextInt(userId);
-                    statement.setNextString(searchPattern);
-                    statement.setNextInt(limit);
-                    statement.setNextInt(offset);
-                });
-    }*/
 
     private String buildRecordPlaylistSQL(int itemsToAdd) {
         StringBuilder sb = new StringBuilder();

@@ -1,4 +1,4 @@
-package by.musicwaves.controller.servlet.tag;
+package by.musicwaves.controller.tag;
 
 import by.musicwaves.entity.User;
 import by.musicwaves.entity.ancillary.Language;
@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 
 public class LanguageOptionsTag extends SimpleTagSupport {
 
-    private final static Logger LOGGER = LogManager.getLogger(LanguageOptionsTag.class);
-    private final static List<Language> languages;
+    private static final Logger LOGGER = LogManager.getLogger(LanguageOptionsTag.class);
+    private static final List<Language> languages;
 
     static {
         languages = Arrays.stream(Language.values())

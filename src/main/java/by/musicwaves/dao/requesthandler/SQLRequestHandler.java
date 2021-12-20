@@ -19,9 +19,9 @@ import java.util.function.Supplier;
  */
 public class SQLRequestHandler {
 
-    private final static Logger LOGGER = LogManager.getLogger(SQLRequestHandler.class);
-    private final static ConnectionPool connectionPool = ConnectionPool.INSTANCE;
-    private final static SQLRequestHandler sqlRequestHandlerInstance = new SQLRequestHandler();
+    private static final Logger LOGGER = LogManager.getLogger(SQLRequestHandler.class);
+    private static final ConnectionPool connectionPool = ConnectionPool.INSTANCE;
+    private static final SQLRequestHandler sqlRequestHandlerInstance = new SQLRequestHandler();
 
     private final CreateRequestsWorker createRequestsWorker = new CreateRequestsWorker(this);
     private final SelectRequestsWorker selectRequestsWorker = new SelectRequestsWorker(this);

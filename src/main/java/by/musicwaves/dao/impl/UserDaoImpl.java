@@ -25,36 +25,36 @@ public class UserDaoImpl implements UserDao {
 
     private static final UserDao instance = new UserDaoImpl();
     private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
 
     private static final class SQL {
-        public final static String SELECT_ALL = "SELECT * FROM users ";
-        public final static String COUNT_ALL = "SELECT COUNT(*) AS quantity FROM users ";
-        public final static String CREATE_INSTANCE
+        public static final String SELECT_ALL = "SELECT * FROM users ";
+        public static final String COUNT_ALL = "SELECT COUNT(*) AS quantity FROM users ";
+        public static final String CREATE_INSTANCE
                 = "SET @user_login := ?;"
                 + "SELECT EXISTS(SELECT login FROM users WHERE login = @user_login) AS login_is_occupied;\n"
                 + "INSERT IGNORE INTO users (login, password, language, role) "
                 + "VALUES (@user_login, ?, ?, ?);\n"
                 + "SELECT LAST_INSERT_ID() AS id;";
-        public final static String UPDATE_INSTANCE
+        public static final String UPDATE_INSTANCE
                 = "UPDATE users SET login = ?, password = ?, language = ?, role = ?";
-        public final static String UPDATE_USER_LOGIN
+        public static final String UPDATE_USER_LOGIN
                 = "SET @user_login := ?;"
                 + "SELECT EXISTS(SELECT login FROM users WHERE login = @user_login) AS login_is_occupied;\n"
                 + "UPDATE IGNORE users SET login = @user_login";
-        public final static String UPDATE_USER_ROLE
+        public static final String UPDATE_USER_ROLE
                 = "UPDATE users SET role = ?";
-        public final static String DELETE_INSTANCE
+        public static final String DELETE_INSTANCE
                 = "DELETE FROM users";
-        public final static String CHECK_IF_LOGIN_IS_AVAILIBLE
+        public static final String CHECK_IF_LOGIN_IS_AVAILIBLE
                 = "SELECT (SELECT COUNT(id) FROM users WHERE login = ?) = 0 AS login_is_available;";
 
         private static final class SelectBy {
-            public final static String ID
+            public static final String ID
                     = " WHERE id = ?";
-            public final static String LOGIN
+            public static final String LOGIN
                     = " WHERE login = ?";
-            public final static String LOGIN_AND_PASSWORD
+            public static final String LOGIN_AND_PASSWORD
                     = " WHERE login = ? AND password = ?";
         }
     }
@@ -274,11 +274,6 @@ public class UserDaoImpl implements UserDao {
         }
         if (roleId != null) statement.setNextInt(roleId);
         if (registerDate != null) statement.setNextDate(Date.valueOf(registerDate));
-
-        /*int limit = recordsPerPage;
-        int offset = (pageNumber - 1) * recordsPerPage;
-        statement.setNextInt(limit);
-        statement.setNextInt(offset);*/
     }
 
     private void initLimitAndOffset(PreparedStatementContainer statement, int limit, int offset) throws SQLException {

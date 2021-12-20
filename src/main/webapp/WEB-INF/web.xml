@@ -57,7 +57,7 @@
 
     <servlet>
         <servlet-name>UploadableResourcesController</servlet-name>
-        <servlet-class>by.musicwaves.controller.servlet.UploadableResourcesController</servlet-class>
+        <servlet-class>by.musicwaves.controller.UploadableResourcesController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -77,7 +77,7 @@
 
     <servlet>
         <servlet-name>AsyncRequestsController</servlet-name>
-        <servlet-class>by.musicwaves.controller.servlet.XHRRequestsController</servlet-class>
+        <servlet-class>by.musicwaves.controller.AsyncRequestsController</servlet-class>
         <multipart-config>
             <max-file-size>1073741824</max-file-size>
             <max-request-size>1203741824</max-request-size>
@@ -87,7 +87,7 @@
 
     <servlet>
         <servlet-name>DirectRequestsController</servlet-name>
-        <servlet-class>by.musicwaves.controller.servlet.Controller</servlet-class>
+        <servlet-class>by.musicwaves.controller.SyncRequestsController</servlet-class>
     </servlet>
 
     <servlet-mapping>

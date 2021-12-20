@@ -20,24 +20,24 @@ public class AlbumDaoImpl implements AlbumDao {
 
     private static final AlbumDao instance = new AlbumDaoImpl();
     private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(AlbumDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(AlbumDaoImpl.class);
 
     private static final class SQL {
-        public final static String SELECT_ALL = "SELECT * FROM albums ";
-        public final static String COUNT_ALL = "SELECT COUNT(*) AS quantity FROM albums ";
-        public final static String CREATE_INSTANCE
+        public static final String SELECT_ALL = "SELECT * FROM albums ";
+        public static final String COUNT_ALL = "SELECT COUNT(*) AS quantity FROM albums ";
+        public static final String CREATE_INSTANCE
                 = "INSERT INTO albums (artist, name, year, image, visible) "
                 + "VALUES (?, ?, ?, ?, ?);";
-        private final static String UPDATE_ALBUM_IMAGE_FILE_NAME
+        private static final String UPDATE_ALBUM_IMAGE_FILE_NAME
                 = "SELECT image FROM albums WHERE id = ?;\n"
                 + "UPDATE albums SET image = ? WHERE id = ?";
-        public final static String UPDATE_INSTANCE
+        public static final String UPDATE_INSTANCE
                 = "UPDATE albums SET artist = ?, name = ?, year = ?, image = ?, visible = ?";
-        public final static String UPDATE_NAME_YEAR_AND_VISIBILITY
+        public static final String UPDATE_NAME_YEAR_AND_VISIBILITY
                 = "UPDATE albums SET name = ?, year = ?, visible = ?";
-        public final static String DELETE_INSTANCE
+        public static final String DELETE_INSTANCE
                 = "DELETE FROM albums";
-        public final static String DELETE_INSTANCE_AND_GET_RELATED_ALBUM_IMAGE_NAME_AND_TRACKS_FILES_NAMES
+        public static final String DELETE_INSTANCE_AND_GET_RELATED_ALBUM_IMAGE_NAME_AND_TRACKS_FILES_NAMES
                 = "SET @album_id = ?; \n"
                 // get album image name
                 + "SELECT image FROM albums \n"
@@ -49,15 +49,15 @@ public class AlbumDaoImpl implements AlbumDao {
                 + "DELETE FROM albums WHERE id = @album_id;";
 
         private static final class SelectBy {
-            public final static String ID
+            public static final String ID
                     = " WHERE id = ?";
-            public final static String NAME
+            public static final String NAME
                     = " WHERE name = ?";
-            public final static String ARTIST
+            public static final String ARTIST
                     = " WHERE artist = ?";
-            public final static String YEAR
+            public static final String YEAR
                     = " WHERE year = ?";
-            public final static String VISIBLE
+            public static final String VISIBLE
                     = " WHERE visible = ?";
         }
     }

@@ -17,7 +17,7 @@ public class PlaylistServiceImpl implements PlaylistService {
 
     private static final PlaylistServiceImpl service = new PlaylistServiceImpl();
     private static final PlaylistDao dao = PlaylistDaoFactory.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(PlaylistServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(PlaylistServiceImpl.class);
 
     private PlaylistServiceImpl() {
     }

@@ -1,57 +1,48 @@
 package by.musicwaves.entity;
 
 import by.musicwaves.entity.ancillary.Language;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-public class User
-{
+import java.time.LocalDateTime;
+
+public class User {
+
     private int id;
     private String login;
     private String hashedPassword;
     private Language language;
     private Role role;
     private LocalDateTime created;
-    
-    
-    public int getId() 
-    {
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(int id) 
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getLogin()
-    {
+    public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login)
-    {
+    public void setLogin(String login) {
         this.login = login;
     }
 
-    public Language getLanguage() 
-    {
+    public Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) 
-    {
+    public void setLanguage(Language language) {
         this.language = language;
     }
-    
-    public String getHashedPassword()
-    {
+
+    public String getHashedPassword() {
         return hashedPassword;
     }
-    
-    public void setHashedPassword(String hashedPassword)
-    {
+
+    public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
 
@@ -62,11 +53,11 @@ public class User
     public void setCreated(LocalDateTime created) {
         this.created = created;
     }
-    
+
     public Role getRole() {
         return role;
     }
-    
+
     public void setRole(Role role) {
         this.role = role;
     }

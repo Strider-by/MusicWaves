@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -23,12 +23,12 @@ import java.util.Locale;
 
 public class FindArtistsCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(FindArtistsCommand.class);
-    private final static ArtistService service = ServiceFactory.getInstance().getArtistService();
-    private final static String PARAM_NAME_NAME = "name";
-    private final static String PARAM_NAME_NAME_SEARCH_TYPE_ID = "name_search_type_id";
-    private final static String PARAM_NAME_VISIBLE = "visible";
-    private final static String JSON_ARTISTS_ARRAY_NAME = "artists";
+    private static final Logger LOGGER = LogManager.getLogger(FindArtistsCommand.class);
+    private static final ArtistService service = ServiceFactory.getInstance().getArtistService();
+    private static final String PARAM_NAME_NAME = "name";
+    private static final String PARAM_NAME_NAME_SEARCH_TYPE_ID = "name_search_type_id";
+    private static final String PARAM_NAME_VISIBLE = "visible";
+    private static final String JSON_ARTISTS_ARRAY_NAME = "artists";
 
     public FindArtistsCommand(AccessLevel accessLevel) {
         super(accessLevel);

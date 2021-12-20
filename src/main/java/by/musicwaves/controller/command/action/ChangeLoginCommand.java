@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
@@ -24,9 +24,9 @@ import java.util.List;
 
 public class ChangeLoginCommand extends AbstractActionCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(ChangeLoginCommand.class);
-    private final static String PARAM_NAME_PASSWORD = "password";
-    private final static String PARAM_NAME_LOGIN = "login";
+    private static final Logger LOGGER = LogManager.getLogger(ChangeLoginCommand.class);
+    private static final String PARAM_NAME_PASSWORD = "password";
+    private static final String PARAM_NAME_LOGIN = "login";
     private final List<String> allowedRequestMethods;
     private final UserService service = ServiceFactory.getInstance().getUserService();
 

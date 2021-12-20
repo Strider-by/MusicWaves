@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.MusicSearchResultsContainer;
@@ -20,9 +20,9 @@ import java.util.Locale;
 
 public class GetSearchResultsCountForMusicSearchPageCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(GetSearchResultsCountForMusicSearchPageCommand.class);
-    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
-    private final static String PARAM_NAME_SEARCH_STRING = "search_string";
+    private static final Logger LOGGER = LogManager.getLogger(GetSearchResultsCountForMusicSearchPageCommand.class);
+    private static final CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
+    private static final String PARAM_NAME_SEARCH_STRING = "search_string";
 
     public GetSearchResultsCountForMusicSearchPageCommand(AccessLevel accessLevel) {
         super(accessLevel);

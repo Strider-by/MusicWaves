@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class DeleteRequestsWorker extends AbstractRequestsWorker {
 
-    private final static Logger LOGGER = LogManager.getLogger(DeleteRequestsWorker.class);
+    private static final Logger LOGGER = LogManager.getLogger(DeleteRequestsWorker.class);
 
     public DeleteRequestsWorker(SQLRequestHandler requestHandler) {
         super(requestHandler);

@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -19,10 +19,10 @@ import java.util.Locale;
 
 public class UploadArtistImageCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(UploadArtistImageCommand.class);
-    private final static ArtistService service = ServiceFactory.getInstance().getArtistService();
-    private final static String PARAM_NAME_ARTIST_ID = "id";
-    private final static String JSON_FILE_NAME_OBJECT_NAME = "file";
+    private static final Logger LOGGER = LogManager.getLogger(UploadArtistImageCommand.class);
+    private static final ArtistService service = ServiceFactory.getInstance().getArtistService();
+    private static final String PARAM_NAME_ARTIST_ID = "id";
+    private static final String JSON_FILE_NAME_OBJECT_NAME = "file";
 
     public UploadArtistImageCommand(AccessLevel accessLevel) {
         super(accessLevel);

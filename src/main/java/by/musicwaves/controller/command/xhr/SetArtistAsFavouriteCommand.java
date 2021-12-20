@@ -1,7 +1,7 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.dto.ServiceResponse;
@@ -19,9 +19,9 @@ import java.util.Locale;
 
 public class SetArtistAsFavouriteCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(SetArtistAsFavouriteCommand.class);
-    private final static CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
-    private final static String PARAM_NAME_ARTIST_ID = "artist_id";
+    private static final Logger LOGGER = LogManager.getLogger(SetArtistAsFavouriteCommand.class);
+    private static final CrossEntityService service = ServiceFactory.getInstance().getCrossEntityService();
+    private static final String PARAM_NAME_ARTIST_ID = "artist_id";
 
     public SetArtistAsFavouriteCommand(AccessLevel accessLevel) {
         super(accessLevel);

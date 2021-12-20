@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class CustomRequestsWorker extends AbstractRequestsWorker {
 
-    private final static Logger LOGGER = LogManager.getLogger(CustomRequestsWorker.class);
+    private static final Logger LOGGER = LogManager.getLogger(CustomRequestsWorker.class);
 
     public CustomRequestsWorker(SQLRequestHandler requestHandler) {
         super(requestHandler);

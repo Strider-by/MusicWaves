@@ -25,7 +25,7 @@ public class AlbumServiceImpl implements AlbumService {
 
     private static final AlbumServiceImpl service = new AlbumServiceImpl();
     private static final AlbumDao albumDao = AlbumDaoFactory.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(AlbumServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(AlbumServiceImpl.class);
 
     private AlbumServiceImpl() {
     }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class UploadableResourcesWorker {
 
-    private final static Logger LOGGER;
+    private static final Logger LOGGER;
 
     static {
         LOGGER = LogManager.getLogger(UploadableResourcesWorker.class);
@@ -30,15 +30,6 @@ public class UploadableResourcesWorker {
         LOGGER.debug("Uploading file, found " + parts.size() + " parts");
 
         String originalFileName = getFileName(parts);
-        /*String originalFileName = parts.get(0).getSubmittedFileName();
-        LOGGER.debug("original name is " + originalFileName);
-        LOGGER.debug("original name gotten via other method: " + getFileName(parts.get(0)));
-
-        LOGGER.debug("searching for file name");
-        for (Part part : parts) {
-            LOGGER.debug("simply gotten file name: " + part.getName());
-            LOGGER.debug("util method gotten file name: " + getFileName(part));
-        }*/
 
         String newFileName = generateFileName(originalFileName, id);
         // constructs path of the directory to save uploaded file
@@ -91,8 +82,8 @@ public class UploadableResourcesWorker {
         }
     }
 
-    private static  String getFileName(Iterable<Part> parts) {
-        for(Part part : parts) {
+    private static String getFileName(Iterable<Part> parts) {
+        for (Part part : parts) {
             for (String content : part.getHeader("content-disposition").split(";")) {
                 if (content.trim().startsWith("filename"))
                     return content.substring(content.indexOf("=") + 2, content.length() - 1);
@@ -102,7 +93,7 @@ public class UploadableResourcesWorker {
     }
 
     private static String getFileNameExtension(String fileName) {
-        if(fileName == null) {
+        if (fileName == null) {
             return "";
         }
 

@@ -1,4 +1,4 @@
-package by.musicwaves.controller.servlet;
+package by.musicwaves.controller;
 
 import by.musicwaves.entity.User;
 import by.musicwaves.service.util.UploadableResource;
@@ -15,12 +15,12 @@ import java.io.*;
 
 /**
  * This servlet provides access to the uploadable resources ({@link UploadableResource}) files and additionally prevents
- * access to them if the user, that requested specific resource, in not logged in.
+ * access to them if the user, that requested specific resource, is not logged in.
  */
 public class UploadableResourcesController extends HttpServlet {
 
-    private final static Logger LOGGER = LogManager.getLogger(UploadableResourcesController.class);
-    private final static String SESSION_ATTRIBUTE_NAME_USER = "user";
+    private static final Logger LOGGER = LogManager.getLogger(UploadableResourcesController.class);
+    private static final String SESSION_ATTRIBUTE_NAME_USER = "user";
     private static final int ALIAS_URI_PART_NUMBER = 1;
     private static final int FILE_NAME_URI_PART_NUMBER = 2;
     private static final int EXPECTED_URI_PARTS_QUANTITY = 3;

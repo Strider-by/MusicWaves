@@ -21,22 +21,22 @@ public class ArtistDaoImpl implements ArtistDao {
 
     private static final ArtistDao instance = new ArtistDaoImpl();
     private final SQLRequestHandler requestHandler = SQLRequestHandler.getInstance();
-    private final static Logger LOGGER = LogManager.getLogger(ArtistDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(ArtistDaoImpl.class);
 
     private static final class SQL {
-        public final static String SELECT_ALL = "SELECT * FROM artists ";
-        public final static String COUNT_ALL = "SELECT COUNT(*) AS quantity FROM artists ";
-        public final static String CREATE_INSTANCE
+        public static final String SELECT_ALL = "SELECT * FROM artists ";
+        public static final String COUNT_ALL = "SELECT COUNT(*) AS quantity FROM artists ";
+        public static final String CREATE_INSTANCE
                 = "INSERT INTO artists (name, image, visible) "
                 + "VALUES (?, ?, ?);";
-        private final static String UPDATE_ARTIST_IMAGE_FILE_NAME
+        private static final String UPDATE_ARTIST_IMAGE_FILE_NAME
                 = "SELECT image FROM artists WHERE id = ?;\n"
                 + "UPDATE artists SET image = ? WHERE id = ?";
-        private final static String UPDATE_INSTANCE
+        private static final String UPDATE_INSTANCE
                 = "UPDATE artists SET name = ?, image = ?, visible = ?";
-        private final static String UPDATE_NAME_AND_VISIBILITY
+        private static final String UPDATE_NAME_AND_VISIBILITY
                 = "UPDATE artists SET name = ?, visible = ?";
-        private final static String DELETE_INSTANCE
+        private static final String DELETE_INSTANCE
                 = "DELETE FROM artists";
         private static final String DELETE_INSTANCE_AND_GET_RELATED_ARTIST_IMAGE_NAME_AND_ALBUMS_IMAGES_NAMES_AND_AUDIO_TRACKS_FILES_NAMES
                 = "SET @artist_id = ?; \n"
@@ -48,11 +48,11 @@ public class ArtistDaoImpl implements ArtistDao {
 
 
         private static final class SelectBy {
-            public final static String ID
+            public static final String ID
                     = " WHERE id = ?";
-            public final static String NAME
+            public static final String NAME
                     = " WHERE name = ?";
-            public final static String VISIBILITY
+            public static final String VISIBILITY
                     = " WHERE visible = ?";
         }
     }

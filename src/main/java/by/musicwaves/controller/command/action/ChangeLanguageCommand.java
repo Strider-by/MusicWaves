@@ -1,9 +1,8 @@
 package by.musicwaves.controller.command.action;
 
-import by.musicwaves.controller.command.exception.CommandException;
-import by.musicwaves.controller.command.exception.ValidationException;
+import by.musicwaves.controller.exception.CommandException;
+import by.musicwaves.controller.exception.ValidationException;
 import by.musicwaves.controller.command.util.Converter;
-import by.musicwaves.controller.command.util.Validator;
 import by.musicwaves.controller.resource.AccessLevel;
 import by.musicwaves.controller.resource.ApplicationPage;
 import by.musicwaves.controller.resource.TransitType;
@@ -23,9 +22,9 @@ import java.io.IOException;
 
 public class ChangeLanguageCommand extends AbstractActionCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(ChangeLanguageCommand.class);
-    private final static String PARAM_NAME_LANGUAGE_ID = "language_id";
-    private final static String SESSION_ATTRIBUTE_LOCALE = "locale";
+    private static final Logger LOGGER = LogManager.getLogger(ChangeLanguageCommand.class);
+    private static final String PARAM_NAME_LANGUAGE_ID = "language_id";
+    private static final String SESSION_ATTRIBUTE_LOCALE = "locale";
     private final UserService service = ServiceFactory.getInstance().getUserService();
 
     public ChangeLanguageCommand(AccessLevel accessLevel) {

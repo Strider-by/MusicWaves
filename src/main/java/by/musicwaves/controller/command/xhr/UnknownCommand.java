@@ -1,6 +1,6 @@
 package by.musicwaves.controller.command.xhr;
 
-import by.musicwaves.controller.command.exception.CommandException;
+import by.musicwaves.controller.exception.CommandException;
 import by.musicwaves.controller.resource.AccessLevel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UnknownCommand extends AbstractXHRCommand {
 
-    private final static Logger LOGGER = LogManager.getLogger(UnknownCommand.class);
+    private static final Logger LOGGER = LogManager.getLogger(UnknownCommand.class);
 
     public UnknownCommand(AccessLevel accessLevel) {
         super(accessLevel);
